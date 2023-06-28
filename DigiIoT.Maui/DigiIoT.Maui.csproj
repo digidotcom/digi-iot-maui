@@ -1,0 +1,80 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<PackageId>DigiIoT.Maui</PackageId>
+		<RootNamespace>DigiIoT.Maui</RootNamespace>
+		<AssemblyName>DigiIoT.Maui</AssemblyName>
+		<Version>1.0.0</Version>
+		<Company>Digi International Inc.</Company>
+		<Copyright>Copyright 2023, Digi International Inc. All rights reserved.</Copyright>
+		<Product>Digi IoT Library for Maui</Product>
+		<Title>Digi IoT Library for Maui</Title>
+		<Authors>Digi International Inc.</Authors>
+		<PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
+		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+		<PackageProjectUrl>http://www.digi.com/resources/documentation/digidocs/90002359/</PackageProjectUrl>
+		<RepositoryUrl>TBD</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageIconUrl>https://raw.githubusercontent.com/digidotcom/xbee-csharp/master/nuget_icon.png</PackageIconUrl>
+		<Description>C# library for Maui to interact with Digi International's IoT devices.</Description>
+		<PackageTags>xbee, library, xamarin, digi-xbee, digi, zigbee, bluetooth, rf, connectcore</PackageTags>
+		<PackageReleaseNotes>
+			<![CDATA[
+        - First release.
+		]]>
+		</PackageReleaseNotes>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Plugin.BLE" Version="3.0.0-beta.3" />
+	  <PackageReference Include="XBeeLibrary.Core" Version="1.0.3" />
+	</ItemGroup>
+
+ <!-- Android -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
+    <Compile Remove="**\**\*.Android.cs" />
+    <None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+  <!-- iOS -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-ios')) != true">
+    <Compile Remove="**\**\*.iOS.cs" />
+    <None Include="**\**\*.iOS.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+  <!-- Mac Catalyst -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) != true">
+    <Compile Remove="**\**\*.MacCatalyst.cs" />
+    <None Include="**\**\*.MacCatalyst.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+  <!-- Windows -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-windows')) != true">
+    <Compile Remove="**\*.Windows.cs" />
+    <None Include="**\*.Windows.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+  <!-- .NET -->
+  <ItemGroup Condition="!($(TargetFramework.StartsWith('net')) == true AND $(TargetFramework.EndsWith('.0')) == true AND $(TargetFramework.Contains('-')) != true)">
+    <!-- e.g net6.0 or net7.0 -->
+    <Compile Remove="**\*.net.cs" />
+    <None Include="**\*.net.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+
+</Project>
