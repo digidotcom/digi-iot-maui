@@ -35,7 +35,7 @@ namespace DigiIoT.Maui.Exceptions
 		/// </summary>
 		/// <param name="innerException">The exception that is the cause of the current exception, or a null 
 		/// reference if no inner exception is specified.</param>
-		public DigiIoTException(Exception innerException) : base(null, innerException) { }
+		public DigiIoTException(Exception innerException) : base(innerException.Message, innerException) { }
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DigiIoTException"/> class with a specified error 

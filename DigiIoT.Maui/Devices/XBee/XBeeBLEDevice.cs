@@ -14,7 +14,10 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+using DigiIoT.Maui.Events;
+using DigiIoT.Maui.Exceptions;
 using Plugin.BLE.Abstractions.Contracts;
+using XBeeLibrary.Core;
 using XBeeLibrary.Core.Events;
 using XBeeLibrary.Core.Events.Relay;
 using XBeeLibrary.Core.Exceptions;
@@ -31,21 +34,24 @@ namespace DigiIoT.Maui.Devices.XBee
     /// <seealso cref="DigiMeshBLEDevice"/>
     /// <seealso cref="Raw802BLEDevice"/>
     /// <seealso cref="ZigBeeBLEDevice"/>
-    public class XBeeBLEDevice : DigiDevice
+    public class XBeeBLEDevice : AbstractXBeeDevice, IDigiBLEDevice
     {
 		/// <summary>
 		/// Class constructor. Instantiates a new <see cref="XBeeBLEDevice"/> object with the given 
 		/// parameters.
 		/// </summary>
 		/// <remarks>
-		/// The Bluetooth password must be provided before calling the <see cref="DigiDevice.Connect"/> method,
-		/// either through this constructor or the <see cref="DigiDevice.SetBluetoothPassword(string)"/> method.
+		/// The Bluetooth password must be provided before calling the <see cref="Connect"/> method,
+		/// either through this constructor or the <see cref="SetBluetoothPassword(string)"/> method.
 		/// </remarks>
 		/// <param name="device">Bluetooth device to connect to.</param>
 		/// <param name="password">Bluetooth password (can be <c>null</c>).</param>
 		/// <seealso cref="IDevice"/>
 		public XBeeBLEDevice(IDevice device, string password)
-            : base(device, password) { }
+			: base(DeviceUtils.CreateConnectionInterface(device))
+		{
+			bluetoothPassword = password;
+		}
 
 		/// <summary>
 		/// Class constructor. Instantiates a new <see cref="XBeeBLEDevice"/> object with the given 
@@ -63,7 +69,10 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// the format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c> or
 		/// <c>01234567-0123-0123-0123-0123456789AB</c>.</exception>
 		public XBeeBLEDevice(string deviceAddress, string password)
-            : base(deviceAddress, password) { }
+			: base(DeviceUtils.CreateConnectionInterface(deviceAddress))
+		{
+			bluetoothPassword = password;
+		}
 
 		/// <summary>
 		/// Class constructor. Instantiates a new <see cref="XBeeBLEDevice"/> object with the given 
@@ -77,9 +86,17 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <param name="password">Bluetooth password (can be <c>null</c>).</param>
 		/// <seealso cref="Guid"/>
 		public XBeeBLEDevice(Guid deviceGuid, string password)
-            : base(deviceGuid, password) { }
+			: base(DeviceUtils.CreateConnectionInterface(deviceGuid))
+		{
+			bluetoothPassword = password;
+		}
 
         // Events.
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+        public event EventHandler<BLEDataReceivedEventArgs> BLEDataReceived;
+
         /// <summary>
         /// Represents the method that will handle the Data received event.
         /// </summary>
@@ -149,6 +166,11 @@ namespace DigiIoT.Maui.Devices.XBee
         }
 
         // Properties.
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+        public bool IsConnected => IsOpen;
+
         /// <summary>
         /// Indicates whether this XBee device is a remote device.
         /// </summary>
@@ -169,6 +191,99 @@ namespace DigiIoT.Maui.Devices.XBee
                 base.ReceiveTimeout = value;
             }
         }
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public void Connect()
+		{
+			try
+			{
+				Open();
+				UserDataRelayReceived += Device_UserDataRelayReceived;
+			}
+			catch (XBeeException e)
+			{
+				throw new DigiIoTException(e);
+			}
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public void Disconnect()
+		{
+			try
+			{
+				Close();
+				UserDataRelayReceived -= Device_UserDataRelayReceived;
+			}
+			catch (XBeeException e)
+			{
+				throw new DigiIoTException(e);
+			}
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public new void SetBluetoothPassword(string password)
+		{
+			base.SetBluetoothPassword(password);
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public void SendData(byte[] data)
+		{
+			try
+			{
+				SendSerialData(data);
+			}
+			catch (XBeeException e)
+			{
+				throw new DigiIoTException(e);
+			}
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public new byte[] ReadData()
+		{
+			UserDataRelayMessage message = null;
+			try
+			{
+				message = ReadUserDataRelay();
+			}
+			catch (XBeeException e)
+			{
+				throw new DigiIoTException(e);
+			}
+			if (message == null)
+				return null;
+			return message.Data;
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public new byte[] ReadData(int timeout)
+		{
+			UserDataRelayMessage message = null;
+			try
+			{
+				message = ReadUserDataRelay(timeout);
+			}
+			catch (XBeeException e)
+			{
+				throw new DigiIoTException(e);
+			}
+			if (message == null)
+				return null;
+			return message.Data;
+		}
 
 		/// <summary>
 		/// Performs a software reset on this XBee device and blocks until the process is 
@@ -531,5 +646,46 @@ namespace DigiIoT.Maui.Devices.XBee
         {
             return base.ReadUserDataRelay(timeout);
         }
-    }
+
+        /// <summary>
+        /// Handles the user data relay received event notifying about the data received to all the
+        /// <code>BLEDataReceived</code> registered callbacks.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Device_UserDataRelayReceived(object sender, UserDataRelayReceivedEventArgs e)
+		{
+			if (BLEDataReceived != null)
+			{
+				try
+				{
+					lock (BLEDataReceived)
+					{
+						var handler = BLEDataReceived;
+						if (handler != null)
+						{
+							var args = new BLEDataReceivedEventArgs(e.UserDataRelayMessage.Data);
+							handler.GetInvocationList().AsParallel().ForAll((action) =>
+							{
+								action.DynamicInvoke(this, args);
+							});
+						}
+					}
+				}
+				catch (Exception ex)
+				{
+					logger.Error(ex.Message, ex);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Returns the string representation of this device.
+		/// </summary>
+		/// <returns>The string representation of this device.</returns>
+		public override string ToString()
+		{
+			return base.ToString();
+		}
+	}
 }
