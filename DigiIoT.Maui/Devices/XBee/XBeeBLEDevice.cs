@@ -58,8 +58,8 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// parameters.
 		/// </summary>
 		/// <remarks>
-		/// The Bluetooth password must be provided before calling the <see cref="DigiDevice.Connect"/> method,
-		/// either through this constructor or the <see cref="DigiDevice.SetBluetoothPassword(string)"/> method.
+		/// The Bluetooth password must be provided before calling the <see cref="Connect"/> method,
+		/// either through this constructor or the <see cref="SetBluetoothPassword(string)"/> method.
 		/// </remarks>
 		/// <param name="deviceAddress">The address or GUID of the Bluetooth device. It must follow the
 		/// format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c> for the address or
@@ -79,8 +79,8 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// parameters.
 		/// </summary>
 		/// <remarks>
-		/// The Bluetooth password must be provided before calling the <see cref="DigiDevice.Connect"/> method,
-		/// either through this constructor or the <see cref="DigiDevice.SetBluetoothPassword(string)"/> method.
+		/// The Bluetooth password must be provided before calling the <see cref="Connect"/> method,
+		/// either through this constructor or the <see cref="SetBluetoothPassword(string)"/> method.
 		/// </remarks>
 		/// <param name="deviceGuid">The Bluetooth device GUID.</param>
 		/// <param name="password">Bluetooth password (can be <c>null</c>).</param>

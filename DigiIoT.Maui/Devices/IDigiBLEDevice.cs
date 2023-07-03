@@ -19,6 +19,10 @@ using DigiIoT.Maui.Exceptions;
 
 namespace DigiIoT.Maui.Devices
 {
+	/// <summary>
+	/// Interface used to define the minimum and required methods that a Digi device class should
+	/// include to establish Bluetooth Low Energy communications.
+	/// </summary>
 	internal interface IDigiBLEDevice
 	{
 		// Properties.
