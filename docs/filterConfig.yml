@@ -1,0 +1,4 @@
+apiRules:
+- exclude:
+    uidRegex: ^DigiIoT\.Maui\.Resource
+    type: Class
