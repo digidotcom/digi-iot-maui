@@ -24,12 +24,35 @@
 		<PackageProjectUrl>http://www.digi.com/resources/documentation/digidocs/90002359/</PackageProjectUrl>
 		<RepositoryUrl>TBD</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageIconUrl>https://raw.githubusercontent.com/digidotcom/xbee-csharp/master/nuget_icon.png</PackageIconUrl>
+		<PackageIconUrl>https://raw.githubusercontent.com/digidotcom/xbee-iot-maui/master/nuget_icon.png</PackageIconUrl>
 		<Description>C# library for Maui to interact with Digi International's IoT devices.</Description>
-		<PackageTags>xbee, library, xamarin, digi-xbee, digi, zigbee, bluetooth, rf, connectcore</PackageTags>
+		<PackageTags>ble, xbee, library, maui, digi, zigbee, bluetooth, rf, connectcore, cellular, embedded</PackageTags>
 		<PackageReleaseNotes>
 			<![CDATA[
-        - First release.
+        - Supported hardware:
+          - Digi ConnectCore family of devices.
+          - Digi XBee 3 family of devices:
+            - XBee 3 Zigbee
+            - XBee 3 802.15.4
+            - XBee 3 DigiMesh
+            - XBee 3 Cellular
+        - Support for communicating with the supported hardware over Bluetooth Low Energy:
+          - Connect
+          - Disconnect
+          - Send data
+          - Receive data (directly or through events)  
+        - XBee specific functionality:
+          - Configure common parameters with specific setters and getters.
+          - Configure any other parameter with generic methods.
+          - Execute AT commands.
+          - Apply configuration changes.
+          - Write configuration changes.
+          - Reset the device.
+          - Support for User Data Relay frames, allowing the communication between different interfaces (Serial and MicroPython).
+          - IO lines management:
+            - Configure IO lines.
+            - Set IO line value.
+            - Read IO line value.
 		]]>
 		</PackageReleaseNotes>
 

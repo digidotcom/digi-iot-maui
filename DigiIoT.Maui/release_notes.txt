@@ -1,4 +1,4 @@
-﻿                                Digi IoT for MAUI
+﻿                            Digi IoT library for MAUI
                                   DigiIoT.Maui
 
                                   Release Notes
@@ -12,40 +12,41 @@
 -------------------------------------------------------------------------------
 
  This document provides the latest release information for the Digi IoT Library
- for MAUI, which allows customers to easily develop MAUI applications that
- communicate with Digi devices over Bluetooth Low Energy.
+ for MAUI, which allows customers to easily develop multi-platform MAUI
+ applications that communicate with Digi IoT devices over Bluetooth Low Energy.
 
- Digi IoT for MAUI v1.0.0, July 2023
+ Digi IoT library for MAUI v1.0.0, July 2023
 -------------------------------------------------------------------------------
-  1. Supported Hardware:
-      * XBee modules:
-        * XBee/XBee-PRO RF Module Family
-          * XBee 3 (Zigbee 3, DigiMesh 2.4, 802.15.4 and Cellular)
-	  * ConnectCore modules:
-	    * ConnectCore 6UL
-        * ConnectCore 8x
-        * ConnectCore 8M Mini/Nano
-        * ConnectCore MP13/15
-        * ConnectCore 93
+ 1. Supported Hardware:
+      * Digi ConnectCore family of devices.
+      * Digi XBee 3 family of devices:
+        * XBee 3 Zigbee
+        * XBee 3 802.15.4
+        * XBee 3 DigiMesh
+        * XBee 3 Cellular
 
  2. Changes with respect to previous version:
-      * Library features (most of them are inherit from the XBee C# Library):
-        * Support for Zigbee, 802.15.4, DigiMesh and Cellular XBee 3 devices.
-        * Support for communicating with XBee devices over Bluetooth Low Energy.
-        * Configuration of local XBee devices:
-          * Configure common parameters with specific setters and getters.
-          * Configure any other parameter with generic methods.
-          * Execute AT commands.
-          * Apply configuration changes.
-          * Write configuration changes.
+      * Support for communicating with the supported hardware over Bluetooth
+        Low Energy:
+        * Connect
+        * Disconnect
+        * Send data
+        * Receive data (directly or through events)  
+      * XBee specific functionality:
+        * Configure common parameters with specific setters and getters.
+        * Configure any other parameter with generic methods.
+        * Execute AT commands.
+        * Apply configuration changes.
+        * Write configuration changes.
+        * Reset the device.
+        * Support for User Data Relay frames, allowing the communication
+          between different interfaces (Serial and MicroPython).
         * IO lines management:
           * Configure IO lines.
           * Set IO line value.
           * Read IO line value.
-        * Support for User Data Relay frames, allowing the communication between
-          different interfaces (Serial, Bluetooth Low Energy and MicroPython).
 
-      * Xamarin application examples demonstrating some API specific features.
+      * Maui application examples demonstrating some API specific features.
         * Configure XBee devices over Bluetooth Low Energy.
         * Send and receive data over Bluetooth Low Energy to a micro-controller
           connected to the XBee serial interface.
