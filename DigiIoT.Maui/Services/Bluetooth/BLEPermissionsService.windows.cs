@@ -16,8 +16,16 @@
 
 namespace DigiIoT.Maui.Services.Bluetooth
 {
+    /// <summary>
+    /// Partial class that includes the custom Windows implementation of the Bluetooth
+    /// permissions service.
+    /// </summary>
     public partial class BLEPermissionsService
     {
+        /// <summary>
+        /// Returns whether Bluetooth permissions where granted or not.
+        /// </summary>
+        /// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
         public async partial Task<bool> RequestBLEPermissions()
         {
             return await Task.FromResult(true);

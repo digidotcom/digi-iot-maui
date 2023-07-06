@@ -20,16 +20,16 @@ using XBeeLibrary.Core.Models;
 namespace DigiIoT.Maui.Devices.XBee
 {
     /// <summary>
-    /// This class represents an XBee 802.15.4 Bluetooth Low Energy (BLE) device.
+    /// This class represents an XBee Zigbee device with Bluetooth Low Energy (BLE) connectivity.
     /// </summary>
-    /// <seealso cref="CellularBLEDevice"/>
-    /// <seealso cref="DigiMeshBLEDevice"/>
+    /// <seealso cref="XBeeCellularBLEDevice"/>
+    /// <seealso cref="XBeeDigiMeshBLEDevice"/>
+    /// <seealso cref="XBee802BLEDevice"/>
     /// <seealso cref="XBeeBLEDevice"/>
-    /// <seealso cref="ZigBeeBLEDevice"/>
-    public class Raw802BLEDevice : XBeeBLEDevice
+    public class XBeeZigbeeBLEDevice : XBeeBLEDevice
     {
         /// <summary>
-        /// Class constructor. Instantiates a new <see cref="Raw802BLEDevice"/> object with the given 
+        /// Class constructor. Instantiates a new <see cref="XBeeZigbeeBLEDevice"/> object with the given 
         /// parameters.
         /// </summary>
         /// <remarks>
@@ -39,11 +39,11 @@ namespace DigiIoT.Maui.Devices.XBee
         /// <param name="device">Bluetooth device to connect to.</param>
         /// <param name="password">Bluetooth password (can be <c>null</c>).</param>
         /// <seealso cref="IDevice"/>
-        public Raw802BLEDevice(IDevice device, string password)
+        public XBeeZigbeeBLEDevice(IDevice device, string password)
             : base(device, password) { }
 
         /// <summary>
-        /// Class constructor. Instantiates a new <see cref="Raw802BLEDevice"/> object with the given 
+        /// Class constructor. Instantiates a new <see cref="XBeeZigbeeBLEDevice"/> object with the given 
         /// parameters.
         /// </summary>
         /// <remarks>
@@ -55,14 +55,14 @@ namespace DigiIoT.Maui.Devices.XBee
         /// <param name="password">Bluetooth password (can be <c>null</c>).</param>
         /// <exception cref="ArgumentException">If <paramref name="deviceAddress"/> does not follow
         /// the format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c>.</exception>
-        public Raw802BLEDevice(string deviceAddress, string password)
+        public XBeeZigbeeBLEDevice(string deviceAddress, string password)
             : base(deviceAddress, password) { }
 
         // Properties.
         /// <summary>
         /// The protocol of the XBee device.
         /// </summary>
-        /// <seealso cref="XBeeProtocol.RAW_802_15_4"/>
-        public override XBeeProtocol XBeeProtocol => XBeeProtocol.RAW_802_15_4;
+        /// <seealso cref="XBeeProtocol.ZIGBEE"/>
+        public override XBeeProtocol XBeeProtocol => XBeeProtocol.ZIGBEE;
     }
 }

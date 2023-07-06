@@ -20,8 +20,16 @@ using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace DigiIoT.Maui.Services.Bluetooth
 {
-	public partial class BLEPermissionsService
+    /// <summary>
+    /// Partial class that includes the custom Android implementation of the Bluetooth
+    /// permissions service.
+    /// </summary>
+    public partial class BLEPermissionsService
 	{
+        /// <summary>
+        /// Returns whether Bluetooth permissions where granted or not.
+        /// </summary>
+        /// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
 		public async partial Task<bool> RequestBLEPermissions()
         {
             if (Build.VERSION.SdkInt < BuildVersionCodes.S)

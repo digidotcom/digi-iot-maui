@@ -14,7 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-using DigiIoT.Maui.Events;
 using DigiIoT.Maui.Exceptions;
 using Plugin.BLE.Abstractions.Contracts;
 using XBeeLibrary.Core;
@@ -28,12 +27,12 @@ using XBeeLibrary.Core.Packet;
 namespace DigiIoT.Maui.Devices.XBee
 {
     /// <summary>
-    /// This class represents an XBee Bluetooth Low Energy (BLE) device.
+    /// This class represents an XBee device with Bluetooth Low Energy (BLE) connectivity.
     /// </summary>
-    /// <seealso cref="CellularBLEDevice"/>
-    /// <seealso cref="DigiMeshBLEDevice"/>
-    /// <seealso cref="Raw802BLEDevice"/>
-    /// <seealso cref="ZigBeeBLEDevice"/>
+    /// <seealso cref="XBeeCellularBLEDevice"/>
+    /// <seealso cref="XBeeDigiMeshBLEDevice"/>
+    /// <seealso cref="XBee802BLEDevice"/>
+    /// <seealso cref="XBeeZigbeeBLEDevice"/>
     public class XBeeBLEDevice : AbstractXBeeDevice, IDigiBLEDevice
     {
 		/// <summary>
@@ -95,7 +94,7 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-        public event EventHandler<BLEDataReceivedEventArgs> BLEDataReceived;
+        public new event EventHandler<Events.DataReceivedEventArgs> DataReceived;
 
         /// <summary>
         /// Represents the method that will handle the Data received event.
@@ -655,16 +654,16 @@ namespace DigiIoT.Maui.Devices.XBee
         /// <param name="e"></param>
         private void Device_UserDataRelayReceived(object sender, UserDataRelayReceivedEventArgs e)
 		{
-			if (BLEDataReceived != null)
+			if (DataReceived != null)
 			{
 				try
 				{
-					lock (BLEDataReceived)
+					lock (DataReceived)
 					{
-						var handler = BLEDataReceived;
+						var handler = DataReceived;
 						if (handler != null)
 						{
-							var args = new BLEDataReceivedEventArgs(e.UserDataRelayMessage.Data);
+							var args = new Events.DataReceivedEventArgs(e.UserDataRelayMessage.Data);
 							handler.GetInvocationList().AsParallel().ForAll((action) =>
 							{
 								action.DynamicInvoke(this, args);

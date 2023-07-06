@@ -19,9 +19,17 @@ using Android.Locations;
 
 namespace DigiIoT.Maui.Services.GPS
 {
+    /// <summary>
+    /// Partial class that includes the custom Android implementation of the GPS
+    /// status service.
+    /// </summary>
     public partial class GPSStatusService
     {
-        public partial bool IsGPSEnabled()
+        /// <summary>
+        /// Returns whether the GPS is enabled or not.
+        /// </summary>
+        /// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
+        public static partial bool IsGPSEnabled()
         {
             LocationManager locationManager = (LocationManager)Android.App.Application.Context.GetSystemService(Context.LocationService);
             return locationManager.IsProviderEnabled(LocationManager.GpsProvider);

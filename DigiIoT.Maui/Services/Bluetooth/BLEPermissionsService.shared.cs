@@ -16,8 +16,16 @@
 
 namespace DigiIoT.Maui.Services.Bluetooth
 {
+    /// <summary>
+    /// Partial class that defines the shared implementation of the Bluetooth
+    /// permissions service.
+    /// </summary>
     public partial class BLEPermissionsService
     {
+        /// <summary>
+        /// Returns whether Bluetooth permissions where granted or not.
+        /// </summary>
+        /// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
         public partial Task<bool> RequestBLEPermissions();
     }
 }

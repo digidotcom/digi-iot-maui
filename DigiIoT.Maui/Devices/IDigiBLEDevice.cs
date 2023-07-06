@@ -21,7 +21,7 @@ namespace DigiIoT.Maui.Devices
 {
 	/// <summary>
 	/// Interface used to define the minimum and required methods that a Digi device class should
-	/// include to establish Bluetooth Low Energy communications.
+	/// include to establish Bluetooth Low Energy (BLE) communications.
 	/// </summary>
 	internal interface IDigiBLEDevice
 	{
@@ -42,13 +42,17 @@ namespace DigiIoT.Maui.Devices
 		/// Represents the method that will handle the Bluetooth data received event.
 		/// </summary>
 		/// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
-		/// <seealso cref="BLEDataReceivedEventArgs"/>
-		public event EventHandler<BLEDataReceivedEventArgs> BLEDataReceived;
+		/// <seealso cref="DataReceivedEventArgs"/>
+		public event EventHandler<DataReceivedEventArgs> DataReceived;
 
 		/// <summary>
 		/// Opens the Bluetooth connection with the device.
 		/// </summary>
-		/// <exception cref="DigiIoTException">If there is any problem connecting with the device.</exception>
+		/// <exception cref="XBeeLibrary.Core.Exceptions.BluetoothAuthenticationException">If the
+		/// BLE authentication process fails.</exception>
+		/// <exception cref="XBeeLibrary.Core.Exceptions.InterfaceAlreadyOpenException">If the
+		/// device is already connected.</exception>
+		/// <exception cref="DigiIoTException">If there is any problem connecting the device.</exception>
 		/// <seealso cref="IsConnected"/>
 		/// <seealso cref="Disconnect"/>
 		public void Connect();

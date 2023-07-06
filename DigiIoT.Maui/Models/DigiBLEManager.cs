@@ -28,17 +28,6 @@ namespace DigiIoT.Maui.Models
     public class DigiBLEManager
 	{
 		// Constants.
-		public const string ERROR_BLUETOOTH_DISABLED_TITLE = "Bluetooth disabled";
-		public const string ERROR_BLUETOOTH_DISABLED = "Bluetooth is required to communicate with BLE devices, please turn it on.";
-		public const string ERROR_BLUETOOTH_PERMISSION_TITLE = "Permission not granted";
-		public const string ERROR_BLUETOOTH_PERMISSION = "'Nearby devices' permissions were not granted. Please, enable application permissions from 'Settings'.";
-		public const string ERROR_LOCATION_DISABLED_TITLE = "Location disabled";
-		public const string ERROR_LOCATION_DISABLED = "Location is required to work with BLE devices, please turn it on.";
-		public const string ERROR_LOCATION_PERMISSION_TITLE = "Permission not granted";
-		public const string ERROR_LOCATION_PERMISSION = "'Location' permissions were not granted. Please, enable application permissions from 'Settings'.";
-		public const string ERROR_CHECK_PERMISSION_TITLE = "Error checking permissions";
-		public const string ERROR_CHECK_PERMISSION = "There was an error checking the location permission: {0}";
-
 		private const int MIN_ANDROID_VERSION_FOR_LOCATION = 6;
 
 		// Properties.
@@ -48,18 +37,58 @@ namespace DigiIoT.Maui.Models
 		public bool IsScanning { get; private set; }
 
 		// Delegates.
+		/// <summary>
+		/// Notifies that a Bluetooth device has been advertised.
+		/// </summary>
+		/// <param name="advertisedDevice">The advertised device.</param>
 		public delegate void DeviceAdvertisedHandler(IDevice advertisedDevice);
-		public delegate void BluetoothStateChangedHandler(BluetoothState state);
-		public delegate void ConnectionLostHandler();
-		public delegate void ScanStartedHandler();
-		public delegate void ScanStoppedHandler();
+
+        /// <summary>
+        /// Notifies that the Bluetooth interface state has changed.
+        /// </summary>
+        /// <param name="state">The new Bluetooth state</param>
+        public delegate void BluetoothStateChangedHandler(BluetoothState state);
+
+        /// <summary>
+        /// Notifies that the Bluetooth connection was lost.
+        /// </summary>
+        public delegate void ConnectionLostHandler();
+
+        /// <summary>
+        /// Notifies that the Bluetooth scan process has started.
+        /// </summary>
+        public delegate void ScanStartedHandler();
+
+        /// <summary>
+        /// Notifies that the Bluetooth scan process has stopped.
+        /// </summary>
+        public delegate void ScanStoppedHandler();
 
 		// Events.
+		/// <summary>
+		/// Event called when a Bluetooth device has been advertised.
+		/// </summary>
 		public event DeviceAdvertisedHandler DeviceAdvertised;
-		public event BluetoothStateChangedHandler BluetoothStateChanged;
-		public event ConnectionLostHandler ConnectionLost;
-		public event ScanStartedHandler ScanStarted;
-		public event ScanStoppedHandler ScanStopped;
+
+        /// <summary>
+        /// Event called when the Bluetooth interface state changed.
+        /// </summary>
+        public event BluetoothStateChangedHandler BluetoothStateChanged;
+
+        /// <summary>
+        /// Event called when the Bluetooth connection was lost.
+        /// </summary>
+        public event ConnectionLostHandler ConnectionLost;
+
+        /// <summary>
+        /// Event called when the Bluetooth scan process has started.
+        /// </summary>
+        public event ScanStartedHandler ScanStarted;
+
+        /// <summary>
+        /// Event called when the Bluetooth scan process has stopped.
+        /// </summary>
+        public event ScanStoppedHandler ScanStopped;
 
 		// Variables.
 		private readonly IAdapter adapter;
@@ -175,10 +204,9 @@ namespace DigiIoT.Maui.Models
             }
             else
             {
-                GPSStatusService service = new GPSStatusService();
                 try
                 {
-                    return service.IsGPSEnabled();
+                    return GPSStatusService.IsGPSEnabled();
                 }
                 catch (Exception)
                 {

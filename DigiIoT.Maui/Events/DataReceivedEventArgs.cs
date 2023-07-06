@@ -16,14 +16,17 @@
 
 namespace DigiIoT.Maui.Events
 {
-	public class BLEDataReceivedEventArgs : EventArgs
+	/// <summary>
+	/// Class used to define the arguments of the data received event.
+	/// </summary>
+	public class DataReceivedEventArgs : EventArgs
 	{
 		/// <summary>
-		/// Instantiates a <see cref="BLEDataReceivedEventArgs"/> object with the provided 
+		/// Instantiates a <see cref="DataReceivedEventArgs"/> object with the provided 
 		/// parameters.
 		/// </summary>
 		/// <param name="data">Data.</param>
-		public BLEDataReceivedEventArgs(byte[] data)
+		public DataReceivedEventArgs(byte[] data)
 		{
 			Data = data;
 		}

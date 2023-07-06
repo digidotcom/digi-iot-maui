@@ -16,8 +16,8 @@
 		<Version>1.0.0</Version>
 		<Company>Digi International Inc.</Company>
 		<Copyright>Copyright 2023, Digi International Inc. All rights reserved.</Copyright>
-		<Product>Digi IoT Library for Maui</Product>
-		<Title>Digi IoT Library for Maui</Title>
+		<Product>Digi IoT Library for .NET MAUI</Product>
+		<Title>Digi IoT Library for .NET MAUI</Title>
 		<Authors>Digi International Inc.</Authors>
 		<PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
@@ -25,7 +25,7 @@
 		<RepositoryUrl>TBD</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIconUrl>https://raw.githubusercontent.com/digidotcom/xbee-iot-maui/master/nuget_icon.png</PackageIconUrl>
-		<Description>C# library for Maui to interact with Digi International's IoT devices.</Description>
+		<Description>C# library for .NET MAUI to interact with Digi International's IoT devices.</Description>
 		<PackageTags>ble, xbee, library, maui, digi, zigbee, bluetooth, rf, connectcore, cellular, embedded</PackageTags>
 		<PackageReleaseNotes>
 			<![CDATA[
