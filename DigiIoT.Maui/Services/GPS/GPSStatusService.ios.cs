@@ -30,7 +30,7 @@ namespace DigiIoT.Maui.Services.GPS
         /// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
         public static partial bool IsGPSEnabled()
         {
-            CLLocationManager manager = new CLLocationManager();
+            CLLocationManager manager = new();
             return manager.AuthorizationStatus != CLAuthorizationStatus.Denied;
         }
     }

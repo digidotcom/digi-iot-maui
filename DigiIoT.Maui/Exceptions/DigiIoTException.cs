@@ -22,7 +22,7 @@ namespace DigiIoT.Maui.Exceptions
 	/// Generic Digi IoT API exception. This class and its subclasses indicate conditions that an application 
 	/// might want to catch. This exception can be thrown when any problem related to a Digi device occurs.
 	/// </summary>
-	internal class DigiIoTException : XBeeException
+	public class DigiIoTException : XBeeException
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DigiIoTException"/> class.

@@ -14,6 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+using DigiIoT.Maui.Exceptions;
 using DigiIoT.Maui.Services.Bluetooth;
 using DigiIoT.Maui.Services.GPS;
 using Plugin.BLE;
@@ -25,10 +26,16 @@ namespace DigiIoT.Maui.Models
 	/// <summary>
 	/// Class used to manage Bluetooth events and permissions.
 	/// </summary>
-    public class DigiBLEManager
+	public class DigiBLEManager
 	{
 		// Constants.
+		private const string ERROR_BLUETOOTH_DISABLED = "Bluetooth interface is not enabled.";
+		private const string ERROR_GPS_DISABLED = "GPS is not enabled and it is required by the application.";
+		private const string ERROR_LOCATION_PERMISSION_NOT_GRANTED = "Location permission was not granted.";
+		private const string ERROR_BLUETOOTH_PERMISSION_NOT_GRANTED = "Bluetooth permissions were not granted.";
+
 		private const int MIN_ANDROID_VERSION_FOR_LOCATION = 6;
+		private const int MAX_ANDROID_VERSION_FOR_LOCATION = 11;
 
 		// Properties.
 		/// <summary>
@@ -43,26 +50,26 @@ namespace DigiIoT.Maui.Models
 		/// <param name="advertisedDevice">The advertised device.</param>
 		public delegate void DeviceAdvertisedHandler(IDevice advertisedDevice);
 
-        /// <summary>
-        /// Notifies that the Bluetooth interface state has changed.
-        /// </summary>
-        /// <param name="state">The new Bluetooth state</param>
-        public delegate void BluetoothStateChangedHandler(BluetoothState state);
+		/// <summary>
+		/// Notifies that the Bluetooth interface state has changed.
+		/// </summary>
+		/// <param name="state">The new Bluetooth state</param>
+		public delegate void BluetoothStateChangedHandler(BluetoothState state);
 
-        /// <summary>
-        /// Notifies that the Bluetooth connection was lost.
-        /// </summary>
-        public delegate void ConnectionLostHandler();
+		/// <summary>
+		/// Notifies that the Bluetooth connection was lost.
+		/// </summary>
+		public delegate void ConnectionLostHandler();
 
-        /// <summary>
-        /// Notifies that the Bluetooth scan process has started.
-        /// </summary>
-        public delegate void ScanStartedHandler();
+		/// <summary>
+		/// Notifies that the Bluetooth scan process has started.
+		/// </summary>
+		public delegate void ScanStartedHandler();
 
-        /// <summary>
-        /// Notifies that the Bluetooth scan process has stopped.
-        /// </summary>
-        public delegate void ScanStoppedHandler();
+		/// <summary>
+		/// Notifies that the Bluetooth scan process has stopped.
+		/// </summary>
+		public delegate void ScanStoppedHandler();
 
 		// Events.
 		/// <summary>
@@ -70,25 +77,25 @@ namespace DigiIoT.Maui.Models
 		/// </summary>
 		public event DeviceAdvertisedHandler DeviceAdvertised;
 
-        /// <summary>
-        /// Event called when the Bluetooth interface state changed.
-        /// </summary>
-        public event BluetoothStateChangedHandler BluetoothStateChanged;
+		/// <summary>
+		/// Event called when the Bluetooth interface state changed.
+		/// </summary>
+		public event BluetoothStateChangedHandler BluetoothStateChanged;
 
-        /// <summary>
-        /// Event called when the Bluetooth connection was lost.
-        /// </summary>
-        public event ConnectionLostHandler ConnectionLost;
+		/// <summary>
+		/// Event called when the Bluetooth connection was lost.
+		/// </summary>
+		public event ConnectionLostHandler ConnectionLost;
 
-        /// <summary>
-        /// Event called when the Bluetooth scan process has started.
-        /// </summary>
-        public event ScanStartedHandler ScanStarted;
+		/// <summary>
+		/// Event called when the Bluetooth scan process has started.
+		/// </summary>
+		public event ScanStartedHandler ScanStarted;
 
-        /// <summary>
-        /// Event called when the Bluetooth scan process has stopped.
-        /// </summary>
-        public event ScanStoppedHandler ScanStopped;
+		/// <summary>
+		/// Event called when the Bluetooth scan process has stopped.
+		/// </summary>
+		public event ScanStoppedHandler ScanStopped;
 
 		// Variables.
 		private readonly IAdapter adapter;
@@ -105,18 +112,18 @@ namespace DigiIoT.Maui.Models
 			// Listen for changes in the bluetooth adapter.
 			CrossBluetoothLE.Current.StateChanged += (o, e) =>
 			{
-                BluetoothStateChanged?.Invoke(e.NewState);
-            };
+				BluetoothStateChanged?.Invoke(e.NewState);
+			};
 			// Listen for device advertisements.
 			adapter.DeviceAdvertised += (sender, e) =>
 			{
-                DeviceAdvertised?.Invoke(e.Device);
-            };
+				DeviceAdvertised?.Invoke(e.Device);
+			};
 			// Listen for connection lost events.
 			adapter.DeviceConnectionLost += (sender, e) =>
 			{
-                ConnectionLost?.Invoke();
-            };
+				ConnectionLost?.Invoke();
+			};
 		}
 
 		/// <summary>
@@ -126,8 +133,8 @@ namespace DigiIoT.Maui.Models
 		{
 			StopScanning();
 			IsScanning = true;
-            ScanStarted?.Invoke();
-            await adapter.StartScanningForDevicesAsync();
+			ScanStarted?.Invoke();
+			await adapter.StartScanningForDevicesAsync();
 		}
 
 		/// <summary>
@@ -136,31 +143,31 @@ namespace DigiIoT.Maui.Models
 		public void StopScanning()
 		{
 			IsScanning = false;
-            ScanStopped?.Invoke();
-            Task task = Task.Run(async () =>
+			ScanStopped?.Invoke();
+			Task task = Task.Run(async () =>
 			{
 				try
 				{
-                    await adapter.StopScanningForDevicesAsync();
-                }
+					await adapter.StopScanningForDevicesAsync();
+				}
 				catch (Exception)
-                { 
+				{
 					// Sometimes, the stop scanning process generates a System.AggregateException indicating that
 					// the CancellationTokenSource has been disposed.
 				}
-				
+
 			});
-            // Block and wait for task to complete
-            task.Wait();
+			// Block and wait for task to complete
+			task.Wait();
 		}
 
 		/// <summary>
 		/// Returns whether the Bluetooth adapter is enabled or not.
 		/// </summary>
 		/// <returns><c>true</c> if Bluetooth is enabled, <c>false</c> otherwise.</returns>
-		public static async Task<bool> IsEnabled()
+		public static async Task<bool> IsBluetoothEnabled()
 		{
-			BluetoothState state = await GetState();
+			BluetoothState state = await GetBluetoothState();
 			return state != BluetoothState.Off;
 		}
 
@@ -168,7 +175,7 @@ namespace DigiIoT.Maui.Models
 		/// Returns the current Bluetooth state.
 		/// </summary>
 		/// <returns>The Bluetooth state</returns>
-		public static Task<BluetoothState> GetState()
+		public static Task<BluetoothState> GetBluetoothState()
 		{
 			IBluetoothLE ble = CrossBluetoothLE.Current;
 			TaskCompletionSource<BluetoothState> tcs = new();
@@ -192,61 +199,118 @@ namespace DigiIoT.Maui.Models
 			return tcs.Task;
 		}
 
-        /// <summary>
-        /// Returns whether the location is enabled or not.
-        /// </summary>
-        /// <returns><c>true</c> if location is enabled, <c>false</c> otherwise.</returns>
-        public static bool IsLocationEnabled()
-        {
-            if (DeviceInfo.Version.Major < MIN_ANDROID_VERSION_FOR_LOCATION)
-            {
-                return true;
-            }
-            else
-            {
-                try
-                {
-                    return GPSStatusService.IsGPSEnabled();
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Requests location permisions.
-        /// </summary>
-        /// <returns><c>true</c> if permission was granted, <c>false</c> otherwise.</returns>
-        public static async Task<bool> RequestLocationPermission()
+		/// <summary>
+		/// Returns whether the GPS is enabled or not.
+		/// </summary>
+		/// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
+		public static bool IsGPSEnabled()
 		{
-			PermissionStatus permissionStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
-			if (permissionStatus != PermissionStatus.Granted)
+			try
 			{
-				permissionStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-				return permissionStatus == PermissionStatus.Granted;
+				return GPSStatusService.IsGPSEnabled();
 			}
-			else
+			catch (Exception)
 			{
-				return true;
+				return false;
 			}
+		}
+
+		/// <summary>
+		/// Requests location permisions.
+		/// </summary>
+		/// <returns><c>true</c> if permission was granted, <c>false</c> otherwise.</returns>
+		public static Task<bool> RequestLocationPermission()
+		{
+			var tcs = new TaskCompletionSource<bool>();
+			MainThread.BeginInvokeOnMainThread(async () =>
+			{
+				try
+				{
+					PermissionStatus permissionStatus = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+					if (permissionStatus != PermissionStatus.Granted)
+					{
+						permissionStatus = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+					}
+					tcs.TrySetResult(permissionStatus == PermissionStatus.Granted);
+				}
+				catch (Exception ex)
+				{
+					tcs.TrySetException(ex);
+				}
+			});
+			return tcs.Task;
 		}
 
 		/// <summary>
 		/// Requests Bluetooth permisions.
 		/// </summary>
 		/// <returns><c>true</c> if permission was granted, <c>false</c> otherwise.</returns>
-		public static async Task<bool> RequestBluetoothPermission()
+		public static Task<bool> RequestBluetoothPermission()
 		{
-			BLEPermissionsService service = new BLEPermissionsService();
-            try
+			BLEPermissionsService service = new();
+			var tcs = new TaskCompletionSource<bool>();
+			MainThread.BeginInvokeOnMainThread(async () =>
 			{
-				return await service.RequestBLEPermissions();
+				try
+				{
+					var result = await service.RequestBLEPermissions();
+					tcs.TrySetResult(result);
+				}
+				catch (Exception ex)
+				{
+					tcs.TrySetException(ex);
+				}
+			});
+			return tcs.Task;
+		}
+
+		/// <summary>
+		/// Validates that the Bluetooth is operative in the device. This means that necessary interfaces
+		/// and permissions are enabled and granted. The method requests for permissions to the user if necessary.
+		/// </summary>
+		/// <exception cref="DigiIoTException">If any required interface is not enabled or necessary permission
+		/// was not granted.</exception>
+		public static void ValidateBluetoothStatus()
+		{
+			var bluetoothEnabledTask = IsBluetoothEnabled();
+			bluetoothEnabledTask.Wait();
+			if (!bluetoothEnabledTask.Result)
+			{
+				throw new DigiIoTException(ERROR_BLUETOOTH_DISABLED);
 			}
-			catch (Exception)
+			if (DeviceInfo.Current.Platform == DevicePlatform.Android)
 			{
-				return false;
+				if (MIN_ANDROID_VERSION_FOR_LOCATION <= DeviceInfo.Version.Major && DeviceInfo.Version.Major <= MAX_ANDROID_VERSION_FOR_LOCATION)
+				{
+					if (!IsGPSEnabled())
+					{
+						throw new DigiIoTException(ERROR_GPS_DISABLED);
+					}
+					var locationPermissionTask = RequestLocationPermission();
+					locationPermissionTask.Wait();
+					if (!locationPermissionTask.Result)
+					{
+						throw new DigiIoTException(ERROR_LOCATION_PERMISSION_NOT_GRANTED);
+					}
+				}
+				else if (DeviceInfo.Version.Major > MAX_ANDROID_VERSION_FOR_LOCATION)
+				{
+					var bluetoothPermissionTask = RequestBluetoothPermission();
+					bluetoothPermissionTask.Wait();
+					if (!bluetoothPermissionTask.Result)
+					{
+						throw new DigiIoTException(ERROR_BLUETOOTH_PERMISSION_NOT_GRANTED);
+					}
+				}
+			}
+			else if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
+			{
+				var bluetoothPermissionTask = RequestBluetoothPermission();
+				bluetoothPermissionTask.Wait();
+				if (!bluetoothPermissionTask.Result)
+				{
+					throw new DigiIoTException(ERROR_BLUETOOTH_PERMISSION_NOT_GRANTED);
+				}
 			}
 		}
 	}
