@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BLEMicrocontrollerSample.Pages.SendFilePage"
+             Title="XBee BLE Microcontroller Sample"
+			 Padding="10"
+			 Shell.FlyoutBehavior="Disabled">
+
+	<Shell.BackButtonBehavior>
+		<BackButtonBehavior Command="{Binding NavigateBackCommand}"></BackButtonBehavior>
+	</Shell.BackButtonBehavior>
+
+	<StackLayout VerticalOptions="CenterAndExpand" Margin="25,0">
+		<Label Text="Select the file to send:"/>
+		<Button Text="Load and send file" Clicked="SendFileButtonClicked" Margin="0,0,0,30" IsEnabled="{Binding SendFileButtonEnabled}" />
+		<StackLayout Orientation="Vertical" Opacity="{Binding ProgressLayoutOpacity}">
+			<StackLayout Orientation="Horizontal">
+				<Label Text="Progress: " />
+				<Label Text="{Binding ProgressText}" />
+			</StackLayout>
+			<ProgressBar Progress="{Binding ProgressNumber}" />
+			<Label Text="{Binding FileName}" />
+		</StackLayout>
+	</StackLayout>
+</ContentPage>

@@ -5,7 +5,9 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigiIoT.Maui", "DigiIoT.Maui\DigiIoT.Maui.csproj", "{B81098D9-C60D-43E8-84DE-C6B49F91F821}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLEConfigurationSample", "examples\xbee\BLEConfigurationSample\BLEConfigurationSample.csproj", "{FEF8DB69-69FE-48BE-8236-D28C239A6755}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLEConfigurationSample", "examples\xbee\BLEConfigurationSample\BLEConfigurationSample.csproj", "{FEF8DB69-69FE-48BE-8236-D28C239A6755}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLEMicrocontrollerSample", "examples\xbee\BLEMicrocontrollerSample\BLEMicrocontrollerSample.csproj", "{7D879493-3444-4E5F-B53E-7A3D0FD71894}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,12 @@ Global
 		{FEF8DB69-69FE-48BE-8236-D28C239A6755}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEF8DB69-69FE-48BE-8236-D28C239A6755}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FEF8DB69-69FE-48BE-8236-D28C239A6755}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
