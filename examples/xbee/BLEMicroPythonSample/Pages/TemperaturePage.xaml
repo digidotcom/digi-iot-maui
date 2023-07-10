@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BLEMicroPythonSample.Pages.TemperaturePage"
+             Title="XBee BLE MicroPython Sample"
+			 Padding="10"
+			 Shell.FlyoutBehavior="Disabled">
+
+	<Shell.BackButtonBehavior>
+		<BackButtonBehavior Command="{Binding NavigateBackCommand}"></BackButtonBehavior>
+	</Shell.BackButtonBehavior>
+
+	<StackLayout Orientation="Vertical" Spacing="10">
+		<Grid x:Name="dataGrid" VerticalOptions="CenterAndExpand" Opacity="0.2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="6*" />
+				<ColumnDefinition Width="4*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Label Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Text="TEMPERATURE" FontSize="Large" HorizontalOptions="Center" />
+			<Label Grid.Column="0" Grid.Row="1" Text="{Binding TemperatureValue}" FontAttributes="Bold" FontSize="60" TextColor="{Binding ValuesColor}" HorizontalOptions="End" Margin="0,0,20,0" />
+			<Label Grid.Column="1" Grid.Row="1" Text="ºC" FontSize="40" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,0,5" />
+			<Label Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Text="HUMIDITY" FontSize="Large" HorizontalOptions="Center" Margin="0,20,0,0" />
+			<Label Grid.Column="0" Grid.Row="3" Text="{Binding HumidityValue}" FontAttributes="Bold" FontSize="60" TextColor="{Binding ValuesColor}" HorizontalOptions="End" Margin="0,0,20,0" />
+			<Label Grid.Column="1" Grid.Row="3" Text="% RH" FontSize="40" HorizontalOptions="Start" VerticalOptions="End" Margin="0,0,0,5" />
+		</Grid>
+		<StackLayout Orientation="Horizontal" Margin="25,0" Spacing="10">
+			<Label Text="Refresh rate:" VerticalOptions="Center" />
+			<Picker x:Name="ratePicker" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
+		</StackLayout>
+		<Button x:Name="startButton" Text="Start" Clicked="StartButtonClicked" HorizontalOptions="FillAndExpand" Margin="25,0" />
+	</StackLayout>
+</ContentPage>
