@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BLENetworkConfigurationSample.Pages.SettingsPage"
+			 xmlns:models="clr-namespace:BLENetworkConfigurationSample.Models"
+			 Title="{Binding InterfaceName}"
+             x:Name="OpenInterface"
+			 Padding="10"
+			 Shell.FlyoutBehavior="Disabled">
+
+	<ContentPage.ToolbarItems>
+		<ToolbarItem Text="Read settings" Order="Secondary" Command="{Binding ReadAllCommand}" />
+		<ToolbarItem Text="Save settings" Order="Secondary" Command="{Binding WriteAllCommand}" />
+		<ToolbarItem Text="Disconnect" Order="Secondary" Command="{Binding DisconnectCommand}" />
+	</ContentPage.ToolbarItems>
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<DataTemplate x:Key="textSettingTemplate">
+				<ViewCell>
+					<StackLayout Orientation="Vertical" Spacing="0">
+						<Grid Style="{StaticResource SettingElement}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.3*" />
+								<ColumnDefinition Width="0.7*" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40" />
+								<RowDefinition Height="{Binding IsValid, Converter={StaticResource ValidToRowHeightConverter}}" />
+							</Grid.RowDefinitions>
+							<Label Grid.Column="0" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource SettingName}" />
+							<Label Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Text="{Binding ValidationDescriptions}" IsVisible="{Binding IsValid, Converter={StaticResource InvertBooleanConverter}}" Style="{StaticResource SettingError}" />
+							<Entry x:Name="textControl" Grid.Column="1" Grid.Row="0" Text="{Binding Value}" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand">
+								<Entry.Triggers>
+									<DataTrigger TargetType="Entry" Binding="{Binding IsValid}" Value="False">
+										<Setter Property="TextColor" Value="{StaticResource DigiRedError}" />
+									</DataTrigger>
+								</Entry.Triggers>
+							</Entry>
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+			<DataTemplate x:Key="comboBoxSettingTemplate">
+				<ViewCell>
+					<StackLayout Orientation="Vertical" Spacing="0">
+						<Grid Style="{StaticResource SettingElement}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.3*" />
+								<ColumnDefinition Width="0.7*" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40" />
+							</Grid.RowDefinitions>
+							<Label Grid.Column="0" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource SettingName}" />
+							<Picker x:Name="pickerControl" Grid.Column="1" Grid.Row="0" ItemsSource="{Binding DisplayValues}" Title="{Binding Name}" SelectedItem="{Binding Value, Converter={StaticResource ComboValueConverter}, ConverterParameter={x:Reference pickerControl}, Mode=TwoWay}" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" />
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+			<DataTemplate x:Key="booleanSettingTemplate">
+				<ViewCell>
+					<StackLayout Orientation="Vertical" Spacing="0">
+						<Grid Style="{StaticResource SettingElement}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.3*" />
+								<ColumnDefinition Width="0.7*" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40" />
+							</Grid.RowDefinitions>
+							<Label Grid.Column="0" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource SettingName}" />
+							<Switch Grid.Column="1" Grid.Row="0" IsToggled="{Binding Value, Converter={StaticResource StringToBooleanConverter}}" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Scale="{OnPlatform iOS='0.8'}" />
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+			<DataTemplate x:Key="noControlSettingTemplate">
+				<ViewCell>
+					<StackLayout Orientation="Vertical" Spacing="0">
+						<Grid Style="{StaticResource SettingElement}">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="0.5*" />
+								<ColumnDefinition Width="0.5*" />
+							</Grid.ColumnDefinitions>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40" />
+							</Grid.RowDefinitions>
+							<Label Grid.Column="0" Grid.Row="0" Text="{Binding Name}" Style="{StaticResource SettingName}" />
+							<Entry Grid.Column="1" Grid.Row="0" Text="{Binding Value}" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" IsEnabled="False" />
+						</Grid>
+					</StackLayout>
+				</ViewCell>
+			</DataTemplate>
+			<models:SettingContainerTemplateSelector x:Key="settingContainerTemplateSelector" TextTemplate="{StaticResource textSettingTemplate}" ComboTemplate="{StaticResource comboBoxSettingTemplate}"  BooleanTemplate="{StaticResource booleanSettingTemplate}" NoControlTemplate="{StaticResource noControlSettingTemplate}" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	<ContentPage.Content>
+		<Grid RowSpacing="0" ColumnSpacing="0">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="1*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto"/>
+				<RowDefinition Height="7*"/>
+				<RowDefinition Height="Auto"/>
+			</Grid.RowDefinitions>
+			<StackLayout Grid.Column="0" Grid.Row="0" >
+				<Label Text="Settings" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Style="{StaticResource SectionTitle}" />
+			</StackLayout>
+			<ListView Grid.Column="0" Grid.Row="1" x:Name="settingsListView" ItemsSource="{Binding Settings}"
+                      SeparatorColor="Transparent" BackgroundColor="White" HasUnevenRows="True"
+                      IsPullToRefreshEnabled="True" IsRefreshing="{Binding AreSettingsRefreshing}" RefreshCommand="{Binding ReadAllCommand}"
+                      ItemTemplate="{StaticResource settingContainerTemplateSelector}" />
+			<StackLayout Grid.Column="0" Grid.Row="2" Orientation="Horizontal" Spacing="10">
+				<Button x:Name="readButton" ImageSource="read.png" Text="Refresh" Command="{Binding ReadAllCommand}" CommandParameter="{x:Reference readButton}" IsEnabled="{Binding CanReadSettings}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
+				<Button x:Name="writeButton" ImageSource="write.png" Text="Save" Command="{Binding WriteAllCommand}" CommandParameter="{x:Reference writeButton}" IsEnabled="{Binding CanSaveSettings}" HorizontalOptions="FillAndExpand" VerticalOptions="Center" />
+			</StackLayout>
+		</Grid>
+	</ContentPage.Content>
+</ContentPage>

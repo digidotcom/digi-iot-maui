@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:models="clr-namespace:BLENetworkConfigurationSample.Models"
+             x:Class="BLENetworkConfigurationSample.Pages.DevicePage"
+             Title="ConnectCore Settings"
+			 x:Name="DeviceInformationPage"
+			 Padding="10"
+			 Shell.FlyoutBehavior="Disabled">
+
+	<Shell.BackButtonBehavior>
+		<BackButtonBehavior Command="{Binding NavigateBackCommand}"></BackButtonBehavior>
+	</Shell.BackButtonBehavior>
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<DataTemplate x:Key="interfaceTemplate">
+				<ViewCell>
+					<Grid Style="{StaticResource InterfaceElement}">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="Auto" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="60" />
+						</Grid.RowDefinitions>
+						<Grid.GestureRecognizers>
+							<TapGestureRecognizer 
+								Command="{Binding OpenInterface}" 
+								CommandParameter="{Binding .}"
+								NumberOfTapsRequired="1" />
+						</Grid.GestureRecognizers>
+						<Image Grid.Column="0" Grid.Row="0" Source="gear_64.png" HorizontalOptions="CenterAndExpand" VerticalOptions="Center" WidthRequest="20" />
+						<Label Grid.Column="1" Grid.Row="0" Margin="8,0,0,0" Text="{Binding InterfaceName}" FontSize="Medium" HorizontalOptions="StartAndExpand" VerticalOptions="Center" LineBreakMode="MiddleTruncation" />
+					</Grid>
+				</ViewCell>
+			</DataTemplate>
+			<models:InterfaceContainerTemplateSelector x:Key="interfaceContainerTemplateSelector" InterfaceTemplate="{StaticResource interfaceTemplate}" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+	
+	<StackLayout Orientation="Vertical" Spacing="0">
+		<StackLayout>
+			<Label Text="Device Information" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Style="{StaticResource SectionTitle}" />
+		</StackLayout>
+		<Grid Margin="10, 8, 0, 8" Padding="5" RowSpacing="5" >
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="0.4*" />
+				<ColumnDefinition Width="0.6*" />
+			</Grid.ColumnDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
+			<Label Grid.Column="0" Grid.Row="0" Text="Bluetooth MAC: " FontSize="Medium" FontAttributes="Bold" HorizontalOptions="End" VerticalOptions="StartAndExpand" />
+			<Label Grid.Column="1" Grid.Row="0" Text="{Binding MacAddress}" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" />
+		</Grid>
+		<StackLayout>
+			<Label Text="Device Configuration" HorizontalOptions="StartAndExpand" VerticalOptions="CenterAndExpand" Style="{StaticResource SectionTitle}" />
+		</StackLayout>
+		<ListView ItemsSource="{Binding Interfaces}" SeparatorColor="Transparent" BackgroundColor="White" HasUnevenRows="True" ItemTemplate="{StaticResource interfaceContainerTemplateSelector}" />
+	</StackLayout>
+</ContentPage>
