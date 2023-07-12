@@ -14,7 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-using XBeeLibrary.Core.Utils;
 using BLENetworkConfigurationSample.ViewModels;
 using BLENetworkConfigurationSample.Models;
 using DigiIoT.Maui.Devices.ConnectCore;

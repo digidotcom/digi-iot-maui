@@ -633,10 +633,18 @@ namespace BLENetworkConfigurationSample.ViewModels
             SelectedDevice = device;
         }
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public override void DisconnectDevice()
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public override bool DisconnectBeforeNavigatingBack()
+		{
+			return false;
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public override void DisconnectDevice()
         {
             // Nothing to do here.
         }

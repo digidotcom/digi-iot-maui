@@ -112,5 +112,13 @@ namespace BLENetworkConfigurationSample.ViewModels
             // Read/Initialize interface page settings.
             settingsPage?.InitSettings();
         }
-    }
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public override bool DisconnectBeforeNavigatingBack()
+		{
+			return false;
+		}
+	}
 }

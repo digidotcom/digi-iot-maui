@@ -130,13 +130,27 @@ namespace BLENetworkConfigurationSample.ViewModels
         [RelayCommand]
         public async Task NavigateBack()
         {
-            // Ask the user if wants to close the connection.
-            if (await GetCurrentPage().DisplayAlert("Disconnect device", "Do you want to disconnect the device?", "Yes", "No"))
+			// Ask the user if wants to close the connection.
+			if (DisconnectBeforeNavigatingBack())
             {
-                DisconnectDevice();
-                await Shell.Current.GoToAsync("..");
+				if (await GetCurrentPage().DisplayAlert("Disconnect device", "Do you want to disconnect the device?", "Yes", "No"))
+				{
+					DisconnectDevice();
+					await Shell.Current.GoToAsync("..");
+				}
             }
+			else
+			{
+				await Shell.Current.GoToAsync("..");
+			}
         }
+
+		/// <summary>
+		/// Returns whether the application must disconnect the device before navigating back or not.
+		/// </summary>
+		/// <returns><c>true</c> if the application must disconnect the device before navigating back,
+		/// <c>false</c> otherwise.</returns>
+		public abstract bool DisconnectBeforeNavigatingBack();
 
         /// <summary>
         /// Closes the connection with the device and goes to the previous page.

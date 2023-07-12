@@ -16,6 +16,7 @@
 
 using BLENetworkConfigurationSample.Exceptions;
 using BLENetworkConfigurationSample.Models;
+using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -216,5 +217,13 @@ namespace BLENetworkConfigurationSample.ViewModels
                 }
             });
         }
-    }
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public override bool DisconnectBeforeNavigatingBack()
+		{
+			return false;
+		}
+	}
 }

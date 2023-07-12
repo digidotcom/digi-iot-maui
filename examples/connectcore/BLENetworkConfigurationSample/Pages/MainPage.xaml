@@ -7,48 +7,48 @@
 			 Padding="10,15,5,10"
              Shell.FlyoutBehavior="Disabled">
 
-	<StackLayout Spacing="10">
-		<StackLayout Orientation="Horizontal" HeightRequest="60" HorizontalOptions="FillAndExpand" Padding="12,15,12,10">
+	<StackLayout Orientation="Vertical" Spacing="10">
+		<StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" Padding="12,15,12,10" VerticalOptions="Center">
 			<Label Text="{Binding ScanStatus}" HorizontalOptions="EndAndExpand" VerticalOptions="Center" FontSize="18"/>
 			<ActivityIndicator IsVisible="{Binding IsScanning}" IsRunning="{Binding IsScanning}" HorizontalOptions="End" VerticalOptions="Center" HeightRequest="25" Margin="4,0,0,0"/>
 			<Button Text="{Binding ScanButtonText}" IsEnabled="{Binding ScanEnabled}" Command="{Binding ToggleScan}" HorizontalOptions="End" Margin="10,0,0,0"/>
 		</StackLayout>
-		<pages:EmptyView Grid.Column="0" Grid.Row="0" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" IsVisible="{Binding IsEmpty}"/>
-		<ListView ItemsSource="{Binding Devices}" HorizontalOptions="FillAndExpand"
-				  HasUnevenRows="true" ItemSelected="OnItemSelected" SeparatorVisibility="None"
-				  CachingStrategy="RecycleElement">
-			<ListView.ItemTemplate>
+		<pages:EmptyView VerticalOptions="CenterAndExpand" HorizontalOptions="Center" IsVisible="{Binding IsEmpty}"/>
+		<CollectionView ItemsSource="{Binding Devices}" HorizontalOptions="FillAndExpand"
+						VerticalOptions="FillAndExpand"
+						SelectionMode="Single" SelectionChanged="OnItemSelected"
+						ItemSizingStrategy="MeasureFirstItem"
+						ItemsLayout="VerticalList">
+			<CollectionView.ItemTemplate>
 				<DataTemplate>
-					<ViewCell>
-						<Grid Padding="5" RowSpacing="0">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="Auto" />
-							</Grid.ColumnDefinitions>
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-							<Grid.Triggers>
-								<DataTrigger TargetType="Grid" Binding="{Binding IsActive}" Value="False">
-									<Setter Property="Opacity" Value="0.5"/>
-								</DataTrigger>
-							</Grid.Triggers>
-							<StackLayout Grid.Column="0" Grid.Row="0" Padding="7,10,7,10" Spacing="0">
-								<Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
-								<StackLayout Orientation="Horizontal" Spacing="0">
-									<Label Text="MAC: "/>
-									<Label Text="{Binding BleMac}"/>
-								</StackLayout>
+					<Grid Padding="5" RowSpacing="0">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="Auto" />
+						</Grid.ColumnDefinitions>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+						</Grid.RowDefinitions>
+						<Grid.Triggers>
+							<DataTrigger TargetType="Grid" Binding="{Binding IsActive}" Value="False">
+								<Setter Property="Opacity" Value="0.5"/>
+							</DataTrigger>
+						</Grid.Triggers>
+						<StackLayout Grid.Column="0" Grid.Row="0" Padding="7,10,7,10" Spacing="0">
+							<Label Text="{Binding Name}" FontSize="18" FontAttributes="Bold" />
+							<StackLayout Orientation="Horizontal" Spacing="0">
+								<Label Text="MAC: "/>
+								<Label Text="{Binding BleMac}"/>
 							</StackLayout>
-							<StackLayout Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="0,0,10,0">
-								<Image Source="{Binding RssiImage}" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
-								<Label Text="{Binding Rssi, StringFormat='{0:F0} dB'}" FontSize="12" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
-							</StackLayout>
-						</Grid>
-					</ViewCell>
+						</StackLayout>
+						<StackLayout Grid.Column="1" Grid.Row="0" Grid.RowSpan="2" Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="0,0,10,0">
+							<Image Source="{Binding RssiImage}" HeightRequest="25" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+							<Label Text="{Binding Rssi, StringFormat='{0:F0} dB'}" FontSize="12" HorizontalOptions="Center" VerticalOptions="CenterAndExpand"/>
+						</StackLayout>
+					</Grid>
 				</DataTemplate>
-			</ListView.ItemTemplate>
-		</ListView>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
 	</StackLayout>
 
 </ContentPage>

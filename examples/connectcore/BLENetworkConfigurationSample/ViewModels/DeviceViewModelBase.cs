@@ -46,6 +46,14 @@ namespace BLENetworkConfigurationSample.ViewModels
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
+		public override bool DisconnectBeforeNavigatingBack()
+		{
+			return true;
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
 		public override async void DisconnectDevice()
 		{
 			if (bleDevice == null)

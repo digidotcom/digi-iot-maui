@@ -22,7 +22,7 @@
 							<ColumnDefinition Width="Auto" />
 						</Grid.ColumnDefinitions>
 						<Grid.RowDefinitions>
-							<RowDefinition Height="60" />
+							<RowDefinition Height="40" />
 						</Grid.RowDefinitions>
 						<Grid.GestureRecognizers>
 							<TapGestureRecognizer 

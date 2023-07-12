@@ -39,7 +39,7 @@ public partial class MainPage : ContentPage
 
         mainPageViewModel.ActivePage = true;
 
-        await Task.Run(() =>
+		await Task.Run(() =>
 		{
 			if (initializing)
 			{
@@ -79,15 +79,15 @@ public partial class MainPage : ContentPage
     /// </summary>
     /// <param name="sender">Sender.</param>
     /// <param name="e">Event args.</param>
-    public void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+    public void OnItemSelected(object sender, SelectionChangedEventArgs e)
     {
-        // Clear selection.
-        ((ListView)sender).SelectedItem = null;
+		// Clear selection.
+		((CollectionView)sender).SelectedItem = null;
 
-        if (e.SelectedItem is not BleDevice selectedDevice || !selectedDevice.IsActive)
+		if (((CollectionView)sender).SelectedItem is not BleDevice selectedDevice || !selectedDevice.IsActive)
             return;
 
         // Prepare the connection.
         mainPageViewModel.PrepareConnection(selectedDevice);
-    }
+	}
 }
