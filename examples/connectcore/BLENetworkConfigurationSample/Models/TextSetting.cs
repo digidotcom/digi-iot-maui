@@ -19,18 +19,18 @@ using BLENetworkConfigurationSample.Utils.Validators;
 
 namespace BLENetworkConfigurationSample.Models
 {
-    internal class TextSetting : AbstractSetting
-    {
-        /// <summary>
-        /// Class constructor. Instantiates a new <c>TextSetting</c> with
-        /// the given parameters.
-        /// </summary>
-        /// <param name="name">The setting name.</param>
-        /// <param name="defaultValue">The setting default value.</param>
-        /// <param name="validations">List of validators for the setting.</param>
-        public TextSetting(string name, string defaultValue, params IValidationRule[] validations) : base(SettingType.TEXT, name, defaultValue, validations)
-        {
+	internal class TextSetting : AbstractSetting
+	{
+		/// <summary>
+		/// Class constructor. Instantiates a new <c>TextSetting</c> with
+		/// the given parameters.
+		/// </summary>
+		/// <param name="name">The setting name.</param>
+		/// <param name="defaultValue">The setting default value.</param>
+		/// <param name="validations">List of validators for the setting.</param>
+		public TextSetting(string name, string defaultValue, params IValidationRule[] validations) : base(SettingType.TEXT, name, defaultValue, validations)
+		{
 
-        }
-    }
+		}
+	}
 }

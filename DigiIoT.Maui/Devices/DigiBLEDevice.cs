@@ -20,10 +20,10 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace DigiIoT.Maui.Devices
 {
-    /// <summary>
-    /// This class represents a generic Digi device with Bluetooth Low Energy (BLE) connectivity.
-    /// </summary>
-    public class DigiBLEDevice : IDigiBLEDevice
+	/// <summary>
+	/// This class represents a generic Digi device with Bluetooth Low Energy (BLE) connectivity.
+	/// </summary>
+	public class DigiBLEDevice : IDigiBLEDevice
 	{
 		
 		// Properties.
@@ -32,11 +32,11 @@ namespace DigiIoT.Maui.Devices
 		/// </summary>
 		public bool IsConnected => _xBeeDevice.IsConnected;
 
-        // Events.
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        public event EventHandler<DataReceivedEventArgs> DataReceived
+		// Events.
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public event EventHandler<DataReceivedEventArgs> DataReceived
 		{
 			add
 			{

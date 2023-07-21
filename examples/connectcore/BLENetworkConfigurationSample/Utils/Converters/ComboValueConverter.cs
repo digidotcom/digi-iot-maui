@@ -19,31 +19,31 @@ using System.Globalization;
 
 namespace BLENetworkConfigurationSample.Utils.Converters
 {
-    class ComboValueConverter : IValueConverter
-    {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string stringValue = (string)value;
-            Picker comboBox = parameter as Picker;
-            ComboSetting comboSetting = comboBox.BindingContext as ComboSetting;
-            return comboSetting.Values[stringValue.Trim()];
-        }
+	class ComboValueConverter : IValueConverter
+	{
+		/// <inheritdoc/>
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			string stringValue = (string)value;
+			Picker comboBox = parameter as Picker;
+			ComboSetting comboSetting = comboBox.BindingContext as ComboSetting;
+			return comboSetting.Values[stringValue.Trim()];
+		}
 
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string stringDisplayValue = (string)value;
-            Picker comboBox = parameter as Picker;
-            ComboSetting comboSetting = comboBox.BindingContext as ComboSetting;
-            foreach (string keyVar in comboSetting.Values.Keys)
-            {
-                if (comboSetting.Values[keyVar].Trim().Equals(stringDisplayValue))
-                {
-                    return keyVar;
-                }
-            }
-            return null;
-        }
-    }
+		/// <inheritdoc/>
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			string stringDisplayValue = (string)value;
+			Picker comboBox = parameter as Picker;
+			ComboSetting comboSetting = comboBox.BindingContext as ComboSetting;
+			foreach (string keyVar in comboSetting.Values.Keys)
+			{
+				if (comboSetting.Values[keyVar].Trim().Equals(stringDisplayValue))
+				{
+					return keyVar;
+				}
+			}
+			return null;
+		}
+	}
 }

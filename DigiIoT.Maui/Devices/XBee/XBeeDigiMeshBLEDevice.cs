@@ -19,50 +19,50 @@ using XBeeLibrary.Core.Models;
 
 namespace DigiIoT.Maui.Devices.XBee
 {
-    /// <summary>
-    /// This class represents an XBee DigiMesh device with Bluetooth Low Energy (BLE) connectivity.
-    /// </summary>
-    /// <seealso cref="XBeeCellularBLEDevice"/>
-    /// <seealso cref="XBee802BLEDevice"/>
-    /// <seealso cref="XBeeBLEDevice"/>
-    /// <seealso cref="XBeeZigbeeBLEDevice"/>
-    public class XBeeDigiMeshBLEDevice : XBeeBLEDevice
-    {
-        /// <summary>
-        /// Class constructor. Instantiates a new <see cref="XBeeDigiMeshBLEDevice"/> object with the given 
-        /// parameters.
-        /// </summary>
-        /// <remarks>
-        /// The Bluetooth password must be provided before calling the <see cref="XBeeBLEDevice.Connect"/> method,
-        /// either through this constructor or the <see cref="XBeeBLEDevice.SetBluetoothPassword(string)"/> method.
-        /// </remarks>
-        /// <param name="device">Bluetooth device to connect to.</param>
-        /// <param name="password">Bluetooth password (can be <c>null</c>).</param>
-        /// <seealso cref="IDevice"/>
-        public XBeeDigiMeshBLEDevice(IDevice device, string password)
-            : base(device, password) { }
+	/// <summary>
+	/// This class represents an XBee DigiMesh device with Bluetooth Low Energy (BLE) connectivity.
+	/// </summary>
+	/// <seealso cref="XBeeCellularBLEDevice"/>
+	/// <seealso cref="XBee802BLEDevice"/>
+	/// <seealso cref="XBeeBLEDevice"/>
+	/// <seealso cref="XBeeZigbeeBLEDevice"/>
+	public class XBeeDigiMeshBLEDevice : XBeeBLEDevice
+	{
+		/// <summary>
+		/// Class constructor. Instantiates a new <see cref="XBeeDigiMeshBLEDevice"/> object with the given 
+		/// parameters.
+		/// </summary>
+		/// <remarks>
+		/// The Bluetooth password must be provided before calling the <see cref="XBeeBLEDevice.Connect"/> method,
+		/// either through this constructor or the <see cref="XBeeBLEDevice.SetBluetoothPassword(string)"/> method.
+		/// </remarks>
+		/// <param name="device">Bluetooth device to connect to.</param>
+		/// <param name="password">Bluetooth password (can be <c>null</c>).</param>
+		/// <seealso cref="IDevice"/>
+		public XBeeDigiMeshBLEDevice(IDevice device, string password)
+			: base(device, password) { }
 
-        /// <summary>
-        /// Class constructor. Instantiates a new <see cref="XBeeDigiMeshBLEDevice"/> object with the given 
-        /// parameters.
-        /// </summary>
-        /// <remarks>
-        /// The Bluetooth password must be provided before calling the <see cref="XBeeBLEDevice.Connect"/> method,
-        /// either through this constructor or the <see cref="XBeeBLEDevice.SetBluetoothPassword(string)"/> method.
-        /// </remarks>
-        /// <param name="deviceAddress">The address of the Bluetooth device. It must follow the
-        /// format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c>.</param>
-        /// <param name="password">Bluetooth password (can be <c>null</c>).</param>
-        /// <exception cref="ArgumentException">If <paramref name="deviceAddress"/> does not follow
-        /// the format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c>.</exception>
-        public XBeeDigiMeshBLEDevice(string deviceAddress, string password)
-            : base(deviceAddress, password) { }
+		/// <summary>
+		/// Class constructor. Instantiates a new <see cref="XBeeDigiMeshBLEDevice"/> object with the given 
+		/// parameters.
+		/// </summary>
+		/// <remarks>
+		/// The Bluetooth password must be provided before calling the <see cref="XBeeBLEDevice.Connect"/> method,
+		/// either through this constructor or the <see cref="XBeeBLEDevice.SetBluetoothPassword(string)"/> method.
+		/// </remarks>
+		/// <param name="deviceAddress">The address of the Bluetooth device. It must follow the
+		/// format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c>.</param>
+		/// <param name="password">Bluetooth password (can be <c>null</c>).</param>
+		/// <exception cref="ArgumentException">If <paramref name="deviceAddress"/> does not follow
+		/// the format <c>00112233AABB</c> or <c>00:11:22:33:AA:BB</c>.</exception>
+		public XBeeDigiMeshBLEDevice(string deviceAddress, string password)
+			: base(deviceAddress, password) { }
 
-        // Properties.
-        /// <summary>
-        /// The protocol of the XBee device.
-        /// </summary>
-        /// <seealso cref="XBeeProtocol.DIGI_MESH"/>
-        public override XBeeProtocol XBeeProtocol => XBeeProtocol.DIGI_MESH;
-    }
+		// Properties.
+		/// <summary>
+		/// The protocol of the XBee device.
+		/// </summary>
+		/// <seealso cref="XBeeProtocol.DIGI_MESH"/>
+		public override XBeeProtocol XBeeProtocol => XBeeProtocol.DIGI_MESH;
+	}
 }

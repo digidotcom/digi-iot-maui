@@ -22,11 +22,11 @@ namespace BLEMicroPythonSample.ViewModels
 {
 	public abstract partial class ViewModelBase : INotifyPropertyChanged
 	{
-        // Constants.
-        public const string BUTTON_OK = "OK";
+		// Constants.
+		public const string BUTTON_OK = "OK";
 
-        // Events.
-        public event PropertyChangedEventHandler PropertyChanged;
+		// Events.
+		public event PropertyChangedEventHandler PropertyChanged;
 
 		/// <summary>
 		/// Raises a property changed event for the given property name.
@@ -58,7 +58,7 @@ namespace BLEMicroPythonSample.ViewModels
 		/// </summary>
 		protected static void HideLoadingDialog()
 		{
-            MainThread.BeginInvokeOnMainThread(UserDialogs.Instance.HideLoading);
+			MainThread.BeginInvokeOnMainThread(UserDialogs.Instance.HideLoading);
 		}
 
 		/// <summary>
@@ -68,65 +68,65 @@ namespace BLEMicroPythonSample.ViewModels
 		/// <param name="message">Error message.</param>
 		protected static void ShowErrorDialog(string title, string message)
 		{
-            MainThread.BeginInvokeOnMainThread(() =>
+			MainThread.BeginInvokeOnMainThread(() =>
 			{
 				UserDialogs.Instance.Alert(message, title);
 			});
 		}
 
-        /// <summary>
-        /// Displays an alert with the given title and message.
-        /// </summary>
-        /// <param name="alertTitle">Title of the alert to display.</param>
-        /// <param name="alertMessage">Message of the alert to display.</param>
-        protected static void DisplayAlert(string alertTitle, string alertMessage)
-        {
-            DisplayAlert(alertTitle, alertMessage, BUTTON_OK);
-        }
+		/// <summary>
+		/// Displays an alert with the given title and message.
+		/// </summary>
+		/// <param name="alertTitle">Title of the alert to display.</param>
+		/// <param name="alertMessage">Message of the alert to display.</param>
+		protected static void DisplayAlert(string alertTitle, string alertMessage)
+		{
+			DisplayAlert(alertTitle, alertMessage, BUTTON_OK);
+		}
 
-        /// <summary>
-        /// Displays an alert with the given title and message.
-        /// </summary>
-        /// <param name="alertTitle">Title of the alert to display.</param>
-        /// <param name="alertMessage">Message of the alert to display.</param>
-        /// <param name="buttonText">Text to display in the button of the alert dialog.</param>
-        protected static void DisplayAlert(string alertTitle, string alertMessage, string buttonText)
-        {
-            Page currentPage = GetCurrentPage();
-            if (currentPage == null)
-                return;
+		/// <summary>
+		/// Displays an alert with the given title and message.
+		/// </summary>
+		/// <param name="alertTitle">Title of the alert to display.</param>
+		/// <param name="alertMessage">Message of the alert to display.</param>
+		/// <param name="buttonText">Text to display in the button of the alert dialog.</param>
+		protected static void DisplayAlert(string alertTitle, string alertMessage, string buttonText)
+		{
+			Page currentPage = GetCurrentPage();
+			if (currentPage == null)
+				return;
 
-            MainThread.InvokeOnMainThreadAsync(() => {
-                currentPage.DisplayAlert(alertTitle, alertMessage, buttonText);
-            });
-        }
+			MainThread.InvokeOnMainThreadAsync(() => {
+				currentPage.DisplayAlert(alertTitle, alertMessage, buttonText);
+			});
+		}
 
-        /// <summary>
-        /// Returns the current page being displayed.
-        /// </summary>
-        /// <returns>The current <c>Page</c> being displayed.</returns>
-        protected static Page GetCurrentPage()
-        {
+		/// <summary>
+		/// Returns the current page being displayed.
+		/// </summary>
+		/// <returns>The current <c>Page</c> being displayed.</returns>
+		protected static Page GetCurrentPage()
+		{
 			return Shell.Current.CurrentPage;
-        }
+		}
 
-        /// <summary>
-        /// Disconnects the device and navigates back.
-        /// </summary>
-        [RelayCommand]
-        public async Task NavigateBack()
-        {
-            // Ask the user if wants to close the connection.
-            if (await GetCurrentPage().DisplayAlert("Disconnect device", "Do you want to disconnect the irrigation device?", "Yes", "No"))
-            {
-                DisconnectDevice();
-                await Shell.Current.GoToAsync("..");
-            }
-        }
+		/// <summary>
+		/// Disconnects the device and navigates back.
+		/// </summary>
+		[RelayCommand]
+		public async Task NavigateBack()
+		{
+			// Ask the user if wants to close the connection.
+			if (await GetCurrentPage().DisplayAlert("Disconnect device", "Do you want to disconnect the irrigation device?", "Yes", "No"))
+			{
+				DisconnectDevice();
+				await Shell.Current.GoToAsync("..");
+			}
+		}
 
-        /// <summary>
-        /// Closes the connection with the device and goes to the previous page.
-        /// </summary>
-        public abstract void DisconnectDevice();
-    }
+		/// <summary>
+		/// Closes the connection with the device and goes to the previous page.
+		/// </summary>
+		public abstract void DisconnectDevice();
+	}
 }

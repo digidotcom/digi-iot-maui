@@ -18,46 +18,46 @@ using CoreBluetooth;
 
 namespace DigiIoT.Maui.Services.Bluetooth
 {
-    /// <summary>
-    /// Partial class that includes the custom iOS implementation of the Bluetooth
-    /// permissions service.
-    /// </summary>
-    public partial class BLEPermissionsService
-    {
-        /// <summary>
-        /// Returns whether Bluetooth permissions where granted or not.
-        /// </summary>
-        /// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
-        public async partial Task<bool> RequestBLEPermissions()
-        {
-            // Initializing CBCentralManager will present the Bluetooth permission dialog.
-            new CBCentralManager();
-            PermissionStatus status;
-            do
-            {
-                status = CheckPermissionAsync();
-                await Task.Delay(200);
-            } while (status == PermissionStatus.Unknown);
-            return status == PermissionStatus.Granted;
-        }
+	/// <summary>
+	/// Partial class that includes the custom iOS implementation of the Bluetooth
+	/// permissions service.
+	/// </summary>
+	public partial class BLEPermissionsService
+	{
+		/// <summary>
+		/// Returns whether Bluetooth permissions where granted or not.
+		/// </summary>
+		/// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
+		public async partial Task<bool> RequestBLEPermissions()
+		{
+			// Initializing CBCentralManager will present the Bluetooth permission dialog.
+			new CBCentralManager();
+			PermissionStatus status;
+			do
+			{
+				status = CheckPermissionAsync();
+				await Task.Delay(200);
+			} while (status == PermissionStatus.Unknown);
+			return status == PermissionStatus.Granted;
+		}
 
-        /// <summary>
-        /// Checks the Bluetooth permission status.
-        /// </summary>
-        /// <returns>The Bluetooth permission status.</returns>
-        private PermissionStatus CheckPermissionAsync()
-        {
-            switch (CBManager.Authorization)
-            {
-                case CBManagerAuthorization.AllowedAlways:
-                    return PermissionStatus.Granted;
-                case CBManagerAuthorization.Restricted:
-                    return PermissionStatus.Restricted;
-                case CBManagerAuthorization.NotDetermined:
-                    return PermissionStatus.Unknown;
-                default:
-                    return PermissionStatus.Denied;
-            }
-        }
-    }
+		/// <summary>
+		/// Checks the Bluetooth permission status.
+		/// </summary>
+		/// <returns>The Bluetooth permission status.</returns>
+		private PermissionStatus CheckPermissionAsync()
+		{
+			switch (CBManager.Authorization)
+			{
+				case CBManagerAuthorization.AllowedAlways:
+					return PermissionStatus.Granted;
+				case CBManagerAuthorization.Restricted:
+					return PermissionStatus.Restricted;
+				case CBManagerAuthorization.NotDetermined:
+					return PermissionStatus.Unknown;
+				default:
+					return PermissionStatus.Denied;
+			}
+		}
+	}
 }

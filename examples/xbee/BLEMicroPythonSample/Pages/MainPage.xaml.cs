@@ -21,25 +21,25 @@ namespace BLEMicroPythonSample.Pages;
 
 public partial class MainPage : ContentPage
 {
-    // Variables.
-    private readonly MainPageViewModel mainPageViewModel;
+	// Variables.
+	private readonly MainPageViewModel mainPageViewModel;
 
-    private bool initializing = false;
+	private bool initializing = false;
 
-    public MainPage()
+	public MainPage()
 	{
 		InitializeComponent();
-        mainPageViewModel = new MainPageViewModel();
-        BindingContext = mainPageViewModel;
-    }
+		mainPageViewModel = new MainPageViewModel();
+		BindingContext = mainPageViewModel;
+	}
 
-    protected override async void OnAppearing()
-    {
-        base.OnAppearing();
+	protected override async void OnAppearing()
+	{
+		base.OnAppearing();
 
-        mainPageViewModel.ActivePage = true;
+		mainPageViewModel.ActivePage = true;
 
-        await Task.Run(() =>
+		await Task.Run(() =>
 		{
 			if (initializing)
 			{
@@ -63,31 +63,31 @@ public partial class MainPage : ContentPage
 				return;
 			}
 		});
-    }
+	}
 
-    protected override void OnDisappearing()
-    {
-        base.OnDisappearing();
+	protected override void OnDisappearing()
+	{
+		base.OnDisappearing();
 
-        mainPageViewModel.ActivePage = false;
+		mainPageViewModel.ActivePage = false;
 
-        mainPageViewModel.StopScan();
-    }
+		mainPageViewModel.StopScan();
+	}
 
-    /// <summary>
-    /// Method called when a list item is selected.
-    /// </summary>
-    /// <param name="sender">Sender.</param>
-    /// <param name="e">Event args.</param>
-    public void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
-    {
-        // Clear selection.
-        ((ListView)sender).SelectedItem = null;
+	/// <summary>
+	/// Method called when a list item is selected.
+	/// </summary>
+	/// <param name="sender">Sender.</param>
+	/// <param name="e">Event args.</param>
+	public void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
+	{
+		// Clear selection.
+		((ListView)sender).SelectedItem = null;
 
-        if (e.SelectedItem is not BleDevice selectedDevice || !selectedDevice.IsActive)
-            return;
+		if (e.SelectedItem is not BleDevice selectedDevice || !selectedDevice.IsActive)
+			return;
 
-        // Prepare the connection.
-        mainPageViewModel.PrepareConnection(selectedDevice);
-    }
+		// Prepare the connection.
+		mainPageViewModel.PrepareConnection(selectedDevice);
+	}
 }

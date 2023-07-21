@@ -18,9 +18,9 @@ using Plugin.BLE.Abstractions.Contracts;
 
 namespace DigiIoT.Maui.Devices.ConnectCore
 {
-    /// <summary>
-    /// This class represents a ConnectCore device with BLE connectivity.
-    /// </summary>
+	/// <summary>
+	/// This class represents a ConnectCore device with BLE connectivity.
+	/// </summary>
 	public class ConnectCoreBLEDevice : DigiBLEDevice
 	{
 		/// <summary>

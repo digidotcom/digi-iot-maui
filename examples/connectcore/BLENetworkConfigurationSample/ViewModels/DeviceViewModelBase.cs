@@ -19,29 +19,29 @@ using System.Windows.Input;
 
 namespace BLENetworkConfigurationSample.ViewModels
 {
-    public class DeviceViewModelBase : ViewModelBase
-    {
-        // Properties.
-        protected BleDevice bleDevice;
+	public class DeviceViewModelBase : ViewModelBase
+	{
+		// Properties.
+		protected BleDevice bleDevice;
 
-        // Commands.
-        /// <summary>
-        /// Command used to disconnect the device.
-        /// </summary>
-        public ICommand DisconnectCommand { get; private set; }
+		// Commands.
+		/// <summary>
+		/// Command used to disconnect the device.
+		/// </summary>
+		public ICommand DisconnectCommand { get; private set; }
 
-        /// <summary>
-        /// Class constructor. Instantiates a new <c>DeviceViewModelBase</c> object
-        /// with the provided BLE device.
-        /// <param name="bleDevice">BLE device used by this view model
-        /// and others that inherit it.</param>
-        /// </summary>
-        public DeviceViewModelBase(BleDevice bleDevice) : base()
-        {
-            this.bleDevice = bleDevice;
+		/// <summary>
+		/// Class constructor. Instantiates a new <c>DeviceViewModelBase</c> object
+		/// with the provided BLE device.
+		/// <param name="bleDevice">BLE device used by this view model
+		/// and others that inherit it.</param>
+		/// </summary>
+		public DeviceViewModelBase(BleDevice bleDevice) : base()
+		{
+			this.bleDevice = bleDevice;
 
-            DisconnectCommand = new Command(DisconnectDevice);
-        }
+			DisconnectCommand = new Command(DisconnectDevice);
+		}
 
 		/// <summary>
 		/// <inheritdoc/>

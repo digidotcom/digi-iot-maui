@@ -20,53 +20,53 @@ namespace BLEMicroPythonSample.Pages;
 
 public partial class PasswordPage : Popup
 {
-    // Properties.
-    /// <summary>
-    /// Returns the password entered by the user or <c>null</c> if the
-    /// popup was cancelled.
-    /// </summary>
-    public string Password { get; private set; }
+	// Properties.
+	/// <summary>
+	/// Returns the password entered by the user or <c>null</c> if the
+	/// popup was cancelled.
+	/// </summary>
+	public string Password { get; private set; }
 
-    /// <summary>
-    /// Class consturctor. Instantiates a new <c>PasswordPage</c> with
-    /// the given argument.
-    /// </summary>
-    /// <param name="authFailed">Whether the first authentication attempt
-    /// failed or not.</param>
-    public PasswordPage(bool authFailed)
-    {
-        InitializeComponent();
+	/// <summary>
+	/// Class consturctor. Instantiates a new <c>PasswordPage</c> with
+	/// the given argument.
+	/// </summary>
+	/// <param name="authFailed">Whether the first authentication attempt
+	/// failed or not.</param>
+	public PasswordPage(bool authFailed)
+	{
+		InitializeComponent();
 
-        authFailedLabel.IsVisible = authFailed;
-    }
+		authFailedLabel.IsVisible = authFailed;
+	}
 
-    /// <summary>
-    /// Focuses the password field.
-    /// </summary>
-    public void FocusPasswordField(object sender, EventArgs e)
-    {
-        passwordEntry.Focus();
-    }
+	/// <summary>
+	/// Focuses the password field.
+	/// </summary>
+	public void FocusPasswordField(object sender, EventArgs e)
+	{
+		passwordEntry.Focus();
+	}
 
-    /// <summary>
-    /// Called when the OK buttons is pressed.
-    /// </summary>
-    /// <param name="sender">Sender.</param>
-    /// <param name="e">Event arguments.</param>
-    private void OnOkPressed(object sender, EventArgs e)
-    {
-        Password = passwordEntry.Text;
-        Close();
-    }
+	/// <summary>
+	/// Called when the OK buttons is pressed.
+	/// </summary>
+	/// <param name="sender">Sender.</param>
+	/// <param name="e">Event arguments.</param>
+	private void OnOkPressed(object sender, EventArgs e)
+	{
+		Password = passwordEntry.Text;
+		Close();
+	}
 
-    /// <summary>
-    /// Called when the Cancel button is pressed.
-    /// </summary>
-    /// <param name="sender">Sender.</param>
-    /// <param name="e">Event arguments.</param>
-    private void OnCancelPressed(object sender, EventArgs e)
-    {
-        Password = null;
-        Close();
-    }
+	/// <summary>
+	/// Called when the Cancel button is pressed.
+	/// </summary>
+	/// <param name="sender">Sender.</param>
+	/// <param name="e">Event arguments.</param>
+	private void OnCancelPressed(object sender, EventArgs e)
+	{
+		Password = null;
+		Close();
+	}
 }

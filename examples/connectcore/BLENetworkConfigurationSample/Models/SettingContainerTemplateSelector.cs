@@ -16,31 +16,31 @@
 
 namespace BLENetworkConfigurationSample.Models
 {
-    public class SettingContainerTemplateSelector : DataTemplateSelector
-    {
-        // Properties.
-        /// <summary>
-        /// Data template corresponding to a text setting.
-        /// </summary>
-        public DataTemplate TextTemplate { get; set; }
+	public class SettingContainerTemplateSelector : DataTemplateSelector
+	{
+		// Properties.
+		/// <summary>
+		/// Data template corresponding to a text setting.
+		/// </summary>
+		public DataTemplate TextTemplate { get; set; }
 
-        /// <summary>
-        /// Data template corresponding to a combo setting.
-        /// </summary>
-        public DataTemplate ComboTemplate { get; set; }
+		/// <summary>
+		/// Data template corresponding to a combo setting.
+		/// </summary>
+		public DataTemplate ComboTemplate { get; set; }
 
-        /// <summary>
-        /// Data template corresponding to a boolean setting.
-        /// </summary>
-        public DataTemplate BooleanTemplate { get; set; }
+		/// <summary>
+		/// Data template corresponding to a boolean setting.
+		/// </summary>
+		public DataTemplate BooleanTemplate { get; set; }
 
-        /// <summary>
-        /// Data template corresponding to setting without controls.
-        /// </summary>
-        public DataTemplate NoControlTemplate { get; set; }
+		/// <summary>
+		/// Data template corresponding to setting without controls.
+		/// </summary>
+		public DataTemplate NoControlTemplate { get; set; }
 
-        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
-        {
+		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+		{
 			return ((AbstractSetting)item).Type switch
 			{
 				SettingType.TEXT => TextTemplate,
@@ -49,5 +49,5 @@ namespace BLENetworkConfigurationSample.Models
 				_ => NoControlTemplate,
 			};
 		}
-    }
+	}
 }

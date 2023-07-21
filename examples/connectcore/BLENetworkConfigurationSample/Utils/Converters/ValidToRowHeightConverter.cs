@@ -18,24 +18,24 @@ using System.Globalization;
 
 namespace BLENetworkConfigurationSample.Utils.Converters
 {
-    internal class ValidToRowHeightConverter : IValueConverter
-    {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (targetType != typeof(GridLength))
-            {
-                throw new InvalidOperationException(string.Format("{0}: The target must be GridLength", GetType().Name));
-            }
+	internal class ValidToRowHeightConverter : IValueConverter
+	{
+		/// <inheritdoc/>
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (targetType != typeof(GridLength))
+			{
+				throw new InvalidOperationException(string.Format("{0}: The target must be GridLength", GetType().Name));
+			}
 
-            bool boolValue = (bool)value;
-            return boolValue ? 0 : (GridLength)20;
-        }
+			bool boolValue = (bool)value;
+			return boolValue ? 0 : (GridLength)20;
+		}
 
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
+		/// <inheritdoc/>
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotSupportedException();
+		}
+	}
 }

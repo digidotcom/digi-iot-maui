@@ -18,25 +18,25 @@ using System.Text.RegularExpressions;
 
 namespace BLENetworkConfigurationSample.Utils.Validators
 {
-    internal class IPValidator : IValidationRule
-    {
-        // Constants.
-        private const string IP_PATTERN = @"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$";
+	internal class IPValidator : IValidationRule
+	{
+		// Constants.
+		private const string IP_PATTERN = @"^((25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])\.){3}(25[0-5]|2[0-4][0-9]|1[0-9][0-9]|[1-9]?[0-9])$";
 
-        // Properties.
-        /// <inheritdoc/>
-        public string Description => "IP must match syntax 'XXX.XXX.XXX.XXX'";
+		// Properties.
+		/// <inheritdoc/>
+		public string Description => "IP must match syntax 'XXX.XXX.XXX.XXX'";
 
-        /// <inheritdoc/>
-        public bool Validate(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return false;
-            }
+		/// <inheritdoc/>
+		public bool Validate(string value)
+		{
+			if (string.IsNullOrEmpty(value))
+			{
+				return false;
+			}
 
-            Regex regex = new(IP_PATTERN, RegexOptions.IgnoreCase);
-            return regex.IsMatch(value);
-        }
-    }
+			Regex regex = new(IP_PATTERN, RegexOptions.IgnoreCase);
+			return regex.IsMatch(value);
+		}
+	}
 }

@@ -16,16 +16,16 @@
 
 namespace DigiIoT.Maui.Services.GPS
 {
-    /// <summary>
-    /// Partial class that defines the shared implementation of the GPS
-    /// status service.
-    /// </summary>
-    public partial class GPSStatusService
-    {
-        /// <summary>
-        /// Returns whether the GPS is enabled or not.
-        /// </summary>
-        /// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
-        public static partial bool IsGPSEnabled();
-    }
+	/// <summary>
+	/// Partial class that defines the shared implementation of the GPS
+	/// status service.
+	/// </summary>
+	public partial class GPSStatusService
+	{
+		/// <summary>
+		/// Returns whether the GPS is enabled or not.
+		/// </summary>
+		/// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
+		public static partial bool IsGPSEnabled();
+	}
 }

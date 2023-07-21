@@ -20,36 +20,36 @@ using static Microsoft.Maui.ApplicationModel.Permissions;
 
 namespace DigiIoT.Maui.Services.Bluetooth
 {
-    /// <summary>
-    /// Partial class that includes the custom Android implementation of the Bluetooth
-    /// permissions service.
-    /// </summary>
-    public partial class BLEPermissionsService
+	/// <summary>
+	/// Partial class that includes the custom Android implementation of the Bluetooth
+	/// permissions service.
+	/// </summary>
+	public partial class BLEPermissionsService
 	{
-        /// <summary>
-        /// Returns whether Bluetooth permissions where granted or not.
-        /// </summary>
-        /// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
+		/// <summary>
+		/// Returns whether Bluetooth permissions where granted or not.
+		/// </summary>
+		/// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
 		public async partial Task<bool> RequestBLEPermissions()
-        {
-            if (Build.VERSION.SdkInt < BuildVersionCodes.S)
-            {
-                return true;
-            }
-            PermissionStatus status = await RequestAsync<BLEPermission>();
-            return status == PermissionStatus.Granted;
-        }
-    }
+		{
+			if (Build.VERSION.SdkInt < BuildVersionCodes.S)
+			{
+				return true;
+			}
+			PermissionStatus status = await RequestAsync<BLEPermission>();
+			return status == PermissionStatus.Granted;
+		}
+	}
 
-    /// <summary>
-    /// Class that lists the BLE permissions that should be requested.
-    /// </summary>
-    internal class BLEPermission : BasePlatformPermission
-    {
-        public override (string androidPermission, bool isRuntime)[] RequiredPermissions => new List<(string androidPermission, bool isRuntime)>
-            {
-                (Manifest.Permission.BluetoothConnect, true),
-                (Manifest.Permission.BluetoothScan, true)
-            }.ToArray();
-    }
+	/// <summary>
+	/// Class that lists the BLE permissions that should be requested.
+	/// </summary>
+	internal class BLEPermission : BasePlatformPermission
+	{
+		public override (string androidPermission, bool isRuntime)[] RequiredPermissions => new List<(string androidPermission, bool isRuntime)>
+		{
+			(Manifest.Permission.BluetoothConnect, true),
+			(Manifest.Permission.BluetoothScan, true)
+		}.ToArray();
+	}
 }

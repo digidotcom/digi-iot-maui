@@ -16,53 +16,53 @@
 
 namespace BLENetworkConfigurationSample.Models
 {
-    internal class ComboSetting : AbstractSetting
-    {
-        // Properties
-        /// <summary>
-        /// Gets the table of values.
-        /// </summary>
-        public Dictionary<string, string> Values { get; }
+	internal class ComboSetting : AbstractSetting
+	{
+		// Properties
+		/// <summary>
+		/// Gets the table of values.
+		/// </summary>
+		public Dictionary<string, string> Values { get; }
 
-        // Properties
-        /// <summary>
-        /// Gets the list of available values.
-        /// </summary>
-        public IList<string> AvailableValues => new List<string>(Values.Keys);
+		// Properties
+		/// <summary>
+		/// Gets the list of available values.
+		/// </summary>
+		public IList<string> AvailableValues => new List<string>(Values.Keys);
 
-        /// <summary>
-        /// Gets the list of display values.
-        /// </summary>
-        public IList<string> DisplayValues => new List<string>(Values.Values);
+		/// <summary>
+		/// Gets the list of display values.
+		/// </summary>
+		public IList<string> DisplayValues => new List<string>(Values.Values);
 
-        /// <summary>
-        /// The setting display value.
-        /// </summary>
-        public string DisplayValue => Values[Value];
+		/// <summary>
+		/// The setting display value.
+		/// </summary>
+		public string DisplayValue => Values[Value];
 
-        /// <summary>
-        /// The setting value.
-        /// </summary>
-        public new string Value
-        {
-            get => base.Value;
-            set
-            {
-                base.Value = value;
-                RaisePropertyChangedEvent(nameof(DisplayValue));
-            }
-        }
+		/// <summary>
+		/// The setting value.
+		/// </summary>
+		public new string Value
+		{
+			get => base.Value;
+			set
+			{
+				base.Value = value;
+				RaisePropertyChangedEvent(nameof(DisplayValue));
+			}
+		}
 
-        /// <summary>
-        /// Class constructor. Instantiates a new <c>ComboSetting</c> with
-        /// the given parameters.
-        /// </summary>
-        /// <param name="name">The setting name.</param>
-        /// <param name="defaultValue">The setting default value.</param>
-        /// <param name="availableValues">Dictionary of available values with their display value for the setting.</param>
-        public ComboSetting(string name, string defaultValue, Dictionary<string, string> availableValues) : base(SettingType.COMBO, name, defaultValue, null)
-        {
-            this.Values = availableValues;
-        }
-    }
+		/// <summary>
+		/// Class constructor. Instantiates a new <c>ComboSetting</c> with
+		/// the given parameters.
+		/// </summary>
+		/// <param name="name">The setting name.</param>
+		/// <param name="defaultValue">The setting default value.</param>
+		/// <param name="availableValues">Dictionary of available values with their display value for the setting.</param>
+		public ComboSetting(string name, string defaultValue, Dictionary<string, string> availableValues) : base(SettingType.COMBO, name, defaultValue, null)
+		{
+			this.Values = availableValues;
+		}
+	}
 }

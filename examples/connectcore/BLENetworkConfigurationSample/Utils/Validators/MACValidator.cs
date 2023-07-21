@@ -18,25 +18,25 @@ using System.Text.RegularExpressions;
 
 namespace BLENetworkConfigurationSample.Utils.Validators
 {
-    internal class MACValidator : IValidationRule
-    {
-        // Constants.
-        private const string MAC_PATTERN = @"^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$";
+	internal class MACValidator : IValidationRule
+	{
+		// Constants.
+		private const string MAC_PATTERN = @"^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$";
 
-        // Properties.
-        /// <inheritdoc/>
-        public string Description => "MAC must match syntax 'XX:XX:XX:XX:XX:XX'";
+		// Properties.
+		/// <inheritdoc/>
+		public string Description => "MAC must match syntax 'XX:XX:XX:XX:XX:XX'";
 
-        /// <inheritdoc/>
-        public bool Validate(string value)
-        {
-            if (string.IsNullOrEmpty(value))
-            {
-                return false;
-            }
+		/// <inheritdoc/>
+		public bool Validate(string value)
+		{
+			if (string.IsNullOrEmpty(value))
+			{
+				return false;
+			}
 
-            Regex regex = new(MAC_PATTERN, RegexOptions.IgnoreCase);
-            return regex.IsMatch(value);
-        }
-    }
+			Regex regex = new(MAC_PATTERN, RegexOptions.IgnoreCase);
+			return regex.IsMatch(value);
+		}
+	}
 }

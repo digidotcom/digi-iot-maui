@@ -18,17 +18,17 @@ using System.Globalization;
 
 namespace BLENetworkConfigurationSample.Utils.Converters
 {
-    public class StringNullOrEmptyBooleanConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            string stringValue = (string)value;
-            return !string.IsNullOrWhiteSpace(stringValue);
-        }
+	public class StringNullOrEmptyBooleanConverter : IValueConverter
+	{
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			string stringValue = (string)value;
+			return !string.IsNullOrWhiteSpace(stringValue);
+		}
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            return null;
-        }
-    }
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			return null;
+		}
+	}
 }

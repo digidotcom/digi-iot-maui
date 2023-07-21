@@ -16,14 +16,14 @@
 
 namespace BLENetworkConfigurationSample.Models
 {
-    /// <summary>
-    /// Enumerates the available setting types.
-    /// </summary>
-    public enum SettingType
-    {
-        // Enumeration entries.
-        BOOLEAN = 0,
-        TEXT = 1,
-        COMBO = 2
-    }
+	/// <summary>
+	/// Enumerates the available setting types.
+	/// </summary>
+	public enum SettingType
+	{
+		// Enumeration entries.
+		BOOLEAN = 0,
+		TEXT = 1,
+		COMBO = 2
+	}
 }

@@ -26,15 +26,15 @@ using XBeeLibrary.Core.Packet;
 
 namespace DigiIoT.Maui.Devices.XBee
 {
-    /// <summary>
-    /// This class represents an XBee device with Bluetooth Low Energy (BLE) connectivity.
-    /// </summary>
-    /// <seealso cref="XBeeCellularBLEDevice"/>
-    /// <seealso cref="XBeeDigiMeshBLEDevice"/>
-    /// <seealso cref="XBee802BLEDevice"/>
-    /// <seealso cref="XBeeZigbeeBLEDevice"/>
-    public class XBeeBLEDevice : AbstractXBeeDevice, IDigiBLEDevice
-    {
+	/// <summary>
+	/// This class represents an XBee device with Bluetooth Low Energy (BLE) connectivity.
+	/// </summary>
+	/// <seealso cref="XBeeCellularBLEDevice"/>
+	/// <seealso cref="XBeeDigiMeshBLEDevice"/>
+	/// <seealso cref="XBee802BLEDevice"/>
+	/// <seealso cref="XBeeZigbeeBLEDevice"/>
+	public class XBeeBLEDevice : AbstractXBeeDevice, IDigiBLEDevice
+	{
 		/// <summary>
 		/// Class constructor. Instantiates a new <see cref="XBeeBLEDevice"/> object with the given 
 		/// parameters.
@@ -90,106 +90,106 @@ namespace DigiIoT.Maui.Devices.XBee
 			bluetoothPassword = password;
 		}
 
-        // Events.
+		// Events.
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-        public new event EventHandler<Events.DataReceivedEventArgs> DataReceived;
+		public new event EventHandler<Events.DataReceivedEventArgs> DataReceived;
 
-        /// <summary>
-        /// Represents the method that will handle the Data received event.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
-        /// <seealso cref="PacketReceivedEventArgs"/>
-        public new event EventHandler<PacketReceivedEventArgs> PacketReceived
-        {
-            add
-            {
-                base.PacketReceived += value;
-            }
-            remove
-            {
-                base.PacketReceived -= value;
-            }
-        }
+		/// <summary>
+		/// Represents the method that will handle the Data received event.
+		/// </summary>
+		/// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
+		/// <seealso cref="PacketReceivedEventArgs"/>
+		public new event EventHandler<PacketReceivedEventArgs> PacketReceived
+		{
+			add
+			{
+				base.PacketReceived += value;
+			}
+			remove
+			{
+				base.PacketReceived -= value;
+			}
+		}
 
-        /// <summary>
-        /// Represents the method that will handle the User Data Relay received event.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
-        /// <seealso cref="UserDataRelayReceivedEventArgs"/>
-        public new event EventHandler<UserDataRelayReceivedEventArgs> UserDataRelayReceived
-        {
-            add
-            {
-                base.UserDataRelayReceived += value;
-            }
-            remove
-            {
-                base.UserDataRelayReceived -= value;
-            }
-        }
+		/// <summary>
+		/// Represents the method that will handle the User Data Relay received event.
+		/// </summary>
+		/// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
+		/// <seealso cref="UserDataRelayReceivedEventArgs"/>
+		public new event EventHandler<UserDataRelayReceivedEventArgs> UserDataRelayReceived
+		{
+			add
+			{
+				base.UserDataRelayReceived += value;
+			}
+			remove
+			{
+				base.UserDataRelayReceived -= value;
+			}
+		}
 
-        /// <summary>
-        /// Represents the method that will handle the MicroPython data received event.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
-        /// <seealso cref="MicroPythonDataReceivedEventArgs"/>
-        public new event EventHandler<MicroPythonDataReceivedEventArgs> MicroPythonDataReceived
-        {
-            add
-            {
-                base.MicroPythonDataReceived += value;
-            }
-            remove
-            {
-                base.MicroPythonDataReceived -= value;
-            }
-        }
+		/// <summary>
+		/// Represents the method that will handle the MicroPython data received event.
+		/// </summary>
+		/// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
+		/// <seealso cref="MicroPythonDataReceivedEventArgs"/>
+		public new event EventHandler<MicroPythonDataReceivedEventArgs> MicroPythonDataReceived
+		{
+			add
+			{
+				base.MicroPythonDataReceived += value;
+			}
+			remove
+			{
+				base.MicroPythonDataReceived -= value;
+			}
+		}
 
-        /// <summary>
-        /// Represents the method that will handle the serial data received event.
-        /// </summary>
-        /// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
-        /// <seealso cref="SerialDataReceivedEventArgs"/>
-        public new event EventHandler<SerialDataReceivedEventArgs> SerialDataReceived
-        {
-            add
-            {
-                base.SerialDataReceived += value;
-            }
-            remove
-            {
-                base.SerialDataReceived -= value;
-            }
-        }
+		/// <summary>
+		/// Represents the method that will handle the serial data received event.
+		/// </summary>
+		/// <exception cref="ArgumentNullException">If the event handler is <c>null</c>.</exception>
+		/// <seealso cref="SerialDataReceivedEventArgs"/>
+		public new event EventHandler<SerialDataReceivedEventArgs> SerialDataReceived
+		{
+			add
+			{
+				base.SerialDataReceived += value;
+			}
+			remove
+			{
+				base.SerialDataReceived -= value;
+			}
+		}
 
-        // Properties.
+		// Properties.
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-        public bool IsConnected => IsOpen;
+		public bool IsConnected => IsOpen;
 
-        /// <summary>
-        /// Indicates whether this XBee device is a remote device.
-        /// </summary>
-        public override bool IsRemote => false;
+		/// <summary>
+		/// Indicates whether this XBee device is a remote device.
+		/// </summary>
+		public override bool IsRemote => false;
 
-        /// <summary>
-        /// The XBee device timeout in milliseconds for received packets in synchronous operations.
-        /// </summary>
-        /// <exception cref="ArgumentException">If the value to be set is lesser than 0.</exception>
-        public new int ReceiveTimeout
-        {
-            get
-            {
-                return base.ReceiveTimeout;
-            }
-            set
-            {
-                base.ReceiveTimeout = value;
-            }
-        }
+		/// <summary>
+		/// The XBee device timeout in milliseconds for received packets in synchronous operations.
+		/// </summary>
+		/// <exception cref="ArgumentException">If the value to be set is lesser than 0.</exception>
+		public new int ReceiveTimeout
+		{
+			get
+			{
+				return base.ReceiveTimeout;
+			}
+			set
+			{
+				base.ReceiveTimeout = value;
+			}
+		}
 
 		/// <summary>
 		/// <inheritdoc/>
@@ -292,18 +292,18 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <exception cref="XBeeLibrary.Core.Exceptions.TimeoutException">If there is a timeout resetting the device.</exception>
 		/// <exception cref="XBeeException">If there is any other XBee related error.</exception>
 		public override void Reset()
-        {
-            SoftwareReset();
-        }
+		{
+			SoftwareReset();
+		}
 
-        /// <summary>
-        /// Gets the next Frame ID of this XBee device.
-        /// </summary>
-        /// <returns>The next Frame ID.</returns>
-        public new byte GetNextFrameID()
-        {
-            return base.GetNextFrameID();
-        }
+		/// <summary>
+		/// Gets the next Frame ID of this XBee device.
+		/// </summary>
+		/// <returns>The next Frame ID.</returns>
+		public new byte GetNextFrameID()
+		{
+			return base.GetNextFrameID();
+		}
 
 		/// <summary>
 		/// Returns the 64-bit destination extended address of this XBee device.
@@ -319,9 +319,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SetDestinationAddress(XBee64BitAddress)"/>
 		/// <seealso cref="XBee64BitAddress"/>
 		public new XBee64BitAddress GetDestinationAddress()
-        {
-            return base.GetDestinationAddress();
-        }
+		{
+			return base.GetDestinationAddress();
+		}
 
 		/// <summary>
 		/// Sets the 64-bit destination extended address of this XBee device.
@@ -337,9 +337,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="GetDestinationAddress"/>
 		/// <seealso cref="XBee64BitAddress"/>
 		public new void SetDestinationAddress(XBee64BitAddress xbee64BitAddress)
-        {
-            base.SetDestinationAddress(xbee64BitAddress);
-        }
+		{
+			base.SetDestinationAddress(xbee64BitAddress);
+		}
 
 		/// <summary>
 		/// Returns the operating PAN ID (Personal Area Network Identifier) of this XBee device.
@@ -355,9 +355,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <exception cref="XBeeException">If there is any other XBee related error.</exception>
 		/// <seealso cref="SetPANID(byte[])"/>
 		public new byte[] GetPANID()
-        {
-            return base.GetPANID();
-        }
+		{
+			return base.GetPANID();
+		}
 
 		/// <summary>
 		/// Sets the PAN ID (Personal Area Network Identifier) of this XBee device.
@@ -374,9 +374,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <exception cref="XBeeException">If there is any other XBee related error.</exception>
 		/// <seealso cref="GetPANID"/>
 		public new void SetPANID(byte[] panID)
-        {
-            base.SetPANID(panID);
-        }
+		{
+			base.SetPANID(panID);
+		}
 
 		/// <summary>
 		/// Returns the set of IO lines of this device that are monitored for change detection.
@@ -396,9 +396,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SetDIOChangeDetection(ISet{IOLine})"/>
 		/// <seealso cref="IOLine"/>
 		public new ISet<IOLine> GetDIOChangeDetection()
-        {
-            return base.GetDIOChangeDetection();
-        }
+		{
+			return base.GetDIOChangeDetection();
+		}
 
 		/// <summary>
 		/// Sets the digital IO lines of this XBee device to be monitored and sampled whenever their status 
@@ -420,9 +420,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SetDestinationAddress(XBee64BitAddress)"/>
 		/// <seealso cref="GetDIOChangeDetection"/>
 		public new void SetDIOChangeDetection(ISet<IOLine> lines)
-        {
-            base.SetDIOChangeDetection(lines);
-        }
+		{
+			base.SetDIOChangeDetection(lines);
+		}
 
 		/// <summary>
 		/// Returns the IO sampling rate of this XBee device.
@@ -440,9 +440,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SetDestinationAddress(XBee64BitAddress)"/>
 		/// <seealso cref="SetIOSamplingRate(int)"/>
 		public new int GetIOSamplingRate()
-        {
-            return base.GetIOSamplingRate();
-        }
+		{
+			return base.GetIOSamplingRate();
+		}
 
 		/// <summary>
 		/// Sets the IO sampling rate to enable periodic sampling in this XBee device.
@@ -462,9 +462,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SetDestinationAddress(XBee64BitAddress)"/>
 		/// <seealso cref="GetIOSamplingRate"/>
 		public new void SetIOSamplingRate(int rate)
-        {
-            base.SetIOSamplingRate(rate);
-        }
+		{
+			base.SetIOSamplingRate(rate);
+		}
 
 		/// <summary>
 		/// Returns the output power level at which this XBee device transmits conducted power.
@@ -478,9 +478,9 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SetPowerLevel(PowerLevel)"/>
 		/// <seealso cref="PowerLevel"/>
 		public new PowerLevel GetPowerLevel()
-        {
-            return base.GetPowerLevel();
-        }
+		{
+			return base.GetPowerLevel();
+		}
 
 		/// <summary>
 		/// Sets the output power level at which this XBee device transmits conducted power.
@@ -494,96 +494,96 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="GetPowerLevel"/>
 		/// <seealso cref="PowerLevel"/>
 		public new void SetPowerLevel(PowerLevel powerLevel)
-        {
-            base.SetPowerLevel(powerLevel);
-        }
+		{
+			base.SetPowerLevel(powerLevel);
+		}
 
-        /// <summary>
-        /// Sends the provided data to the given XBee local interface.
-        /// </summary>
-        /// <param name="destinationInterface">Destination XBee local interface.</param>
-        /// <param name="data">Data to send.</param>
-        /// <exception cref="ArgumentException">If the destination interface is unknown.</exception>
-        /// <exception cref="ArgumentException">If data length is greater than 255 bytes.</exception>
-        /// <exception cref="XBeeException">If there is any XBee related error sending the User
-        /// Data Relay.</exception>
-        /// <seealso cref="XBeeLocalInterface"/>
-        /// <seealso cref="SendMicroPythonData(byte[])"/>
-        /// <seealso cref="SendSerialData(byte[])"/>
-        public new void SendUserDataRelay(XBeeLocalInterface destinationInterface, byte[] data)
-        {
-            base.SendUserDataRelay(destinationInterface, data);
-        }
+		/// <summary>
+		/// Sends the provided data to the given XBee local interface.
+		/// </summary>
+		/// <param name="destinationInterface">Destination XBee local interface.</param>
+		/// <param name="data">Data to send.</param>
+		/// <exception cref="ArgumentException">If the destination interface is unknown.</exception>
+		/// <exception cref="ArgumentException">If data length is greater than 255 bytes.</exception>
+		/// <exception cref="XBeeException">If there is any XBee related error sending the User
+		/// Data Relay.</exception>
+		/// <seealso cref="XBeeLocalInterface"/>
+		/// <seealso cref="SendMicroPythonData(byte[])"/>
+		/// <seealso cref="SendSerialData(byte[])"/>
+		public new void SendUserDataRelay(XBeeLocalInterface destinationInterface, byte[] data)
+		{
+			base.SendUserDataRelay(destinationInterface, data);
+		}
 
-        /// <summary>
-        /// Sends the given data to the XBee MicroPython interface in a User Data Relay frame.
-        /// </summary>
-        /// <param name="data">Data to send.</param>
-        /// <exception cref="ArgumentException">If data length is greater than 255 bytes.</exception>
-        /// <exception cref="XBeeException">If there is any XBee related error sending the
-        /// MicroPython data.</exception>
-        /// <seealso cref="SendSerialData(byte[])"/>
-        /// <seealso cref="SendUserDataRelay(XBeeLocalInterface, byte[])"/>
-        public new void SendMicroPythonData(byte[] data)
-        {
-            base.SendMicroPythonData(data);
-        }
+		/// <summary>
+		/// Sends the given data to the XBee MicroPython interface in a User Data Relay frame.
+		/// </summary>
+		/// <param name="data">Data to send.</param>
+		/// <exception cref="ArgumentException">If data length is greater than 255 bytes.</exception>
+		/// <exception cref="XBeeException">If there is any XBee related error sending the
+		/// MicroPython data.</exception>
+		/// <seealso cref="SendSerialData(byte[])"/>
+		/// <seealso cref="SendUserDataRelay(XBeeLocalInterface, byte[])"/>
+		public new void SendMicroPythonData(byte[] data)
+		{
+			base.SendMicroPythonData(data);
+		}
 
-        /// <summary>
-        /// Sends the given data to the XBee serial interface in a User Data Relay frame.
-        /// </summary>
-        /// <param name="data">Data to send.</param>
-        /// <exception cref="ArgumentException">If data length is greater than 255 bytes.</exception>
-        /// <exception cref="XBeeException">If there is any XBee related error sending the serial
-        /// data.</exception>
-        /// <seealso cref="SendMicroPythonData(byte[])"/>
-        /// <seealso cref="SendUserDataRelay(XBeeLocalInterface, byte[])"/>
-        public new void SendSerialData(byte[] data)
-        {
-            base.SendSerialData(data);
-        }
+		/// <summary>
+		/// Sends the given data to the XBee serial interface in a User Data Relay frame.
+		/// </summary>
+		/// <param name="data">Data to send.</param>
+		/// <exception cref="ArgumentException">If data length is greater than 255 bytes.</exception>
+		/// <exception cref="XBeeException">If there is any XBee related error sending the serial
+		/// data.</exception>
+		/// <seealso cref="SendMicroPythonData(byte[])"/>
+		/// <seealso cref="SendUserDataRelay(XBeeLocalInterface, byte[])"/>
+		public new void SendSerialData(byte[] data)
+		{
+			base.SendSerialData(data);
+		}
 
-        /// <summary>
-        /// Sends the given XBee packet and registers the given packet handler (if not <c>null</c>) to 
-        /// manage what happens when the answers is received.
-        /// </summary>
-        /// <remarks>This is a non-blocking operation. To wait for the answer use 
-        /// <see cref="SendPacket(XBeePacket)"/>.</remarks>
-        /// <param name="packet">XBee packet to be sent.</param>
-        /// <param name="handler">Event handler for the operation, <c>null</c> not to be notified when 
-        /// the answer arrives.</param>
-        /// <exception cref="ArgumentNullException">If <c><paramref name="packet"/> == null</c>.</exception>
-        /// <exception cref="InterfaceNotOpenException">If this device connection is not open.</exception>
-        /// <exception cref="InvalidOperatingModeException">If the operating mode is different from 
-        /// <see cref="OperatingMode.API"/> and <see cref="OperatingMode.API_ESCAPE"/>.</exception>
-        /// <exception cref="XBeeException">If there is any other XBee related error.</exception>
-        /// <seealso cref="SendPacket(XBeePacket)"/>
-        /// <seealso cref="SendPacketAsync(XBeePacket)"/>
-        /// <seealso cref="PacketReceivedEventArgs"/>
-        /// <seealso cref="XBeePacket"/>
-        public new void SendPacket(XBeePacket packet, EventHandler<PacketReceivedEventArgs> handler)
-        {
-            base.SendPacket(packet, handler);
-        }
+		/// <summary>
+		/// Sends the given XBee packet and registers the given packet handler (if not <c>null</c>) to 
+		/// manage what happens when the answers is received.
+		/// </summary>
+		/// <remarks>This is a non-blocking operation. To wait for the answer use 
+		/// <see cref="SendPacket(XBeePacket)"/>.</remarks>
+		/// <param name="packet">XBee packet to be sent.</param>
+		/// <param name="handler">Event handler for the operation, <c>null</c> not to be notified when 
+		/// the answer arrives.</param>
+		/// <exception cref="ArgumentNullException">If <c><paramref name="packet"/> == null</c>.</exception>
+		/// <exception cref="InterfaceNotOpenException">If this device connection is not open.</exception>
+		/// <exception cref="InvalidOperatingModeException">If the operating mode is different from 
+		/// <see cref="OperatingMode.API"/> and <see cref="OperatingMode.API_ESCAPE"/>.</exception>
+		/// <exception cref="XBeeException">If there is any other XBee related error.</exception>
+		/// <seealso cref="SendPacket(XBeePacket)"/>
+		/// <seealso cref="SendPacketAsync(XBeePacket)"/>
+		/// <seealso cref="PacketReceivedEventArgs"/>
+		/// <seealso cref="XBeePacket"/>
+		public new void SendPacket(XBeePacket packet, EventHandler<PacketReceivedEventArgs> handler)
+		{
+			base.SendPacket(packet, handler);
+		}
 
-        /// <summary>
-        /// Sends the given XBee packet asynchronously.
-        /// </summary>
-        /// <remarks>To be notified when the answer is received, use the <see cref="PacketReceived"/> 
-        /// event handler.</remarks>
-        /// <param name="packet">The XBee packet to be sent asynchronously.</param>
-        /// <exception cref="ArgumentNullException">If <c><paramref name="packet"/> == null</c>.</exception>
-        /// <exception cref="InterfaceNotOpenException">If this device connection is not open.</exception>
-        /// <exception cref="InvalidOperatingModeException">If the operating mode is different from 
-        /// <see cref="OperatingMode.API"/> and <see cref="OperatingMode.API_ESCAPE"/>.</exception>
-        /// <exception cref="XBeeException">If there is any other XBee related error.</exception>
-        /// <seealso cref="SendPacket(XBeePacket)"/>
-        /// <seealso cref="SendPacket(XBeePacket, EventHandler{PacketReceivedEventArgs})"/>
-        /// <seealso cref="XBeePacket"/>
-        public new void SendPacketAsync(XBeePacket packet)
-        {
-            base.SendPacketAsync(packet);
-        }
+		/// <summary>
+		/// Sends the given XBee packet asynchronously.
+		/// </summary>
+		/// <remarks>To be notified when the answer is received, use the <see cref="PacketReceived"/> 
+		/// event handler.</remarks>
+		/// <param name="packet">The XBee packet to be sent asynchronously.</param>
+		/// <exception cref="ArgumentNullException">If <c><paramref name="packet"/> == null</c>.</exception>
+		/// <exception cref="InterfaceNotOpenException">If this device connection is not open.</exception>
+		/// <exception cref="InvalidOperatingModeException">If the operating mode is different from 
+		/// <see cref="OperatingMode.API"/> and <see cref="OperatingMode.API_ESCAPE"/>.</exception>
+		/// <exception cref="XBeeException">If there is any other XBee related error.</exception>
+		/// <seealso cref="SendPacket(XBeePacket)"/>
+		/// <seealso cref="SendPacket(XBeePacket, EventHandler{PacketReceivedEventArgs})"/>
+		/// <seealso cref="XBeePacket"/>
+		public new void SendPacketAsync(XBeePacket packet)
+		{
+			base.SendPacketAsync(packet);
+		}
 
 		/// <summary>
 		/// Sends the given XBee packet synchronously and blocks until the response is received or 
@@ -609,50 +609,50 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// <seealso cref="SendPacketAsync(XBeePacket)"/>
 		/// <seealso cref="XBeePacket"/>
 		public new XBeePacket SendPacket(XBeePacket packet)
-        {
-            return base.SendPacket(packet);
-        }
+		{
+			return base.SendPacket(packet);
+		}
 
-        /// <summary>
-        /// Reads a new User Data Relay packet received by this XBee device during the configured receive 
-        /// timeout.
-        /// </summary>
-        /// <remarks>This method blocks until new User Data Relay is received or the configured receive 
-        /// timeout expires.</remarks>
-        /// <returns>A <see cref="UserDataRelayMessage"/> object containing the source interface and data. 
-        /// <c>null</c> if this device did not receive new User Data Relay during the configured receive 
-        /// timeout.</returns>
-        /// <exception cref="InterfaceNotOpenException">If the interface is not open.</exception>
-        /// <seealso cref="UserDataRelayMessage"/>
-        public new UserDataRelayMessage ReadUserDataRelay()
-        {
-            return base.ReadUserDataRelay();
-        }
+		/// <summary>
+		/// Reads a new User Data Relay packet received by this XBee device during the configured receive 
+		/// timeout.
+		/// </summary>
+		/// <remarks>This method blocks until new User Data Relay is received or the configured receive 
+		/// timeout expires.</remarks>
+		/// <returns>A <see cref="UserDataRelayMessage"/> object containing the source interface and data. 
+		/// <c>null</c> if this device did not receive new User Data Relay during the configured receive 
+		/// timeout.</returns>
+		/// <exception cref="InterfaceNotOpenException">If the interface is not open.</exception>
+		/// <seealso cref="UserDataRelayMessage"/>
+		public new UserDataRelayMessage ReadUserDataRelay()
+		{
+			return base.ReadUserDataRelay();
+		}
 
-        /// <summary>
-        /// Reads a new User Data Relay packet received by this XBee device during the provided timeout.
-        /// </summary>
-        /// <remarks>This method blocks until new User Data Relay is received or the given timeout 
-        /// expires.</remarks>
-        /// <param name="timeout">The time to wait for new User Data Relay in 
-        /// milliseconds.</param>
-        /// <returns>A <see cref="UserDataRelayMessage"/> object containing the source interface and data. 
-        /// <c>null</c> if this device did not receive new User Data Relay during <paramref name="timeout"/> 
-        /// milliseconds.</returns>
-        /// <exception cref="InterfaceNotOpenException">If the interface is not open.</exception>
-        /// <seealso cref="UserDataRelayMessage"/>
-        public new UserDataRelayMessage ReadUserDataRelay(int timeout)
-        {
-            return base.ReadUserDataRelay(timeout);
-        }
+		/// <summary>
+		/// Reads a new User Data Relay packet received by this XBee device during the provided timeout.
+		/// </summary>
+		/// <remarks>This method blocks until new User Data Relay is received or the given timeout 
+		/// expires.</remarks>
+		/// <param name="timeout">The time to wait for new User Data Relay in 
+		/// milliseconds.</param>
+		/// <returns>A <see cref="UserDataRelayMessage"/> object containing the source interface and data. 
+		/// <c>null</c> if this device did not receive new User Data Relay during <paramref name="timeout"/> 
+		/// milliseconds.</returns>
+		/// <exception cref="InterfaceNotOpenException">If the interface is not open.</exception>
+		/// <seealso cref="UserDataRelayMessage"/>
+		public new UserDataRelayMessage ReadUserDataRelay(int timeout)
+		{
+			return base.ReadUserDataRelay(timeout);
+		}
 
-        /// <summary>
-        /// Handles the user data relay received event notifying about the data received to all the
-        /// <code>BLEDataReceived</code> registered callbacks.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void Device_UserDataRelayReceived(object sender, UserDataRelayReceivedEventArgs e)
+		/// <summary>
+		/// Handles the user data relay received event notifying about the data received to all the
+		/// <code>BLEDataReceived</code> registered callbacks.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
+		private void Device_UserDataRelayReceived(object sender, UserDataRelayReceivedEventArgs e)
 		{
 			if (DataReceived != null)
 			{

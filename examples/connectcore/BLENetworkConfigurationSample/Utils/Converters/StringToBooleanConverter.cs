@@ -18,30 +18,30 @@ using System.Globalization;
 
 namespace BLENetworkConfigurationSample.Utils.Converters
 {
-    class StringToBooleanConverter : IValueConverter
-    {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (targetType != typeof(bool))
-            {
-                throw new InvalidOperationException("The target must be a bool");
-            }
+	class StringToBooleanConverter : IValueConverter
+	{
+		/// <inheritdoc/>
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (targetType != typeof(bool))
+			{
+				throw new InvalidOperationException("The target must be a bool");
+			}
 
-            string stringValue = (string)value;
-            return bool.Parse(stringValue.Trim());
-        }
+			string stringValue = (string)value;
+			return bool.Parse(stringValue.Trim());
+		}
 
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (targetType != typeof(string))
-            {
-                throw new InvalidOperationException("The target must be a string");
-            }
+		/// <inheritdoc/>
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (targetType != typeof(string))
+			{
+				throw new InvalidOperationException("The target must be a string");
+			}
 
-            bool booleanValue = (bool)value;
-            return booleanValue.ToString().ToLower();
-        }
-    }
+			bool booleanValue = (bool)value;
+			return booleanValue.ToString().ToLower();
+		}
+	}
 }

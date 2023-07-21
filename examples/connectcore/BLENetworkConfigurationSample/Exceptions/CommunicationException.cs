@@ -16,18 +16,18 @@
 
 namespace BLENetworkConfigurationSample.Exceptions
 {
-    public class CommunicationException : Exception
-    {
-        public CommunicationException()
-        {
-        }
+	public class CommunicationException : Exception
+	{
+		public CommunicationException()
+		{
+		}
 
-        public CommunicationException(string message) : base(message)
-        {
-        }
+		public CommunicationException(string message) : base(message)
+		{
+		}
 
-        public CommunicationException(string message, Exception inner) : base(message, inner)
-        {
-        }
-    }
+		public CommunicationException(string message, Exception inner) : base(message, inner)
+		{
+		}
+	}
 }

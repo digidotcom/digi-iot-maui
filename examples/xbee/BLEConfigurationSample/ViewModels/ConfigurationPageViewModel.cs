@@ -145,27 +145,27 @@ namespace BLEConfigurationSample.ViewModels
 		/// <summary>
 		/// <inheritdoc/>
 		/// </summary>
-        public override async void DisconnectDevice()
-        {
-            await Task.Run(() =>
-            {
-                // Close the connection.
-                BleDevice.XBeeDevice.Disconnect();
+		public override async void DisconnectDevice()
+		{
+			await Task.Run(() =>
+			{
+				// Close the connection.
+				BleDevice.XBeeDevice.Disconnect();
 
-                // Go to the root page.
-                MainThread.BeginInvokeOnMainThread(async () =>
-                {
-                    await Application.Current.MainPage.Navigation.PopToRootAsync();
-                });
-            });
-        }
+				// Go to the root page.
+				MainThread.BeginInvokeOnMainThread(async () =>
+				{
+					await Application.Current.MainPage.Navigation.PopToRootAsync();
+				});
+			});
+		}
 
-        /// <summary>
-        /// Starts the read or write operation.
-        /// </summary>
-        /// <param name="read"><c>true</c> to start the read operation, <c>false</c> to start the
-        /// write operation.</param>
-        private void StartOperation(bool read)
+		/// <summary>
+		/// Starts the read or write operation.
+		/// </summary>
+		/// <param name="read"><c>true</c> to start the read operation, <c>false</c> to start the
+		/// write operation.</param>
+		private void StartOperation(bool read)
 		{
 			// Show a progress dialog while performing the operation.
 			ShowLoadingDialog(read ? "Reading settings..." : "Writing settings...");

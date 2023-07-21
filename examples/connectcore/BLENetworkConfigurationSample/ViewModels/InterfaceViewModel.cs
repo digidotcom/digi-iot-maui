@@ -21,97 +21,97 @@ using System.Windows.Input;
 
 namespace BLENetworkConfigurationSample.ViewModels
 {
-    public class InterfaceViewModel : DeviceViewModelBase
-    {
-        // Constants.
-        private const string TASK_GENERATING_DATA = "Generating settings page...";
+	public class InterfaceViewModel : DeviceViewModelBase
+	{
+		// Constants.
+		private const string TASK_GENERATING_DATA = "Generating settings page...";
 
-        // Commands.
-        /// <summary>
-        /// Command that opens the interface in a new page.
-        /// </summary>
-        public ICommand OpenInterface { get; private set; }
+		// Commands.
+		/// <summary>
+		/// Command that opens the interface in a new page.
+		/// </summary>
+		public ICommand OpenInterface { get; private set; }
 
-        // Variables.
-        private Interface iface;
+		// Variables.
+		private Interface iface;
 
-        private string ifaceName;
+		private string ifaceName;
 
-        private SettingsPageViewModel viewModel;
+		private SettingsPageViewModel viewModel;
 
-        private SettingsPage settingsPage;
+		private SettingsPage settingsPage;
 
-        // Properties.
-        /// <summary>
-        /// Interface associated to this view model.
-        /// </summary>
-        public Interface Interface
-        {
-            get => iface;
-            set
-            {
-                iface = value;
-                RaisePropertyChangedEvent(nameof(Interface));
-            }
-        }
+		// Properties.
+		/// <summary>
+		/// Interface associated to this view model.
+		/// </summary>
+		public Interface Interface
+		{
+			get => iface;
+			set
+			{
+				iface = value;
+				RaisePropertyChangedEvent(nameof(Interface));
+			}
+		}
 
-        /// <summary>
-        /// Name of the interface.
-        /// </summary>
-        public string InterfaceName
-        {
-            get => ifaceName;
-            set
-            {
-                ifaceName = value;
-                RaisePropertyChangedEvent(nameof(InterfaceName));
-            }
-        }
+		/// <summary>
+		/// Name of the interface.
+		/// </summary>
+		public string InterfaceName
+		{
+			get => ifaceName;
+			set
+			{
+				ifaceName = value;
+				RaisePropertyChangedEvent(nameof(InterfaceName));
+			}
+		}
 
-        /// <summary>
-        /// Class constructor. Instantiates a new <c>InterfaceViewModel</c> 
-        /// object with the provided parameters.
-        /// </summary>
-        /// <param name="bleDevice">BLE device used to configure the 
-        /// settings contained in the interface associated to this view 
-        /// model.</param>
-        /// <param name="iface">The interface associated to this view 
-        /// model.</param>
-        public InterfaceViewModel(BleDevice bleDevice, Interface iface) : base(bleDevice)
-        {
-            InterfaceName = iface.Name;
-            Interface = iface;
+		/// <summary>
+		/// Class constructor. Instantiates a new <c>InterfaceViewModel</c> 
+		/// object with the provided parameters.
+		/// </summary>
+		/// <param name="bleDevice">BLE device used to configure the 
+		/// settings contained in the interface associated to this view 
+		/// model.</param>
+		/// <param name="iface">The interface associated to this view 
+		/// model.</param>
+		public InterfaceViewModel(BleDevice bleDevice, Interface iface) : base(bleDevice)
+		{
+			InterfaceName = iface.Name;
+			Interface = iface;
 
-            OpenInterface = new Command(OpenInterfaceCommand);
-        }
+			OpenInterface = new Command(OpenInterfaceCommand);
+		}
 
-        /// <summary>
-        /// Opens the interface associated to this view model in a new page.
-        /// </summary>
-        private async void OpenInterfaceCommand()
-        {
-            if (Interface == null)
-            {
-                return;
-            }
+		/// <summary>
+		/// Opens the interface associated to this view model in a new page.
+		/// </summary>
+		private async void OpenInterfaceCommand()
+		{
+			if (Interface == null)
+			{
+				return;
+			}
 
-            // Load the page using a loading dialog.
-            using (UserDialogs.Instance.Loading(TASK_GENERATING_DATA))
-            {
-                await Task.Run(() =>
-                {
-                    // Instantiate the settings page view model.
-                    viewModel ??= new SettingsPageViewModel(bleDevice, iface);
-                    // Instantiate the settings page.
-                    settingsPage = new SettingsPage(bleDevice, iface, viewModel);
-                });
-                // Load the interface page.
-                await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
-            }
+			// Load the page using a loading dialog.
+			using (UserDialogs.Instance.Loading(TASK_GENERATING_DATA))
+			{
+				await Task.Run(() =>
+				{
+					// Instantiate the settings page view model.
+					viewModel ??= new SettingsPageViewModel(bleDevice, iface);
+					// Instantiate the settings page.
+					settingsPage = new SettingsPage(bleDevice, iface, viewModel);
+				});
+				// Load the interface page.
+				await Application.Current.MainPage.Navigation.PushAsync(settingsPage);
+			}
 
-            // Read/Initialize interface page settings.
-            settingsPage?.InitSettings();
-        }
+			// Read/Initialize interface page settings.
+			settingsPage?.InitSettings();
+		}
 
 		/// <summary>
 		/// <inheritdoc/>

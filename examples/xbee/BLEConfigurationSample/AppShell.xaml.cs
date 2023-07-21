@@ -18,26 +18,26 @@ using BLEConfigurationSample.ViewModels;
 
 namespace BLEConfigurationSample
 {
-    public partial class AppShell : Shell
-    {
-        public AppShell()
-        {
-            InitializeComponent();
-        }
+	public partial class AppShell : Shell
+	{
+		public AppShell()
+		{
+			InitializeComponent();
+		}
 
-        /// <summary>
-        /// <inheritdoc/>
-        /// </summary>
-        protected override bool OnBackButtonPressed()
-        {
-            Dispatcher.Dispatch(async () =>
-            {
-                if (Current.CurrentPage.BindingContext is ViewModelBase)
-                {
-                    await ((ViewModelBase)Current.CurrentPage.BindingContext).NavigateBack();
-                }
-            });
-            return true;
-        }
-    }
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		protected override bool OnBackButtonPressed()
+		{
+			Dispatcher.Dispatch(async () =>
+			{
+				if (Current.CurrentPage.BindingContext is ViewModelBase)
+				{
+					await ((ViewModelBase)Current.CurrentPage.BindingContext).NavigateBack();
+				}
+			});
+			return true;
+		}
+	}
 }

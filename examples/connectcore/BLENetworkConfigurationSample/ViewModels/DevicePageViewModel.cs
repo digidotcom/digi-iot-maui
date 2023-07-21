@@ -20,73 +20,73 @@ using DigiIoT.Maui.Devices.ConnectCore;
 
 namespace InterfacesConfigurationSample.ViewModels
 {
-    public class DevicePageViewModel : DeviceViewModelBase
-    {
-        // Variables.
-        private string name = "";
-        private string macAddress = "";
+	public class DevicePageViewModel : DeviceViewModelBase
+	{
+		// Variables.
+		private string name = "";
+		private string macAddress = "";
 
-        // Properties.
-        /// <summary>
-        /// Name of the BLE device associated to this view model.
-        /// </summary>
-        public string Name
-        {
-            get => name;
-            set
-            {
-                name = value;
-                RaisePropertyChangedEvent(nameof(Name));
-            }
-        }
+		// Properties.
+		/// <summary>
+		/// Name of the BLE device associated to this view model.
+		/// </summary>
+		public string Name
+		{
+			get => name;
+			set
+			{
+				name = value;
+				RaisePropertyChangedEvent(nameof(Name));
+			}
+		}
 
-        /// <summary>
-        /// MAC address of the BLE device associated to this view model.
-        /// </summary>
-        public string MacAddress
-        {
-            get => macAddress;
-            set
-            {
-                macAddress = value;
-                RaisePropertyChangedEvent(nameof(MacAddress));
-            }
-        }
+		/// <summary>
+		/// MAC address of the BLE device associated to this view model.
+		/// </summary>
+		public string MacAddress
+		{
+			get => macAddress;
+			set
+			{
+				macAddress = value;
+				RaisePropertyChangedEvent(nameof(MacAddress));
+			}
+		}
 
-        /// <summary>
-        /// List of interfaces of the BLE device associated to this view model.
-        /// </summary>
-        public List<InterfaceViewModel> Interfaces { get; set; } = new List<InterfaceViewModel>();
+		/// <summary>
+		/// List of interfaces of the BLE device associated to this view model.
+		/// </summary>
+		public List<InterfaceViewModel> Interfaces { get; set; } = new List<InterfaceViewModel>();
 
-        /// <summary>
-        /// Class constructor. Instantiates a new <c>DevicePageViewModel</c> object 
-        /// with the provided parameters.
-        /// </summary>
-        /// <param name="bleDevice"></param>
-        public DevicePageViewModel(BleDevice bleDevice) : base(bleDevice)
-        {
-            InitPage();
-        }
+		/// <summary>
+		/// Class constructor. Instantiates a new <c>DevicePageViewModel</c> object 
+		/// with the provided parameters.
+		/// </summary>
+		/// <param name="bleDevice"></param>
+		public DevicePageViewModel(BleDevice bleDevice) : base(bleDevice)
+		{
+			InitPage();
+		}
 
-        /// <summary>
-        /// Initializes the BLE device information page. Displays the 
-        /// device information and fills the interfaces list.
-        /// </summary>
-        private void InitPage()
-        {
-            ConnectCoreBLEDevice device = bleDevice.ConnectCoreDevice;
+		/// <summary>
+		/// Initializes the BLE device information page. Displays the 
+		/// device information and fills the interfaces list.
+		/// </summary>
+		private void InitPage()
+		{
+			ConnectCoreBLEDevice device = bleDevice.ConnectCoreDevice;
 
-            // Get basic information from the device.
-            MacAddress = bleDevice.BleMac;
+			// Get basic information from the device.
+			MacAddress = bleDevice.BleMac;
 			
-            Task.Run(() =>
-              {
-                  // Fill interfaces view model list.
-                  foreach (Interface iface in bleDevice.Interfaces)
-                  {
-                      Interfaces.Add(new InterfaceViewModel(bleDevice, iface));
-                  }
-              });
-        }
-    }
+			Task.Run(() =>
+			{
+				// Fill interfaces view model list.
+				foreach (Interface iface in bleDevice.Interfaces)
+				{
+					Interfaces.Add(new InterfaceViewModel(bleDevice, iface));
+				}
+			});
+		}
+	}
 }

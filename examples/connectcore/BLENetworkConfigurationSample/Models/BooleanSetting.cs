@@ -16,17 +16,17 @@
 
 namespace BLENetworkConfigurationSample.Models
 {
-    internal class BooleanSetting : AbstractSetting
-    {
-        /// <summary>
-        /// Class constructor. Instantiates a new <c>BooleanSetting</c> with
-        /// the given parameters.
-        /// </summary>
-        /// <param name="name">The setting name.</param>
-        /// <param name="defaultValue">The setting default value.</param>
-        public BooleanSetting(string name, string defaultValue) : base(SettingType.BOOLEAN, name, defaultValue, null)
-        {
+	internal class BooleanSetting : AbstractSetting
+	{
+		/// <summary>
+		/// Class constructor. Instantiates a new <c>BooleanSetting</c> with
+		/// the given parameters.
+		/// </summary>
+		/// <param name="name">The setting name.</param>
+		/// <param name="defaultValue">The setting default value.</param>
+		public BooleanSetting(string name, string defaultValue) : base(SettingType.BOOLEAN, name, defaultValue, null)
+		{
 
-        }
-    }
+		}
+	}
 }

@@ -20,57 +20,57 @@ namespace BLEConfigurationSample.Pages;
 
 public partial class ConfigurationPage : ContentPage
 {
-    // Variables.
+	// Variables.
 	private readonly ConfigurationPageViewModel configurationPageViewModel;
 
-    public ConfigurationPage(BleDevice device)
+	public ConfigurationPage(BleDevice device)
 	{
 		InitializeComponent();
-        configurationPageViewModel = new ConfigurationPageViewModel(device);
-        BindingContext = configurationPageViewModel;
+		configurationPageViewModel = new ConfigurationPageViewModel(device);
+		BindingContext = configurationPageViewModel;
 
-        // Initialize the AP values picker.
-        List<string> apValues = new()
-        {
-                "0 Transparent Mode",
-                "1 API Mode Without Escapes",
-                "2 API Mode With Escapes",
-                "3 N/A",
-                "4 MicroPython REPL",
-                "5 Bypass Mode"
-            };
-        apPicker.ItemsSource = apValues;
+		// Initialize the AP values picker.
+		List<string> apValues = new()
+		{
+			"0 Transparent Mode",
+			"1 API Mode Without Escapes",
+			"2 API Mode With Escapes",
+			"3 N/A",
+			"4 MicroPython REPL",
+			"5 Bypass Mode"
+		};
+		apPicker.ItemsSource = apValues;
 
-        // Initialize the D9 values picker.
-        List<string> d9Values = new()
-        {
-                "0 Disabled",
-                "1 Awake/Asleep Indicator",
-                "2 N/A",
-                "3 Digital Input",
-                "4 Digital Output, Low",
-                "5 Digital Output, High"
-            };
-        d9Picker.ItemsSource = d9Values;
-    }
+		// Initialize the D9 values picker.
+		List<string> d9Values = new()
+		{
+			"0 Disabled",
+			"1 Awake/Asleep Indicator",
+			"2 N/A",
+			"3 Digital Input",
+			"4 Digital Output, Low",
+			"5 Digital Output, High"
+		};
+		d9Picker.ItemsSource = d9Values;
+	}
 
-    protected override void OnAppearing()
-    {
-        base.OnAppearing();
-    }
+	protected override void OnAppearing()
+	{
+		base.OnAppearing();
+	}
 
-    protected override void OnDisappearing()
-    {
-        base.OnDisappearing();
-    }
+	protected override void OnDisappearing()
+	{
+		base.OnDisappearing();
+	}
 
-    public void ReadButtonClicked(object sender, System.EventArgs e)
-    {
-        configurationPageViewModel.ReadSettings();
-    }
+	public void ReadButtonClicked(object sender, System.EventArgs e)
+	{
+		configurationPageViewModel.ReadSettings();
+	}
 
-    public void WriteButtonClicked(object sender, System.EventArgs e)
-    {
-        configurationPageViewModel.WriteSettings();
-    }
+	public void WriteButtonClicked(object sender, System.EventArgs e)
+	{
+		configurationPageViewModel.WriteSettings();
+	}
 }

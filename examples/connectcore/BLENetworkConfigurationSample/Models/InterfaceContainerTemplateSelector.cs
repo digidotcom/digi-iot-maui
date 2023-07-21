@@ -16,17 +16,17 @@
 
 namespace BLENetworkConfigurationSample.Models
 {
-    public class InterfaceContainerTemplateSelector : DataTemplateSelector
-    {
-        // Properties
-        /// <summary>
-        /// Data template corresponding to a device interface.
-        /// </summary>
-        public DataTemplate InterfaceTemplate { get; set; }
+	public class InterfaceContainerTemplateSelector : DataTemplateSelector
+	{
+		// Properties
+		/// <summary>
+		/// Data template corresponding to a device interface.
+		/// </summary>
+		public DataTemplate InterfaceTemplate { get; set; }
 
-        protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
-        {
-            return InterfaceTemplate;
-        }
-    }
+		protected override DataTemplate OnSelectTemplate(object item, BindableObject container)
+		{
+			return InterfaceTemplate;
+		}
+	}
 }

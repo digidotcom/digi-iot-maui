@@ -18,24 +18,24 @@ using System.Globalization;
 
 namespace BLENetworkConfigurationSample.Utils.Converters
 {
-    internal class InvertBooleanConverter : IValueConverter
-    {
-        /// <inheritdoc/>
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (targetType != typeof(bool))
-            {
-                throw new InvalidOperationException(string.Format("{0}: The target must be a boolean", GetType().Name));
-            }
+	internal class InvertBooleanConverter : IValueConverter
+	{
+		/// <inheritdoc/>
+		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			if (targetType != typeof(bool))
+			{
+				throw new InvalidOperationException(string.Format("{0}: The target must be a boolean", GetType().Name));
+			}
 
-            bool boolValue = (bool)value;
-            return !boolValue;
-        }
+			bool boolValue = (bool)value;
+			return !boolValue;
+		}
 
-        /// <inheritdoc/>
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotSupportedException();
-        }
-    }
+		/// <inheritdoc/>
+		public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+		{
+			throw new NotSupportedException();
+		}
+	}
 }
