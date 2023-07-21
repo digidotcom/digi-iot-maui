@@ -65,10 +65,10 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		private static readonly string INTERFACE_NAME = "Bluetooth devuce";
 
 		// Variables.
-		private IAdapter adapter;
+		private readonly IAdapter adapter;
 		private IDevice device;
 
-		private Guid deviceGuid;
+		private readonly Guid deviceGuid;
 
 		private ICharacteristic txCharacteristic;
 		private ICharacteristic rxCharacteristic;
@@ -79,7 +79,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		private CounterModeCryptoTransform encryptor;
 		private CounterModeCryptoTransform decryptor;
 
-		static readonly SemaphoreSlim deviceSemaphore = new SemaphoreSlim(initialCount: 1);
+		static readonly SemaphoreSlim deviceSemaphore = new(initialCount: 1);
 
 		private int mtu;
 
@@ -178,10 +178,10 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 					// Force connection transport to be BLE. This fixes an issue with some Android devices
 					// throwing the error '133' while connecting with a BLE device and requesting the GATT
 					// server services and characteristics.
-					ConnectParameters parameters = new ConnectParameters(forceBleTransport: true);
+					ConnectParameters parameters = new(forceBleTransport: true);
 
 					// Abort the connect operation if the given timeout expires.
-					CancellationTokenSource cancelToken = new CancellationTokenSource(CONNECTION_TIMEOUT);
+					CancellationTokenSource cancelToken = new(CONNECTION_TIMEOUT);
 
 					// Connect to the device.
 					if (device == null)
@@ -303,7 +303,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 				// Unsubscribe from the RX characteristic.
 				if (subscribed)
 				{
-					CancellationTokenSource cancelToken = new CancellationTokenSource(SUBSCRIBE_TIMEOUT);
+					CancellationTokenSource cancelToken = new(SUBSCRIBE_TIMEOUT);
 					try
 					{
 						await MainThread.InvokeOnMainThreadAsync(async () =>
@@ -436,7 +436,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 			byte[] dataToWrite = encrypt ? encryptor.TransformFinalBlock(buffer, 0, buffer.Length) : buffer;
 
 			// Abort the write operation if the write timeout expires.
-			CancellationTokenSource cancelToken = new CancellationTokenSource(WRITE_TIMEOUT);
+			CancellationTokenSource cancelToken = new(WRITE_TIMEOUT);
 			bool success = false;
 			Task writeTask = Task.Run(async () =>
 			{
@@ -459,7 +459,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 				});
 			});
 			// Wait for write task to complete.
-			Task.WaitAll(writeTask);
+			writeTask.Wait();
 			// Free semaphore.
 			deviceSemaphore.Release();
 			// Check for error.
@@ -515,10 +515,10 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		/// </param>
 		public void SetEncryptionKeys(byte[] key, byte[] txNonce, byte[] rxNonce)
 		{
-			Aes128CounterMode aesEncryption = new Aes128CounterMode(GetCounter(txNonce, 1));
+			Aes128CounterMode aesEncryption = new(BluetoothInterface.GetCounter(txNonce, 1));
 			encryptor = (CounterModeCryptoTransform)aesEncryption.CreateEncryptor(key, null);
 
-			Aes128CounterMode aesDecryption = new Aes128CounterMode(GetCounter(rxNonce, 1));
+			Aes128CounterMode aesDecryption = new(BluetoothInterface.GetCounter(rxNonce, 1));
 			decryptor = (CounterModeCryptoTransform)aesDecryption.CreateEncryptor(key, null);
 
 			encrypt = true;
@@ -531,7 +531,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		/// <param name="nonce">Nonce used as prefix of the counter block.</param>
 		/// <param name="count">Count value.</param>
 		/// <returns>The encryption counter.</returns>
-		private byte[] GetCounter(byte[] nonce, int count)
+		private static byte[] GetCounter(byte[] nonce, int count)
 		{
 			byte[] counter = new byte[LENGTH_COUNTER];
 			Array.Copy(nonce, 0, counter, 0, nonce.Length);

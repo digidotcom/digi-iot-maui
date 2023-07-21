@@ -103,7 +103,7 @@ namespace BLENetworkConfigurationSample.ViewModels
 					// Instantiate the settings page view model.
 					viewModel ??= new SettingsPageViewModel(bleDevice, iface);
 					// Instantiate the settings page.
-					settingsPage = new SettingsPage(bleDevice, iface, viewModel);
+					settingsPage = new SettingsPage(viewModel);
 				});
 				// Load the interface page.
 				await Application.Current.MainPage.Navigation.PushAsync(settingsPage);

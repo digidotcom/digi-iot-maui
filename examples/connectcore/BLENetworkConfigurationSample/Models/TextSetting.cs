@@ -14,7 +14,6 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-using BLENetworkConfigurationSample.Models;
 using BLENetworkConfigurationSample.Utils.Validators;
 
 namespace BLENetworkConfigurationSample.Models

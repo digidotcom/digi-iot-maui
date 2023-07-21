@@ -199,15 +199,8 @@ namespace BLEConfigurationSample.ViewModels
 				{
 					ShowErrorDialog("Error performing operation", e.Message);
 				}
-                // Close the dialog.
-
-/* Unmerged change from project 'BLEConfigurationSample (net7.0-android)'
-Before:
+				// Close the dialog.
 				HideLoadingDialog();
-After:
-                HideLoadingDialog();
-*/
-                ViewModelBase.HideLoadingDialog();
 			});
 		}
 	}

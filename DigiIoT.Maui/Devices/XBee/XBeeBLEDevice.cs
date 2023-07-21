@@ -251,7 +251,7 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// </summary>
 		public new byte[] ReadData()
 		{
-			UserDataRelayMessage message = null;
+			UserDataRelayMessage message;
 			try
 			{
 				message = ReadUserDataRelay();
@@ -270,7 +270,7 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// </summary>
 		public new byte[] ReadData(int timeout)
 		{
-			UserDataRelayMessage message = null;
+			UserDataRelayMessage message;
 			try
 			{
 				message = ReadUserDataRelay(timeout);

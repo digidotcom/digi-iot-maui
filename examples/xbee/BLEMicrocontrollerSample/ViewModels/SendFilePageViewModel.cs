@@ -178,20 +178,18 @@ namespace BleMicrocontrollerSample.ViewModels
 				for (int i = 0; i < fileBlocks.Count; i++)
 				{
 					byte[] block = fileBlocks[i];
-					using (MemoryStream ms = new())
+					using MemoryStream ms = new();
+					using (BinaryWriter bw = new(ms))
 					{
-						using (BinaryWriter bw = new(ms))
-						{
-							// Append the checksum to the block payload.
-							bw.Write(block);
-							bw.Write(GetChecksum(block));
-						}
-						// Send the block.
-						if (!SendDataAndWaitResponse(ms.ToArray()))
-							return;
-						// Update the progress.
-						UpdateProgress(100 * (i + 1) / fileBlocks.Count);
+						// Append the checksum to the block payload.
+						bw.Write(block);
+						bw.Write(GetChecksum(block));
 					}
+					// Send the block.
+					if (!SendDataAndWaitResponse(ms.ToArray()))
+						return;
+					// Update the progress.
+					UpdateProgress(100 * (i + 1) / fileBlocks.Count);
 				}
 
 				// Send the 'END' message.
@@ -224,7 +222,6 @@ namespace BleMicrocontrollerSample.ViewModels
 				});
 			});
 		}
-            
 
 		/// <summary>
 		/// Splits the given file in blocks.

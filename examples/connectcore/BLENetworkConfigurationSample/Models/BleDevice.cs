@@ -34,8 +34,6 @@ namespace BLENetworkConfigurationSample.Models
 		public static readonly string MAC_REGEX = "(.{2})(.{2})(.{2})(.{2})(.{2})(.{2})";
 		public static readonly string MAC_REPLACE = "$1:$2:$3:$4:$5:$6";
 
-		private const string PREFIX_PWD = "pwd_";
-
 		public static readonly int INACTIVITY_TIME = 10000;
 
 		private static readonly int TIMEOUT_DEFAULT = 5;

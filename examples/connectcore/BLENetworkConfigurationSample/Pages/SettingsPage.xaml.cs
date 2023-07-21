@@ -14,35 +14,23 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-using BLENetworkConfigurationSample.Models;
 using BLENetworkConfigurationSample.ViewModels;
 
 namespace BLENetworkConfigurationSample.Pages;
 
 public partial class SettingsPage : ContentPage
 {
-	// Constants.
-	private const string QUESTION_DISCONNECT = "Are you sure you want to disconnect the BLE device?";
-
 	// Variables.
 	private readonly SettingsPageViewModel viewModel;
-
-	private readonly Interface iface;
-
-	private readonly BleDevice bleDevice;
 
 	/// <summary>
 	/// Class constructor. Instantiates a new <c>DevicePage</c> 
 	/// object with the provided parameters.
 	/// </summary>
-	/// <param name="bleDevice">The BLE device to synchronize settings with.</param>
-	/// <param name="iface">The interface that contains the settings in the page.</param>
 	/// <param name="viewModel">The settings page view model associated to this page.</param>
-	public SettingsPage(BleDevice bleDevice, Interface iface, SettingsPageViewModel viewModel)
+	public SettingsPage(SettingsPageViewModel viewModel)
 	{
-		this.iface = iface;
 		this.viewModel = viewModel;
-		this.bleDevice = bleDevice;
 
 		InitializeComponent();
 		BindingContext = viewModel;

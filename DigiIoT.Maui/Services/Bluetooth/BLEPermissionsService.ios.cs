@@ -47,17 +47,13 @@ namespace DigiIoT.Maui.Services.Bluetooth
 		/// <returns>The Bluetooth permission status.</returns>
 		private PermissionStatus CheckPermissionAsync()
 		{
-			switch (CBManager.Authorization)
+			return CBManager.Authorization switch
 			{
-				case CBManagerAuthorization.AllowedAlways:
-					return PermissionStatus.Granted;
-				case CBManagerAuthorization.Restricted:
-					return PermissionStatus.Restricted;
-				case CBManagerAuthorization.NotDetermined:
-					return PermissionStatus.Unknown;
-				default:
-					return PermissionStatus.Denied;
-			}
+				CBManagerAuthorization.AllowedAlways => PermissionStatus.Granted,
+				CBManagerAuthorization.Restricted => PermissionStatus.Restricted,
+				CBManagerAuthorization.NotDetermined => PermissionStatus.Unknown,
+				_ => PermissionStatus.Denied,
+			};
 		}
 	}
 }

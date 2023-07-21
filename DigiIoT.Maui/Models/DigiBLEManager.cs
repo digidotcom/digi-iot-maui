@@ -265,7 +265,7 @@ namespace DigiIoT.Maui.Models
 		}
 
 		/// <summary>
-		/// Validates that the Bluetooth is operative in the device. This means that necessary interfaces
+		/// Validates that Bluetooth is operative in the device. This means that necessary interfaces
 		/// and permissions are enabled and granted. The method requests for permissions to the user if necessary.
 		/// </summary>
 		/// <exception cref="DigiIoTException">If any required interface is not enabled or necessary permission

@@ -21,9 +21,6 @@ namespace BLENetworkConfigurationSample.Pages;
 
 public partial class DevicePage : ContentPage
 {
-	// Variables.
-	private readonly BleDevice bleDevice;
-
 	/// <summary>
 	/// Class constructor. Instantiates a new <c>DevicePage</c> 
 	/// object with the provided parameters.
@@ -31,8 +28,6 @@ public partial class DevicePage : ContentPage
 	/// <param name="bleDevice">The BLE device to represent in the page.</param>
 	public DevicePage(BleDevice bleDevice)
 	{
-		this.bleDevice = bleDevice;
-
 		InitializeComponent();
 		BindingContext = new DevicePageViewModel(bleDevice);
 	}

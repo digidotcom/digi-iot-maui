@@ -144,12 +144,12 @@ namespace BleMicroPythonSample.ViewModels
 				TemperatureValue = dataArray[0];
 				if (TemperatureValue.Length > 6)
 				{
-					TemperatureValue = TemperatureValue.Substring(0, 6);
+					TemperatureValue = TemperatureValue[..6];
 				}
 				HumidityValue = dataArray[1];
 				if (HumidityValue.Length > 6)
 				{
-					HumidityValue = HumidityValue.Substring(0, 6);
+					HumidityValue = HumidityValue[..6];
 				}
 
 				// Make the texts blink for a short time.
