@@ -7,11 +7,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DigiIoT.Maui", "DigiIoT.Mau
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLEConfigurationSample", "examples\xbee\BLEConfigurationSample\BLEConfigurationSample.csproj", "{FEF8DB69-69FE-48BE-8236-D28C239A6755}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLEMicrocontrollerSample", "examples\xbee\BLEMicrocontrollerSample\BLEMicrocontrollerSample.csproj", "{7D879493-3444-4E5F-B53E-7A3D0FD71894}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLEMicrocontrollerSample", "examples\xbee\BLEMicrocontrollerSample\BLEMicrocontrollerSample.csproj", "{7D879493-3444-4E5F-B53E-7A3D0FD71894}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLEMicroPythonSample", "examples\xbee\BLEMicroPythonSample\BLEMicroPythonSample.csproj", "{9462B48E-21FA-4C93-B90D-A700D9E846AF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLEMicroPythonSample", "examples\xbee\BLEMicroPythonSample\BLEMicroPythonSample.csproj", "{9462B48E-21FA-4C93-B90D-A700D9E846AF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLENetworkConfigurationSample", "examples\connectcore\BLENetworkConfigurationSample\BLENetworkConfigurationSample.csproj", "{45949722-C8D7-46A7-979B-732EA299E030}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BLENetworkConfigurationSample", "examples\connectcore\BLENetworkConfigurationSample\BLENetworkConfigurationSample.csproj", "{45949722-C8D7-46A7-979B-732EA299E030}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{71ABFBFE-868E-47AB-A0AE-F939C6DC3881}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xbee", "xbee", "{9C4F2015-20EB-41E9-A7A6-04EF108540DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "connectcore", "connectcore", "{370975C7-45AC-4930-9D78-0D02F6199394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +56,14 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FEF8DB69-69FE-48BE-8236-D28C239A6755} = {9C4F2015-20EB-41E9-A7A6-04EF108540DF}
+		{7D879493-3444-4E5F-B53E-7A3D0FD71894} = {9C4F2015-20EB-41E9-A7A6-04EF108540DF}
+		{9462B48E-21FA-4C93-B90D-A700D9E846AF} = {9C4F2015-20EB-41E9-A7A6-04EF108540DF}
+		{45949722-C8D7-46A7-979B-732EA299E030} = {370975C7-45AC-4930-9D78-0D02F6199394}
+		{9C4F2015-20EB-41E9-A7A6-04EF108540DF} = {71ABFBFE-868E-47AB-A0AE-F939C6DC3881}
+		{370975C7-45AC-4930-9D78-0D02F6199394} = {71ABFBFE-868E-47AB-A0AE-F939C6DC3881}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {752ED5AC-4BC5-48C1-A667-51F38B9BD574}
