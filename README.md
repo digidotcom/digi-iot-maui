@@ -1,15 +1,15 @@
-# Digi IoT library for Maui [ ![NuGet](https://img.shields.io/nuget/v/DigiIoT.Maui)](https://www.nuget.org/packages/DigiIoT.Maui/)
+# Digi IoT Library for .NET MAUI [ ![NuGet](https://img.shields.io/nuget/v/DigiIoT.Maui)](https://www.nuget.org/packages/DigiIoT.Maui/)
 
-This project contains the source code of the Digi IoT library for Maui, an
-easy-to-use API developed in C# that helps you to develop multi-platform Maui
-applications that communicate with Digi IoT devices via Blouetooth Low Energy.
-Among the compatible Digi IoT devices you can find the 
-[XBee](http://www.digi.com/xbee/) radio frequency (RF) modules and the
-[ConnectCore](http://www.digi.com/connectcore/) ones.
+This project contains the source code of the Digi IoT Library for .NET MAUI, an
+easy-to-use API developed in C# that simplifies the development of
+cross-platform mobile applications in .NET MAUI that communicate with Digi IoT
+devices over Bluetooth Low Energy. Among the compatible Digi IoT devices you
+can find the [ConnectCore](http://www.digi.com/connectcore/) radio frequency
+(RF) modules and the [XBee](http://www.digi.com/xbee/) ones.
 
-The XBee Digi IoT library for Maui has one main module: **DigiIoT.Maui**, which
-contains the necessary APIs to develop multi-platform Maui applications that
-communicate with Digi IoT devices over Bluetooth Low Energy.
+The XBee Digi IoT Library for .NET MAUI has one main module: **DigiIoT.Maui**,
+which contains the necessary APIs to develop cross-platform mobile applications
+in .NET MAUI.
 
 The project includes the C# source code and some examples that show how to
 use the available APIs. The examples are also available in source code format.
@@ -17,8 +17,8 @@ use the available APIs. The examples are also available in source code format.
 The main features of the library include:
 
 * Supported hardware:
-  * Digi ConnectCore family of devices.
-  * Digi XBee 3 family of devices:
+  * Digi ConnectCore devices.
+  * Digi XBee 3 devices:
     * XBee 3 Zigbee
     * XBee 3 802.15.4
     * XBee 3 DigiMesh
@@ -47,7 +47,7 @@ different interfaces (Serial and MicroPython).
 ## Start Here
 
 The best place to get started is the 
-[Digi IoT library for Maui documentation](TBD).
+[Digi IoT Library for .NET MAUI User Guide](https://www.digi.com/resources/documentation/digidocs/90002569).
 
 
 ## How to Contribute

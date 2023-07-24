@@ -13,7 +13,7 @@ The way to report bugs is to use the
 Before reporting a bug, please read the following points:
 
 1. Make sure that it is really a bug by checking the 
-[documentation](TBD).
+[documentation](https://www.digi.com/resources/documentation/digidocs/90002569).
 2. If you still think you have found a bug, make sure someone has not already
 reported it. See the list of 
 [known issues](http://github.com/digidotcom/digi-iot-maui/issues).
@@ -26,7 +26,7 @@ should be asked on the [Digi Forum](http://www.digi.com/support/forum) instead.
 
 ## Suggesting a new feature
 
-1. Consult the [documentation](TBD) 
+1. Consult the [documentation](https://www.digi.com/resources/documentation/digidocs/90002569) 
 to ensure that the behavior you would like is not excluded.
 2. Make sure someone has not already requested it. See the list of 
 [known issues](http://github.com/digidotcom/digi-iot-maui/issues).
@@ -35,7 +35,7 @@ to ensure that the behavior you would like is not excluded.
 
 ## Contributing code
 
-1. Fork the [Digi IoT for Maui library](http://github.com/digidotcom/digi-iot-maui) 
+1. Fork the [Digi IoT Library for .NET MAUI](http://github.com/digidotcom/digi-iot-maui) 
 repository ([how to fork a repo](https://help.github.com/articles/fork-a-repo/)).
 2. Create a branch for your contribution. Use a name that defines the purpose of the additions/modifications. 
 3. Make your changes following the code style used in the library.
