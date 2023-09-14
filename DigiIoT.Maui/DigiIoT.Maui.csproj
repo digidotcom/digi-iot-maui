@@ -24,42 +24,11 @@
 		<PackageProjectUrl>https://www.digi.com/resources/documentation/digidocs/90002569/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/digidotcom/digi-iot-maui</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageIconUrl>https://raw.githubusercontent.com/digidotcom/xbee-iot-maui/master/nuget_icon.png</PackageIconUrl>
+		<PackageIcon>nuget_icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<Description>C# library for .NET MAUI to interact with Digi International's IoT devices over Bluetooth Low Energy.</Description>
 		<PackageTags>ble, connectcore, som, embedded, xbee, library, maui, digi, zigbee, bluetooth, rf, cellular</PackageTags>
-		<PackageReleaseNotes>
-			<![CDATA[
-        - Supported hardware:
-          - Digi ConnectCore devices.
-          - Digi XBee 3 devices:
-            - XBee 3 Zigbee
-            - XBee 3 802.15.4
-            - XBee 3 DigiMesh
-            - XBee 3 Cellular
-        - Support for communicating with the supported hardware over Bluetooth Low Energy:
-          - Connect
-          - Disconnect
-          - Send data
-          - Receive data (directly or through events)
-        - Bluetooth Low Energy specific functionality:
-          - Automatic Bluetooth permissions request handling for Android and iOS
-          - Custom Bluetooth event delegates to be notified about changes in the interface
-          - Bluetooth scan functionality to look for BLE devices and get notified when they are discovered
-        - XBee specific functionality:
-          - Configure common parameters with specific setters and getters.
-          - Configure any other parameter with generic methods.
-          - Execute AT commands.
-          - Apply configuration changes.
-          - Write configuration changes.
-          - Reset the device.
-          - Support for User Data Relay frames, allowing the communication between different interfaces (Serial and MicroPython).
-          - IO lines management:
-            - Configure IO lines.
-            - Set IO line value.
-            - Read IO line value.
-		]]>
-		</PackageReleaseNotes>
-
+		<PackageReleaseNotes>$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/release_notes.txt"))</PackageReleaseNotes>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
@@ -74,7 +43,12 @@
 	  <PackageReference Include="XBeeLibrary.Core" Version="1.0.3" />
 	</ItemGroup>
 
- <!-- Android -->
+  <ItemGroup>
+    <None Include="images\nuget_icon.png" Pack="true" PackagePath="\"/>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+
+  <!-- Android -->
   <ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-android')) != true">
     <Compile Remove="**\**\*.Android.cs" />
     <None Include="**\**\*.Android.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
