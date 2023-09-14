@@ -13,7 +13,7 @@ The way to report bugs is to use the
 Before reporting a bug, please read the following points:
 
 1. Make sure that it is really a bug by checking the 
-[documentation](https://www.digi.com/resources/documentation/digidocs/90002569).
+[documentation](https://www.digi.com/resources/documentation/digidocs/90002569/).
 2. If you still think you have found a bug, make sure someone has not already
 reported it. See the list of 
 [known issues](http://github.com/digidotcom/digi-iot-maui/issues).
@@ -26,7 +26,7 @@ should be asked on the [Digi Forum](http://www.digi.com/support/forum) instead.
 
 ## Suggesting a new feature
 
-1. Consult the [documentation](https://www.digi.com/resources/documentation/digidocs/90002569) 
+1. Consult the [documentation](https://www.digi.com/resources/documentation/digidocs/90002569/) 
 to ensure that the behavior you would like is not excluded.
 2. Make sure someone has not already requested it. See the list of 
 [known issues](http://github.com/digidotcom/digi-iot-maui/issues).

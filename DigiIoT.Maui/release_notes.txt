@@ -3,7 +3,7 @@
 
                          Release Notes (PN 93001378_A)
                                   Build 1.0.0
-                                 24 July, 2023
+                              14 September, 2023
  
                     Copyright 2023, Digi International Inc.
                               http://www.digi.com
@@ -16,7 +16,7 @@
  applications in .NET MAUI that communicate with Digi IoT devices over
  Bluetooth Low Energy.
 
- Digi IoT Library for .NET MAUI v1.0.0, July 2023
+ Digi IoT Library for .NET MAUI v1.0.0, September 2023
 -------------------------------------------------------------------------------
  1. Supported Hardware:
       * Digi ConnectCore devices.
@@ -48,8 +48,15 @@
           * Set IO line value.
           * Read IO line value.
 
+      * Bluetooth Low Energy specific functionality:
+        * Automatic Bluetooth permissions request handling for Android and iOS
+        * Custom Bluetooth event delegates to be notified about changes in the
+          interface
+        * Bluetooth scan functionality to look for BLE devices and get notified
+          when they are discovered
+
       * Maui application examples demonstrating some API specific features.
-	    * Communicate with ConnectCore devices over Bluetooth Low Energy.
+        * Communicate with ConnectCore devices over Bluetooth Low Energy.
         * Configure XBee devices over Bluetooth Low Energy.
         * Send and receive data over Bluetooth Low Energy to a micro-controller
           connected to the XBee serial interface.

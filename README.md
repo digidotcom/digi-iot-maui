@@ -29,6 +29,12 @@ Energy:
   * Disconnect
   * Send data
   * Receive data (directly or through events)  
+* Bluetooth Low Energy specific functionality:
+  * Automatic Bluetooth permissions request handling for Android and iOS
+  * Custom Bluetooth event delegates to be notified about changes in the
+interface
+  * Bluetooth scan functionality to look for BLE devices and get notified
+when they are discovered
 * XBee specific functionality:
   * Configure common parameters with specific setters and getters.
   * Configure any other parameter with generic methods.
@@ -47,7 +53,7 @@ different interfaces (Serial and MicroPython).
 ## Start Here
 
 The best place to get started is the 
-[Digi IoT Library for .NET MAUI User Guide](https://www.digi.com/resources/documentation/digidocs/90002569).
+[Digi IoT Library for .NET MAUI User Guide](https://www.digi.com/resources/documentation/digidocs/90002569/).
 
 
 ## How to Contribute

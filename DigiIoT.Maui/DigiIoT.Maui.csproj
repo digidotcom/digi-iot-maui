@@ -21,7 +21,7 @@
 		<Authors>Digi International Inc.</Authors>
 		<PackageLicenseExpression>MPL-2.0</PackageLicenseExpression>
 		<PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
-		<PackageProjectUrl>http://www.digi.com/resources/documentation/digidocs/90002569/</PackageProjectUrl>
+		<PackageProjectUrl>https://www.digi.com/resources/documentation/digidocs/90002569/</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/digidotcom/digi-iot-maui</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIconUrl>https://raw.githubusercontent.com/digidotcom/xbee-iot-maui/master/nuget_icon.png</PackageIconUrl>
@@ -40,7 +40,11 @@
           - Connect
           - Disconnect
           - Send data
-          - Receive data (directly or through events)  
+          - Receive data (directly or through events)
+        - Bluetooth Low Energy specific functionality:
+          - Automatic Bluetooth permissions request handling for Android and iOS
+          - Custom Bluetooth event delegates to be notified about changes in the interface
+          - Bluetooth scan functionality to look for BLE devices and get notified when they are discovered
         - XBee specific functionality:
           - Configure common parameters with specific setters and getters.
           - Configure any other parameter with generic methods.
