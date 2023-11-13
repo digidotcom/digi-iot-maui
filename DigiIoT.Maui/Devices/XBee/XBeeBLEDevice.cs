@@ -647,6 +647,29 @@ namespace DigiIoT.Maui.Devices.XBee
 		}
 
 		/// <summary>
+		/// Updates the firmware of this XBee device with the given binary stream.
+		/// </summary>
+		/// <remarks>This method only works for those devices that support GPM firmware update.</remarks>
+		/// <param name="firmwareBinaryStream">Firmware binary stream.</param>
+		/// <exception cref="GpmException"></exception>
+		public new void UpdateFirmware(Stream firmwareBinaryStream)
+		{
+			base.UpdateFirmware(firmwareBinaryStream, null);
+		}
+
+		/// <summary>
+		/// Updates the firmware of this XBee device with the given binary stream.
+		/// </summary>
+		/// <remarks>This method only works for those devices that support GPM firmware update.</remarks>
+		/// <param name="firmwareBinaryStream">Firmware binary stream.</param>
+		/// <param name="eventHandler">Event handler to get notified about any process event.</param>
+		/// <exception cref="GpmException"></exception>
+		public new void UpdateFirmware(Stream firmwareBinaryStream, EventHandler<GpmUpdateEventArgs> eventHandler)
+		{
+			base.UpdateFirmware(firmwareBinaryStream, eventHandler);
+		}
+
+		/// <summary>
 		/// Handles the user data relay received event notifying about the data received to all the
 		/// <code>BLEDataReceived</code> registered callbacks.
 		/// </summary>

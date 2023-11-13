@@ -41,7 +41,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 
 		private static readonly int LENGTH_COUNTER = 16;
 
-		private static readonly int REQUESTED_MTU = 255;
+		private static readonly int REQUESTED_MTU = 512; // Maximum ATT layer MTU size.
 
 		private static readonly string ERROR_INVALID_MAC_GUID = "Invalid MAC address or GUID, it has to follow the format 00112233AABB or " +
 			"00:11:22:33:AA:BB for the MAC address or 01234567-0123-0123-0123-0123456789AB for the GUID";
@@ -419,7 +419,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		/// <param name="length">The number of bytes to write.</param>
 		/// <exception cref="DigiIoTException">If there is any error writing data.</exception>
 		/// <seealso cref="WriteData(byte[])"/>
-		public void WriteData(byte[] data, int offset, int length)
+		public async void WriteData(byte[] data, int offset, int length)
 		{
 			// Wait for other device operations.
 			deviceSemaphore.Wait(WRITE_TIMEOUT);
@@ -429,16 +429,13 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 				throw new DigiIoTException(ERROR_CONNECTION_CLOSED);
 			}
 
-			// Prepare data to write.
-			Debug.WriteLine("----- WriteData " + HexUtils.ByteArrayToHexString(data));
-			byte[] buffer = new byte[length];
-			Array.Copy(data, offset, buffer, 0, length);
-			byte[] dataToWrite = encrypt ? encryptor.TransformFinalBlock(buffer, 0, buffer.Length) : buffer;
+			byte[] dataToWrite = new byte[length];
+			Array.Copy(data, offset, dataToWrite, 0, length);
 
 			// Abort the write operation if the write timeout expires.
 			CancellationTokenSource cancelToken = new(WRITE_TIMEOUT);
 			bool success = false;
-			Task writeTask = Task.Run(async () =>
+			await Task.Run(async () =>
 			{
 				// According to BLE.Plugin API documentation, every write operation
 				// must be executed in the main thread.
@@ -446,7 +443,20 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 				{
 					try
 					{
-						success = await txCharacteristic.WriteAsync(dataToWrite, cancellationToken: cancelToken.Token);
+						// Split the data in slices with a max length of the current MTU minus 3.
+						foreach (byte[] slice in SliceData(dataToWrite))
+						{
+							// Prepare data to write.
+							Debug.WriteLine("----- WriteData " + HexUtils.ByteArrayToHexString(slice));
+							byte[] sliceBuffer = new byte[slice.Length];
+							Array.Copy(slice, 0, sliceBuffer, 0, slice.Length);
+							byte[] sliceToWrite = encrypt ? encryptor.TransformFinalBlock(sliceBuffer, 0, sliceBuffer.Length) : slice;
+
+							// Write the slice in the TX characteristic.
+							success = await txCharacteristic.WriteAsync(sliceToWrite, cancellationToken: cancelToken.Token);
+							if (!success)
+								throw new DigiIoTException(ERROR_WRITE);
+						}
 					}
 					catch (Exception)
 					{
@@ -458,8 +468,6 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 					}
 				});
 			});
-			// Wait for write task to complete.
-			writeTask.Wait();
 			// Free semaphore.
 			deviceSemaphore.Release();
 			// Check for error.
@@ -547,6 +555,43 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		public override string ToString()
 		{
 			return INTERFACE_NAME;
+		}
+
+
+		/// <summary>
+		/// Returns a list with the data slices of the given byte array. The
+		/// maximum length of each slice is the negotiated MTU minus 3 bytes.
+		/// 
+		/// According to the Bluetooth core specification, the attribute protocol
+		/// needs 3 bytes for the opcode (write command) and the attribute handle
+		/// (which attribute to write to). So, the actual data length is always
+		/// ATT_MTU minus 3.
+		/// </summary>
+		/// <param name="data">Data to get the slices from.</param>
+		/// <returns>A list with the data slices.</returns>
+		private List<byte[]> SliceData(byte[] data)
+		{
+			List<byte[]> slices = new();
+
+			if (data.Length <= (mtu - 3))
+			{
+				slices.Add(data);
+			}
+			else
+			{
+				int i = 0;
+				while (i < data.Length)
+				{
+					int remainingLength = data.Length - i;
+					int bufferLength = remainingLength < (mtu - 3) ? remainingLength : (mtu - 3);
+					byte[] buffer = new byte[bufferLength];
+					Array.Copy(data, i, buffer, 0, bufferLength);
+					slices.Add(buffer);
+					i += bufferLength;
+				}
+			}
+
+			return slices;
 		}
 	}
 }
