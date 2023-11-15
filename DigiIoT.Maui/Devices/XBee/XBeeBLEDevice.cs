@@ -14,6 +14,7 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+using DigiIoT.Maui.Connection.Bluetooth;
 using DigiIoT.Maui.Exceptions;
 using Plugin.BLE.Abstractions.Contracts;
 using XBeeLibrary.Core;
@@ -282,6 +283,14 @@ namespace DigiIoT.Maui.Devices.XBee
 			if (message == null)
 				return null;
 			return message.Data;
+		}
+
+		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public int getAttMTU()
+		{
+			return (ConnectionInterface as BluetoothInterface).getAttMTU();
 		}
 
 		/// <summary>
@@ -667,6 +676,19 @@ namespace DigiIoT.Maui.Devices.XBee
 		public new void UpdateFirmware(Stream firmwareBinaryStream, EventHandler<GpmUpdateEventArgs> eventHandler)
 		{
 			base.UpdateFirmware(firmwareBinaryStream, eventHandler);
+		}
+
+		/// <summary>
+		/// Updates the firmware of this XBee device with the given binary stream.
+		/// </summary>
+		/// <remarks>This method only works for those devices that support GPM firmware update.</remarks>
+		/// <param name="firmwareBinaryStream">Firmware binary stream.</param>
+		/// <param name="eventHandler">Event handler to get notified about any process event.</param>
+		/// <param name="attMTU">Attribute MTU value.</param>
+		/// <exception cref="GpmException"></exception>
+		public new void UpdateFirmware(Stream firmwareBinaryStream, EventHandler<GpmUpdateEventArgs> eventHandler, int attMTU)
+		{
+			base.UpdateFirmware(firmwareBinaryStream, eventHandler, attMTU);
 		}
 
 		/// <summary>

@@ -106,5 +106,11 @@ namespace DigiIoT.Maui.Devices
 		/// <exception cref="DigiIoTException">If the device is not connected.</exception>
 		/// <seealso cref="ReadData()"/>
 		public byte[] ReadData(int timeout);
+
+		/// <summary>
+		/// Returns the Attribute MTU negotiated with the BLE Gatt server.
+		/// </summary>
+		/// <returns>The Attribute MTU negotiated with the BLE Gatt server.</returns>
+		public int getAttMTU();
 	}
 }

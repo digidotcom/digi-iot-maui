@@ -488,6 +488,15 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		}
 
 		/// <summary>
+		/// Returns the Attribute MTU negotiated with the BLE Gatt server.
+		/// </summary>
+		/// <returns>The Attribute MTU negotiated with the BLE Gatt server.</returns>
+		public int getAttMTU()
+		{
+			return mtu;
+		}
+
+		/// <summary>
 		/// Method executed when new data is received in the RX characteristic.
 		/// </summary>
 		/// <param name="sender">Characteristic Updated Event sender.</param>
