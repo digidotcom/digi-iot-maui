@@ -152,6 +152,14 @@ namespace DigiIoT.Maui.Devices
 		}
 
 		/// <summary>
+		/// <inheritdoc/>
+		/// </summary>
+		public int getAttMTU()
+		{
+			return _xBeeDevice.getAttMTU();
+		}
+
+		/// <summary>
 		/// Returns the string representation of this device.
 		/// </summary>
 		/// <returns>The string representation of this device.</returns>

@@ -64,5 +64,20 @@ namespace DigiIoT.Maui.Devices.XBee
 		/// </summary>
 		/// <seealso cref="XBeeProtocol.CELLULAR"/>
 		public override XBeeProtocol XBeeProtocol => XBeeProtocol.CELLULAR;
+
+		/// <summary>
+		/// The IMEI address of the cellular device.
+		/// </summary>
+		public XBeeIMEIAddress IMEIAddress
+		{
+			get
+			{
+				_imeiAddress ??= new XBeeIMEIAddress(XBee64BitAddr.Value);
+				return _imeiAddress;
+			}
+		}
+
+		// Variables.
+		private XBeeIMEIAddress _imeiAddress;
 	}
 }
