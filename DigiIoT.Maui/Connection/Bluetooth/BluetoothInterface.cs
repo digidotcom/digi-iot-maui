@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2023, Digi International Inc.
+ * Copyright 2023,2024, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -434,7 +434,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 
 			// Abort the write operation if the write timeout expires.
 			CancellationTokenSource cancelToken = new(WRITE_TIMEOUT);
-			bool success = false;
+			int success = -1;
 			await Task.Run(async () =>
 			{
 				// According to BLE.Plugin API documentation, every write operation
@@ -454,7 +454,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 
 							// Write the slice in the TX characteristic.
 							success = await txCharacteristic.WriteAsync(sliceToWrite, cancellationToken: cancelToken.Token);
-							if (!success)
+							if (success != 0)
 								throw new DigiIoTException(ERROR_WRITE);
 						}
 					}
@@ -471,7 +471,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 			// Free semaphore.
 			deviceSemaphore.Release();
 			// Check for error.
-			if (!success)
+			if (success != 0)
 			{
 				throw new DigiIoTException(ERROR_WRITE);
 			}
