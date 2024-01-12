@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2023, Digi International Inc.
+ * Copyright 2023,2024, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -14,21 +14,21 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-namespace DigiIoT.Maui.Services.Bluetooth
+namespace DigiIoT.Maui.Services.GPS
 {
 	/// <summary>
-	/// Partial class that includes the custom Windows implementation of the Bluetooth
-	/// permissions service.
+	/// Partial class that includes the custom Windows implementation of the GPS
+	/// status service.
 	/// </summary>
-	public partial class BLEPermissionsService
+	public partial class GPSStatusService
 	{
 		/// <summary>
-		/// Returns whether Bluetooth permissions where granted or not.
+		/// Returns whether the GPS is enabled or not.
 		/// </summary>
-		/// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
-		public async partial Task<bool> RequestBLEPermissions()
+		/// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
+		public static partial bool IsGPSEnabled()
 		{
-			return await Task.FromResult(true);
+			return true;
 		}
 	}
 }

@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2023, Digi International Inc.
+ * Copyright 2023,2024, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -14,12 +14,10 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
-using CoreBluetooth;
-
 namespace DigiIoT.Maui.Services.Bluetooth
 {
 	/// <summary>
-	/// Partial class that includes the custom iOS implementation of the Bluetooth
+	/// Partial class that includes the custom Windows implementation of the Bluetooth
 	/// permissions service.
 	/// </summary>
 	public partial class BLEPermissionsService
@@ -30,30 +28,7 @@ namespace DigiIoT.Maui.Services.Bluetooth
 		/// <returns><c>true</c> if Bluetooth permissions where granted, <c>false</c> otherwise.</returns>
 		public async partial Task<bool> RequestBLEPermissions()
 		{
-			// Initializing CBCentralManager will present the Bluetooth permission dialog.
-			new CBCentralManager();
-			PermissionStatus status;
-			do
-			{
-				status = CheckPermissionAsync();
-				await Task.Delay(200);
-			} while (status == PermissionStatus.Unknown);
-			return status == PermissionStatus.Granted;
-		}
-
-		/// <summary>
-		/// Checks the Bluetooth permission status.
-		/// </summary>
-		/// <returns>The Bluetooth permission status.</returns>
-		private PermissionStatus CheckPermissionAsync()
-		{
-			return CBManager.Authorization switch
-			{
-				CBManagerAuthorization.AllowedAlways => PermissionStatus.Granted,
-				CBManagerAuthorization.Restricted => PermissionStatus.Restricted,
-				CBManagerAuthorization.NotDetermined => PermissionStatus.Unknown,
-				_ => PermissionStatus.Denied,
-			};
+			return await Task.FromResult(true);
 		}
 	}
 }

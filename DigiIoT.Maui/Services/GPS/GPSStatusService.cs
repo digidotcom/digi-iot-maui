@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2023, Digi International Inc.
+ * Copyright 2023,2024, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -17,7 +17,7 @@
 namespace DigiIoT.Maui.Services.GPS
 {
 	/// <summary>
-	/// Partial class that includes the custom Windows implementation of the GPS
+	/// Partial class that defines the shared implementation of the GPS
 	/// status service.
 	/// </summary>
 	public partial class GPSStatusService
@@ -26,9 +26,6 @@ namespace DigiIoT.Maui.Services.GPS
 		/// Returns whether the GPS is enabled or not.
 		/// </summary>
 		/// <returns><c>true</c> if the GPS is enabled, <c>false</c> otherwise.</returns>
-		public static partial bool IsGPSEnabled()
-		{
-			return true;
-		}
+		public static partial bool IsGPSEnabled();
 	}
 }
