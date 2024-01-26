@@ -38,6 +38,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		private static readonly int DISCONNECTION_TIMEOUT = 5000;
 		private static readonly int SUBSCRIBE_TIMEOUT = 3000;
 		private static readonly int WRITE_TIMEOUT = 3000;
+		private static readonly int WRITE_TIMEOUT_LONG = 6000;
 
 		private static readonly int LENGTH_COUNTER = 16;
 
@@ -419,7 +420,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 		/// <param name="length">The number of bytes to write.</param>
 		/// <exception cref="DigiIoTException">If there is any error writing data.</exception>
 		/// <seealso cref="WriteData(byte[])"/>
-		public async void WriteData(byte[] data, int offset, int length)
+		public void WriteData(byte[] data, int offset, int length)
 		{
 			// Wait for other device operations.
 			deviceSemaphore.Wait(WRITE_TIMEOUT);
@@ -435,7 +436,7 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 			// Abort the write operation if the write timeout expires.
 			CancellationTokenSource cancelToken = new(WRITE_TIMEOUT);
 			int success = -1;
-			await Task.Run(async () =>
+			Task writeTask = Task.Run(async () =>
 			{
 				// According to BLE.Plugin API documentation, every write operation
 				// must be executed in the main thread.
@@ -468,8 +469,12 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 					}
 				});
 			});
+			// Wait for write operation to finish.
+			writeTask.Wait(WRITE_TIMEOUT_LONG);
+
 			// Free semaphore.
 			deviceSemaphore.Release();
+
 			// Check for error.
 			if (success != 0)
 			{
