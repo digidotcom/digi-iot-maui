@@ -211,9 +211,11 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 						throw new DigiIoTException(ERROR_CONNECTION);
 					}
 
-					// Request MTU.
+					// Request MTU and connection interval.
 					mtu = await device.RequestMtuAsync(REQUESTED_MTU);
+					bool highInterval = device.UpdateConnectionInterval(ConnectionInterval.High);
 					Debug.WriteLine("----- MTU: " + mtu);
+					Debug.WriteLine("----- Connection interval high (11-15ms): " + highInterval);
 
 					// Get the TX and RX characteristics.
 					cancelToken = new CancellationTokenSource(WRITE_TIMEOUT);
