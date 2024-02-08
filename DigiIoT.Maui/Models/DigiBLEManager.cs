@@ -62,6 +62,11 @@ namespace DigiIoT.Maui.Models
 		public delegate void ConnectionLostHandler();
 
 		/// <summary>
+		/// Notifies that the device was disconnected.
+		/// </summary>
+		public delegate void DeviceDisconnectedHandler();
+
+		/// <summary>
 		/// Notifies that the Bluetooth scan process has started.
 		/// </summary>
 		public delegate void ScanStartedHandler();
@@ -86,6 +91,11 @@ namespace DigiIoT.Maui.Models
 		/// Event called when the Bluetooth connection was lost.
 		/// </summary>
 		public event ConnectionLostHandler ConnectionLost;
+
+		/// <summary>
+		/// Event called when the device is disconnected.
+		/// </summary>
+		public event DeviceDisconnectedHandler DeviceDisconnected;
 
 		/// <summary>
 		/// Event called when the Bluetooth scan process has started.
@@ -123,6 +133,11 @@ namespace DigiIoT.Maui.Models
 			adapter.DeviceConnectionLost += (sender, e) =>
 			{
 				ConnectionLost?.Invoke();
+			};
+			// Listen for device disconnected events.
+			adapter.DeviceDisconnected += (sender, e) =>
+			{
+				DeviceDisconnected?.Invoke();
 			};
 		}
 
