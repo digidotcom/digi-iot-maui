@@ -23,6 +23,7 @@ The main features of the library include:
     * XBee 3 802.15.4
     * XBee 3 DigiMesh
     * XBee 3 Cellular
+    * XBee 3 BLU
 * Support for communicating with the supported hardware over Bluetooth Low
 Energy:
   * Connect
@@ -65,7 +66,7 @@ document.
 
 ## License
 
-Copyright 2023, Digi International Inc.
+Copyright 2023,2024, Digi International Inc.
 
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this
