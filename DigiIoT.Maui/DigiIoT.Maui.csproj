@@ -40,7 +40,7 @@
 
 	<ItemGroup>
 	  <PackageReference Include="Plugin.BLE" Version="3.0.0-beta.3" />
-	  <PackageReference Include="XBeeLibrary.Core" Version="1.0.3" />
+	  <PackageReference Include="Common.Logging.Core" Version="3.4.1" />
 	</ItemGroup>
 
   <ItemGroup>
@@ -77,6 +77,11 @@
     <!-- e.g net6.0 or net7.0 -->
     <Compile Remove="**\*.net.cs" />
     <None Include="**\*.net.cs" Exclude="$(DefaultItemExcludes);$(DefaultExcludesInProjectFolder)" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="XBeeLibrary.Core">
+      <HintPath>libs\XBeeLibrary.Core.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>
