@@ -287,6 +287,20 @@ namespace DigiIoT.Maui.Models
 		/// was not granted.</exception>
 		public static void ValidateBluetoothStatus()
 		{
+			ValidateBluetoothStatus(false);
+		}
+
+		/// <summary>
+		/// Validates that Bluetooth is operative in the device. This means that necessary interfaces
+		/// and permissions are enabled and granted. The method requests for permissions to the user if necessary.
+		/// </summary>
+		/// <param name="forceLocationPermissions"><c>true</c> if the application
+		/// using the BLE manager requires location permissions. <c>false</c>
+		/// otherwise.</param>
+		/// <exception cref="DigiIoTException">If any required interface is not enabled or necessary permission
+		/// was not granted.</exception>
+		public static void ValidateBluetoothStatus(bool forceLocationPermissions)
+		{
 			var bluetoothEnabledTask = IsBluetoothEnabled();
 			bluetoothEnabledTask.Wait();
 			if (!bluetoothEnabledTask.Result)
@@ -295,7 +309,7 @@ namespace DigiIoT.Maui.Models
 			}
 			if (DeviceInfo.Current.Platform == DevicePlatform.Android)
 			{
-				if (MIN_ANDROID_VERSION_FOR_LOCATION <= DeviceInfo.Version.Major && DeviceInfo.Version.Major <= MAX_ANDROID_VERSION_FOR_LOCATION)
+				if (MIN_ANDROID_VERSION_FOR_LOCATION <= DeviceInfo.Version.Major && (forceLocationPermissions || DeviceInfo.Version.Major <= MAX_ANDROID_VERSION_FOR_LOCATION))
 				{
 					if (!IsGPSEnabled())
 					{
@@ -308,7 +322,7 @@ namespace DigiIoT.Maui.Models
 						throw new DigiIoTException(ERROR_LOCATION_PERMISSION_NOT_GRANTED);
 					}
 				}
-				else if (DeviceInfo.Version.Major > MAX_ANDROID_VERSION_FOR_LOCATION)
+				if (DeviceInfo.Version.Major > MAX_ANDROID_VERSION_FOR_LOCATION)
 				{
 					var bluetoothPermissionTask = RequestBluetoothPermission();
 					bluetoothPermissionTask.Wait();
@@ -320,6 +334,19 @@ namespace DigiIoT.Maui.Models
 			}
 			else if (DeviceInfo.Current.Platform == DevicePlatform.iOS)
 			{
+				if (forceLocationPermissions)
+				{
+					if (!IsGPSEnabled())
+					{
+						throw new DigiIoTException(ERROR_GPS_DISABLED);
+					}
+					var locationPermissionTask = RequestLocationPermission();
+					locationPermissionTask.Wait();
+					if (!locationPermissionTask.Result)
+					{
+						throw new DigiIoTException(ERROR_LOCATION_PERMISSION_NOT_GRANTED);
+					}
+				}
 				var bluetoothPermissionTask = RequestBluetoothPermission();
 				bluetoothPermissionTask.Wait();
 				if (!bluetoothPermissionTask.Result)
