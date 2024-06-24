@@ -122,7 +122,8 @@ namespace DigiIoT.Maui.Models
 			// Listen for changes in the bluetooth adapter.
 			CrossBluetoothLE.Current.StateChanged += (o, e) =>
 			{
-				BluetoothStateChanged?.Invoke(e.NewState);
+				if (e.OldState != BluetoothState.Unknown)
+					BluetoothStateChanged?.Invoke(e.NewState);
 			};
 			// Listen for device advertisements.
 			adapter.DeviceAdvertised += (sender, e) =>
