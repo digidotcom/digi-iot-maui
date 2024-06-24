@@ -237,6 +237,7 @@ namespace DigiIoT.Maui.Models
 		public static Task<bool> RequestLocationPermission()
 		{
 			var tcs = new TaskCompletionSource<bool>();
+			var semaphore = new SemaphoreSlim(0, 1);
 			MainThread.BeginInvokeOnMainThread(async () =>
 			{
 				try
@@ -250,10 +251,15 @@ namespace DigiIoT.Maui.Models
 				}
 				catch (Exception ex)
 				{
+					tcs.TrySetResult(false);
 					tcs.TrySetException(ex);
 				}
+				finally
+				{
+					semaphore.Release();
+				}
 			});
-			return tcs.Task;
+			return WaitForResult(tcs, semaphore);
 		}
 
 		/// <summary>
@@ -264,6 +270,7 @@ namespace DigiIoT.Maui.Models
 		{
 			BLEPermissionsService service = new();
 			var tcs = new TaskCompletionSource<bool>();
+			var semaphore = new SemaphoreSlim(0, 1);
 			MainThread.BeginInvokeOnMainThread(async () =>
 			{
 				try
@@ -273,10 +280,15 @@ namespace DigiIoT.Maui.Models
 				}
 				catch (Exception ex)
 				{
+					tcs.TrySetResult(false);
 					tcs.TrySetException(ex);
 				}
+				finally
+				{
+					semaphore.Release();
+				}
 			});
-			return tcs.Task;
+			return WaitForResult(tcs, semaphore);
 		}
 
 		/// <summary>
@@ -354,6 +366,21 @@ namespace DigiIoT.Maui.Models
 					throw new DigiIoTException(ERROR_BLUETOOTH_PERMISSION_NOT_GRANTED);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Asynchronously waits for the provided semaphore to be available and then
+		/// waits for the given TaskCompletionSource result.
+		/// </summary>
+		/// <param name="tcs">The TaskCompletionSource to await the result from.</param>
+		/// <param name="semaphore">The SemaphoreSlim to wait for before awaiting the
+		/// TaskCompletionSource.</param>
+		/// <returns>A task that represents the asynchronous operation. The task result
+		/// contains the boolean value from the TaskCompletionSource.</returns>
+		private static async Task<bool> WaitForResult(TaskCompletionSource<bool> tcs, SemaphoreSlim semaphore)
+		{
+			await semaphore.WaitAsync();
+			return await tcs.Task;
 		}
 	}
 }
