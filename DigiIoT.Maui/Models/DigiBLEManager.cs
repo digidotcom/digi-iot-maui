@@ -43,6 +43,11 @@ namespace DigiIoT.Maui.Models
 		/// </summary>
 		public bool IsScanning { get; private set; }
 
+		/// <summary>
+		/// Indicates whether the Bluetooth interface is advertising or not.
+		/// </summary>
+		public bool IsAdvertising { get; private set; }
+
 		// Delegates.
 		/// <summary>
 		/// Notifies that a Bluetooth device has been advertised.
@@ -109,6 +114,7 @@ namespace DigiIoT.Maui.Models
 
 		// Variables.
 		private readonly IAdapter adapter;
+		private BeaconAdvertiseService beaconAdvertiseService;
 
 		// Methods.
 		/// <summary>
@@ -118,7 +124,9 @@ namespace DigiIoT.Maui.Models
 		{
 			// Init variables.
 			adapter = CrossBluetoothLE.Current.Adapter;
+			beaconAdvertiseService = new();
 			IsScanning = false;
+			IsAdvertising = false;
 			// Listen for changes in the bluetooth adapter.
 			CrossBluetoothLE.Current.StateChanged += (o, e) =>
 			{
@@ -367,6 +375,48 @@ namespace DigiIoT.Maui.Models
 					throw new DigiIoTException(ERROR_BLUETOOTH_PERMISSION_NOT_GRANTED);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Starts advertising a custom beacon with the provided parameters.
+		/// </summary>
+		/// <param name="identifier">Identifier or local name of the beacon.</param>
+		/// <param name="companyID">Company ID used in the manufacturer-specific data.</param>
+		/// <param name="manufacturerData">Manufacturer-specific data to advertise.</param>
+		/// <returns><code>true</code> if the process started successfully, <code>false</code>
+		/// otherwise.</returns>
+		public bool StartAdvertisingCustomBeacon(string identifier, byte[] companyID, byte[] manufacturerData)
+		{
+			StopAdvertising();
+			bool started = beaconAdvertiseService.StartAdvertisingCustomBeacon(identifier, companyID, manufacturerData);
+			IsAdvertising = started;
+			return started;
+		}
+
+		/// <summary>
+		/// Starts advertising an iBeacon with the provided parameters.
+		/// </summary>
+		/// <param name="identifier">Identifier or local name of the beacon.</param>
+		/// <param name="uuid">UUID of the iBeacon.</param>
+		/// <param name="major">Major value of the iBeacon.</param>
+		/// <param name="minor">Minor value of the iBeacon.</param>
+		/// <returns><code>true</code> if the process started successfully, <code>false</code>
+		/// otherwise.</returns>
+		public bool StartAdvertisingIBeacon(string identifier, string uuid, ushort major, ushort minor)
+		{
+			StopAdvertising();
+			bool started = beaconAdvertiseService.StartAdvertisingIBeacon(identifier, uuid, major, minor);
+			IsAdvertising = started;
+			return started;
+		}
+
+		/// <summary>
+		/// Stops advertising.
+		/// </summary>
+		public void StopAdvertising()
+		{
+			beaconAdvertiseService.StopAdvertising();
+			IsAdvertising = false;
 		}
 
 		/// <summary>

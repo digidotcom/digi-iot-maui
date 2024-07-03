@@ -49,7 +49,8 @@ namespace DigiIoT.Maui.Services.Bluetooth
 		public override (string androidPermission, bool isRuntime)[] RequiredPermissions => new List<(string androidPermission, bool isRuntime)>
 		{
 			(Manifest.Permission.BluetoothConnect, true),
-			(Manifest.Permission.BluetoothScan, true)
+			(Manifest.Permission.BluetoothScan, true),
+			(Manifest.Permission.BluetoothAdvertise, true)
 		}.ToArray();
 	}
 }
