@@ -219,6 +219,12 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 
 					// Get the TX and RX characteristics.
 					cancelToken = new CancellationTokenSource(WRITE_TIMEOUT);
+
+					// Some smartphones require a brief idle period before executing the 'GetServiceAsync' task
+					// on the 'IDevice'; otherwise, the method hangs. Empirical tests suggest that 100ms is
+					// sufficient, but we have increased it to 500ms to ensure reliability.
+					await Task.Delay(500);
+
 					IService service = await device.GetServiceAsync(Guid.Parse(SERVICE_GUID), cancellationToken: cancelToken.Token);
 					if (service == null || cancelToken.IsCancellationRequested)
 					{
@@ -261,14 +267,26 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 			// Check if task completed.
 			if (!completed)
 			{
-				Close();
+				// If the close process fails, do not override the main cause
+				// of the connection problem.
+				try
+				{
+					Close();
+				}
+				catch (DigiIoTException) { }
 				throw new DigiIoTException(ERROR_CONNECTION_TIMEOUT);
 			}
 
 			// If the task finished with excepction, throw it.
 			if (connectExceptionMessage != null)
 			{
-				Close();
+				// If the close process fails, do not override the main cause
+				// of the connection problem.
+				try
+				{
+					Close();
+				}
+				catch (DigiIoTException) { }
 				throw new DigiIoTException(connectExceptionMessage);
 			}
 
@@ -276,7 +294,13 @@ namespace DigiIoT.Maui.Connection.Bluetooth
 			// Rx subscribe process could make the device to disconnect.
 			if (device != null && device.State != DeviceState.Connected)
 			{
-				Close();
+				// If the close process fails, do not override the main cause
+				// of the connection problem.
+				try
+				{
+					Close();
+				}
+				catch (DigiIoTException) { }
 				throw new DigiIoTException(ERROR_CONNECTION);
 			}
 		}
