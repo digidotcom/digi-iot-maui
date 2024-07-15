@@ -18,8 +18,10 @@ using DigiIoT.Maui.Exceptions;
 using DigiIoT.Maui.Services.Bluetooth;
 using DigiIoT.Maui.Services.GPS;
 using Plugin.BLE;
+using Plugin.BLE.Abstractions;
 using Plugin.BLE.Abstractions.Contracts;
 using Plugin.BLE.Abstractions.EventArgs;
+using System.Text;
 
 namespace DigiIoT.Maui.Models
 {
@@ -375,6 +377,30 @@ namespace DigiIoT.Maui.Models
 					throw new DigiIoTException(ERROR_BLUETOOTH_PERMISSION_NOT_GRANTED);
 				}
 			}
+		}
+
+
+		/// <summary>
+		/// Returns the advertised name for the provided IDevice.
+		/// </summary>
+		/// <param name="device">The IDevice to get its advertised name.</param>
+		/// <returns>The advertised name for the provided device or the BLE
+		/// adapter name if it is not contained in the advertisement payload.</returns>
+		public static string GetAdvertisedName(IDevice device)
+		{
+			if (device.AdvertisementRecords != null)
+			{
+				foreach (var record in device.AdvertisementRecords)
+				{
+					if (record.Type != AdvertisementRecordType.CompleteLocalName
+						|| record.Data.Length == 0)
+					{
+						continue;
+					}
+					return Encoding.UTF8.GetString(record.Data);
+				}
+			}
+			return device.Name;
 		}
 
 		/// <summary>
