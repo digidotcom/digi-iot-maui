@@ -13,9 +13,9 @@
 		<PackageId>DigiIoT.Maui</PackageId>
 		<RootNamespace>DigiIoT.Maui</RootNamespace>
 		<AssemblyName>DigiIoT.Maui</AssemblyName>
-		<Version>1.0.1</Version>
+		<Version>1.1.0</Version>
 		<Company>Digi International Inc.</Company>
-		<Copyright>Copyright 2023,2024, Digi International Inc. All rights reserved.</Copyright>
+		<Copyright>Copyright 2023-2025, Digi International Inc. All rights reserved.</Copyright>
 		<Product>Digi IoT Library for .NET MAUI</Product>
 		<Title>Digi IoT Library for .NET MAUI</Title>
 		<Authors>Digi International Inc.</Authors>

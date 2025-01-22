@@ -36,6 +36,7 @@ Energy:
 interface
   * Bluetooth scan functionality to look for BLE devices and get notified
 when they are discovered
+  * Custom beacon frames advertisement
 * XBee specific functionality:
   * Configure common parameters with specific setters and getters.
   * Configure any other parameter with generic methods.
@@ -49,6 +50,7 @@ different interfaces (Serial and MicroPython).
     * Configure IO lines.
     * Set IO line value.
     * Read IO line value.
+* Set of APIs to provision Digi devices to the Digi Remote Manager (DRM) cloud
 
 
 ## Start Here
@@ -66,7 +68,7 @@ document.
 
 ## License
 
-Copyright 2023,2024, Digi International Inc.
+Copyright 2023-2025, Digi International Inc.
 
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this

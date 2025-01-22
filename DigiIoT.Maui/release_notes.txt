@@ -1,11 +1,11 @@
 ﻿                         Digi IoT Library for .NET MAUI
                                   DigiIoT.Maui
 
-                         Release Notes (PN 93001378_B)
-                                  Build 1.0.1
-                                 20 May, 2024
+                                 Release Notes
+                                  Build 1.1.0
+                               22 January, 2025
  
-                    Copyright 2024, Digi International Inc.
+                    Copyright 2025, Digi International Inc.
                               http://www.digi.com
  
  Introduction
@@ -15,6 +15,34 @@
  for .NET MAUI, which allows customers to easily develop cross-platform mobile
  applications in .NET MAUI that communicate with Digi IoT devices over
  Bluetooth Low Energy.
+
+ Digi IoT Library for .NET MAUI v1.1.0, January 2025
+-------------------------------------------------------------------------------
+ 1. Supported Hardware:
+      * Digi ConnectCore devices.
+      * Digi XBee 3 devices:
+        * XBee 3 Zigbee
+        * XBee 3 802.15.4
+        * XBee 3 DigiMesh
+        * XBee 3 Cellular
+        * XBee 3 BLU
+
+ 2. Changes with respect to previous version:
+      * Added the possibility to force location permissions request when
+        validating the Bluetooth status.
+      * Made permissions request operations synchronous.
+      * Do not fire a Bluetooth status event if the previous status is
+        'Unknown'.
+      * Added support to advertise beacon frames.
+      * Fixed an issue causing connection issues with XBee devices on some
+        smartphones.
+      * Updated the 'Plugin.BLE' library dependency to version 3.1.0.
+      * Added a new method to get the advertised name of a device.
+      * Added a set of APIs to provision Digi devices to the Digi Remote
+        Manager (DRM) cloud.
+
+ 3. Known Issues and Limitations:
+      * N/A
 
  Digi IoT Library for .NET MAUI v1.0.1, May 2024
 -------------------------------------------------------------------------------
