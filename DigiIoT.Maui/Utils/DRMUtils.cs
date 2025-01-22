@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2024, Digi International Inc.
+ * Copyright 2024,2025, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -186,6 +186,8 @@ namespace DigiIoT.Maui.Utils
 							var errorObject = JsonConvert.DeserializeObject<Dictionary<string, object>>(errorMessage);
 							if (errorObject != null && errorObject.ContainsKey("error_message"))
 								errorMessage = errorObject["error_message"]?.ToString();
+							else if (errorObject != null && errorObject.ContainsKey("description"))
+								errorMessage = errorObject["description"]?.ToString();
 						}
 						catch (JsonException ignore) { }
 
