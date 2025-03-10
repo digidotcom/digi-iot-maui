@@ -124,7 +124,7 @@ namespace DigiIoT.Maui.Utils
 			if (devices == null || devices.Count == 0)
 				throw new ArgumentException(ERROR_DEVICE_LIST_EMPTY, nameof(devices));
 
-			using (HttpClient client = new HttpClient())
+			using (HttpClient client = new HttpClient(new SocketsHttpHandler()))
 			{
 				try
 				{
