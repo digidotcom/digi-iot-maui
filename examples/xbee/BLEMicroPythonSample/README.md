@@ -16,7 +16,7 @@ To run this example you need:
 
 * One XBee3 module in API mode and its corresponding carrier board (XBIB-C).
 * An Android or iOS device.
-* The XCTU application (available at www.digi.com/xctu).
+* The XBee Studio application (available at www.digi.com/xbee-studio).
 * The PyCharm IDE with the [Digi XBee MicroPython plugin](https://plugins.jetbrains.com/plugin/12445-xbee-micropython)
   installed.
 
@@ -29,7 +29,7 @@ Make sure the hardware is set up correctly:
 2. The XBee module is plugged into the XBee adapter and connected to your
    computer's USB or serial port.
 3. The XBee module in in API mode and has the Bluetooth interface enabled and
-   configured. You can use XCTU to do it.
+   configured. You can use XBee Studio to do it.
 
 Demo run
 --------
@@ -66,7 +66,7 @@ Compatible with
 License
 -------
 
-Copyright 2023, Digi International Inc.
+Copyright 2023-2026, Digi International Inc.
 
 This Source Code Form is subject to the terms of the Mozilla Public
 License, v. 2.0. If a copy of the MPL was not distributed with this

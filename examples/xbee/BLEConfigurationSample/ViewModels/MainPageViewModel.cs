@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2023, Digi International Inc.
+ * Copyright 2023-2026, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -15,8 +15,7 @@
  */
 
 using BLEConfigurationSample.Pages;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Maui.Extensions;
 using DigiIoT.Maui.Exceptions;
 using DigiIoT.Maui.Models;
 using Plugin.BLE;
@@ -673,15 +672,22 @@ namespace BLEConfigurationSample.ViewModels
 			var tcs = new TaskCompletionSource<string>();
 
 			PasswordPage passwordPage = new(authFailed);
-			passwordPage.Closed += (object sender, PopupClosedEventArgs e) =>
+			passwordPage.Closed += (object sender, EventArgs e) =>
 			{
 				string pwd = passwordPage.Password;
-				tcs.SetResult(pwd);
+				tcs.TrySetResult(pwd);
 			};
 
 			MainThread.BeginInvokeOnMainThread(async () =>
 			{
-				await Shell.Current.ShowPopupAsync(passwordPage);
+				try
+				{
+					await Shell.Current.ShowPopupAsync(passwordPage);
+				}
+				catch (Exception ex)
+				{
+					tcs.TrySetException(ex);
+				}
 			});
 
 			return tcs.Task;

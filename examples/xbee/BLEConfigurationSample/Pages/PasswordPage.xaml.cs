@@ -1,5 +1,5 @@
 /*
- * Copyright 2023, Digi International Inc.
+ * Copyright 2023-2026, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -53,10 +53,10 @@ public partial class PasswordPage : Popup
 	/// </summary>
 	/// <param name="sender">Sender.</param>
 	/// <param name="e">Event arguments.</param>
-	private void OnOkPressed(object sender, EventArgs e)
+	private async void OnOkPressed(object sender, EventArgs e)
 	{
 		Password = passwordEntry.Text;
-		Close();
+		await CloseAsync();
 	}
 
 	/// <summary>
@@ -64,9 +64,9 @@ public partial class PasswordPage : Popup
 	/// </summary>
 	/// <param name="sender">Sender.</param>
 	/// <param name="e">Event arguments.</param>
-	private void OnCancelPressed(object sender, EventArgs e)
+	private async void OnCancelPressed(object sender, EventArgs e)
 	{
 		Password = null;
-		Close();
+		await CloseAsync();
 	}
 }
