@@ -2,12 +2,12 @@
                                   DigiIoT.Maui
 
                                  Release Notes
-                                  Build 1.1.0
-                               22 January, 2025
- 
-                    Copyright 2025, Digi International Inc.
+                                  Build 1.2.0
+                                 3 July, 2026
+
+                    Copyright 2026, Digi International Inc.
                               http://www.digi.com
- 
+
  Introduction
 -------------------------------------------------------------------------------
 
@@ -15,6 +15,26 @@
  for .NET MAUI, which allows customers to easily develop cross-platform mobile
  applications in .NET MAUI that communicate with Digi IoT devices over
  Bluetooth Low Energy.
+
+ Digi IoT Library for .NET MAUI v1.2.0, July 2026
+-------------------------------------------------------------------------------
+ 1. Supported Hardware:
+      * Digi ConnectCore devices.
+      * Digi XBee 3 devices:
+        * XBee 3 Zigbee
+        * XBee 3 802.15.4
+        * XBee 3 DigiMesh
+        * XBee 3 Cellular
+        * XBee 3 BLU
+
+ 2. Changes with respect to previous version:
+      * Migrated the library and examples to .NET 9.
+      * Used SocketsHttpHandler in provisioning operations to prevent credential
+        reuse on iOS.
+      * Fixed several build errors that appeared on latest Visual Studio versions.
+
+ 3. Known Issues and Limitations:
+      * N/A
 
  Digi IoT Library for .NET MAUI v1.1.0, January 2025
 -------------------------------------------------------------------------------
