@@ -1,5 +1,5 @@
 ﻿/*
- * Copyright 2024, Digi International Inc.
+ * Copyright 2024-2026, Digi International Inc.
  * 
  * Permission to use, copy, modify, and/or distribute this software for any
  * purpose with or without fee is hereby granted, provided that the above
@@ -109,5 +109,124 @@ namespace DigiIoT.Maui.Types
         /// </summary>
         [JsonProperty("group")]
         public string Group { get; set; }
+    }
+
+    /// <summary>
+    /// Represents the response from Digi Remote Manager when retrieving XBee networks.
+    /// </summary>
+    internal class XBeeNetworkListResponse
+    {
+        /// <summary>
+        /// The total number of networks returned.
+        /// </summary>
+        [JsonProperty("count")]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// The page size of the response.
+        /// </summary>
+        [JsonProperty("size")]
+        public int Size { get; set; }
+
+        /// <summary>
+        /// The list of networks returned by the API.
+        /// </summary>
+        [JsonProperty("list")]
+        public List<XBeeNetworkResult> List { get; set; }
+
+        /// <summary>
+        /// The cursor to use for retrieving the next page of results. Null if there are no more pages.
+        /// </summary>
+        [JsonProperty("cursor")]
+        public string Cursor { get; set; }
+
+        /// <summary>
+        /// The URI to use for retrieving the next page of results. Null if there are no more pages.
+        /// </summary>
+        [JsonProperty("next_uri")]
+        public string NextUri { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a single XBee network entry from the API response.
+    /// </summary>
+    internal class XBeeNetworkResult
+    {
+        /// <summary>
+        /// The unique identifier of the network.
+        /// </summary>
+        [JsonProperty("id")]
+        public long Id { get; set; }
+
+        /// <summary>
+        /// The display name of the network.
+        /// </summary>
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// The protocol string value of the network.
+        /// </summary>
+        [JsonProperty("protocol")]
+        public string Protocol { get; set; }
+
+        /// <summary>
+        /// The authorization mode of the network.
+        /// </summary>
+        [JsonProperty("authorization_mode")]
+        public string AuthorizationMode { get; set; }
+    }
+    /// <summary>
+    /// Represents the response from Digi Remote Manager when retrieving allow list entries.
+    /// </summary>
+    internal class AllowListResponse
+    {
+        /// <summary>
+        /// The total number of entries returned.
+        /// </summary>
+        [JsonProperty("count")]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// The page size of the response.
+        /// </summary>
+        [JsonProperty("size")]
+        public int Size { get; set; }
+
+        /// <summary>
+        /// The list of allow list entries.
+        /// </summary>
+        [JsonProperty("list")]
+        public List<AllowListEntryDto> List { get; set; }
+
+        /// <summary>
+        /// The cursor to use for retrieving the next page of results. Null if there are no more pages.
+        /// </summary>
+        [JsonProperty("cursor")]
+        public string Cursor { get; set; }
+
+        /// <summary>
+        /// The URI to use for retrieving the next page of results. Null if there are no more pages.
+        /// </summary>
+        [JsonProperty("next_uri")]
+        public string NextUri { get; set; }
+    }
+
+    /// <summary>
+    /// Represents a single allow list entry from the API response.
+    /// </summary>
+    internal class AllowListEntryDto
+    {
+        /// <summary>
+        /// The unique identifier of the allow list entry.
+        /// </summary>
+        [JsonProperty("id")]
+        public long Id { get; set; }
+
+        /// <summary>
+        /// The criteria of the allow list entry.
+        /// </summary>
+        [JsonProperty("criteria")]
+        public Dictionary<string, string> Criteria { get; set; }
     }
 }
