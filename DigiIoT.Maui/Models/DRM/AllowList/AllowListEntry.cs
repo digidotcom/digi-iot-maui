@@ -37,10 +37,19 @@ namespace DigiIoT.Maui.Models.DRM
 		};
 
 		/// <summary>
-		/// The list of registered parsers for creating <see cref="AllowListEntry"/> instances from API criteria.
+		/// The list of registered parsers for creating <see cref="AllowListEntry"/> instances from API parameters.
+		/// To add support for a new protocol, add its <c>TryFromParameters</c> delegate here.
+		/// </summary>
+		private static readonly List<Func<Dictionary<string, string>, AllowListEntry>> _parametersParsers = new()
+		{
+			WiSunAllowListEntry.TryFromParameters
+		};
+
+		/// <summary>
+		/// The list of registered parsers for creating <see cref="AllowListEntry"/> instances from criteria.
 		/// To add support for a new protocol, add its <c>TryFromCriteria</c> delegate here.
 		/// </summary>
-		private static readonly List<Func<Dictionary<string, string>, AllowListEntry>> _criteriaParsers = new()
+		private static readonly List<Func<IAllowListCriteria, AllowListEntry>> _criteriaParsers = new()
 		{
 			WiSunAllowListEntry.TryFromCriteria
 		};
@@ -79,15 +88,31 @@ namespace DigiIoT.Maui.Models.DRM
 		}
 
 		/// <summary>
-		/// Creates an <see cref="AllowListEntry"/> from a criteria dictionary returned by the API.
+		/// Creates an <see cref="AllowListEntry"/> from the given allow list criteria.
 		/// </summary>
-		/// <param name="criteria">The criteria dictionary from the API response.</param>
+		/// <param name="criteria">The allow list criteria.</param>
 		/// <returns>A concrete <see cref="AllowListEntry"/> instance, or <c>null</c> if no parser matches.</returns>
-		internal static AllowListEntry FromCriteria(Dictionary<string, string> criteria)
+		public static AllowListEntry FromCriteria(IAllowListCriteria criteria)
 		{
 			foreach (var tryParse in _criteriaParsers)
 			{
 				var entry = tryParse(criteria);
+				if (entry is not null)
+					return entry;
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// Creates an <see cref="AllowListEntry"/> from a parameters dictionary returned by the API.
+		/// </summary>
+		/// <param name="parameters">The criteria parameters dictionary from the API response.</param>
+		/// <returns>A concrete <see cref="AllowListEntry"/> instance, or <c>null</c> if no parser matches.</returns>
+		internal static AllowListEntry FromParameters(Dictionary<string, string> parameters)
+		{
+			foreach (var tryParse in _parametersParsers)
+			{
+				var entry = tryParse(parameters);
 				if (entry is not null)
 					return entry;
 			}

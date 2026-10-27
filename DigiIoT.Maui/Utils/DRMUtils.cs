@@ -357,7 +357,7 @@ namespace DigiIoT.Maui.Utils
 							{
 								foreach (var item in responseObject.List)
 								{
-									var entry = AllowListEntry.FromCriteria(item.Criteria);
+									var entry = AllowListEntry.FromParameters(item.Criteria);
 									if (entry == null) continue;
 									entry.Id = item.Id;
 									entries.Add(entry);

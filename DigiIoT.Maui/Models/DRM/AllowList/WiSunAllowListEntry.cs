@@ -66,19 +66,42 @@ namespace DigiIoT.Maui.Models.DRM
 		}
 
 		/// <summary>
-		/// Attempts to create a <see cref="WiSunAllowListEntry"/> from a criteria dictionary.
+		/// Attempts to create a <see cref="WiSunAllowListEntry"/> from a parameters dictionary.
 		/// </summary>
-		/// <param name="criteria">The criteria dictionary from the API response.</param>
-		/// <returns>A new <see cref="WiSunAllowListEntry"/> if the criteria matches the Wi-SUN format,
-		/// or <c>null</c> if it does not.</returns>
-		internal static WiSunAllowListEntry TryFromCriteria(Dictionary<string, string> criteria)
+		/// <param name="parameters">The criteria parameters dictionary from the API response.</param>
+		/// <returns>A new <see cref="WiSunAllowListEntry"/> if the parameters match the Wi-SUN format,
+		/// or <c>null</c> if they do not.</returns>
+		internal static WiSunAllowListEntry TryFromParameters(Dictionary<string, string> parameters)
 		{
-			if (!criteria.ContainsKey(WiSunAllowListCriteria.KEY_HW_TYPE) || !criteria.ContainsKey(WiSunAllowListCriteria.KEY_HW_SERIAL_NUMBER))
+			if (!parameters.TryGetValue(WiSunAllowListCriteria.KEY_HW_TYPE, out string hardwareType)
+				|| !parameters.TryGetValue(WiSunAllowListCriteria.KEY_HW_SERIAL_NUMBER, out string hardwareSerialNumber))
 				return null;
 
-			return new WiSunAllowListEntry(
-				criteria.GetValueOrDefault(WiSunAllowListCriteria.KEY_HW_TYPE),
-				criteria.GetValueOrDefault(WiSunAllowListCriteria.KEY_HW_SERIAL_NUMBER));
+			return new WiSunAllowListEntry(hardwareType, hardwareSerialNumber);
+		}
+
+		/// <summary>
+		/// Attempts to create a <see cref="WiSunAllowListEntry"/> from an allow list criteria.
+		/// </summary>
+		/// <param name="criteria">The allow list criteria.</param>
+		/// <returns>A new <see cref="WiSunAllowListEntry"/> if the criteria is compatible with Wi-SUN
+		/// and contains the required parameters, or <c>null</c> if it does not.</returns>
+		internal static WiSunAllowListEntry TryFromCriteria(IAllowListCriteria criteria)
+		{
+			if (criteria is null || !criteria.IsCompatibleWith(XBeeProtocol.WiSun))
+				return null;
+
+			var parameters = criteria.Parameters;
+			if (parameters is null
+				|| !parameters.TryGetValue(WiSunAllowListCriteria.KEY_HW_TYPE, out object hardwareType)
+				|| !parameters.TryGetValue(WiSunAllowListCriteria.KEY_HW_SERIAL_NUMBER, out object hardwareSerialNumber))
+				return null;
+
+			// Compatibility is only claimed by the criteria, so make sure the values are actually strings.
+			if (hardwareType is not string hardwareTypeValue || hardwareSerialNumber is not string hardwareSerialNumberValue)
+				return null;
+
+			return new WiSunAllowListEntry(hardwareTypeValue, hardwareSerialNumberValue);
 		}
 	}
 }
