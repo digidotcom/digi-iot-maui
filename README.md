@@ -50,7 +50,11 @@ different interfaces (Serial and MicroPython).
     * Configure IO lines.
     * Set IO line value.
     * Read IO line value.
-* Set of APIs to provision Digi devices to the Digi Remote Manager (DRM) cloud
+* Set of APIs to interact with the Digi Remote Manager (DRM) cloud:
+  * Provision Digi devices.
+  * List the XBee networks of a DRM account.
+  * Manage the Wi-SUN allow list of an XBee network (list, add and remove
+entries).
 
 
 ## Start Here
